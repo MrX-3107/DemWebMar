@@ -296,6 +296,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Login success
     setCurrentUser(user);
     showToast(`Đăng nhập thành công! Chào mừng ${user.fullname}`, 'success');
+
+    // Check redirect parameter
+    const searchParams = new URLSearchParams(window.location.search || (window.location.hash.includes('?') ? window.location.hash.split('?')[1] : ''));
+    const redirectUrl = searchParams.get('redirect');
+    if (redirectUrl) {
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 500);
+      return;
+    }
     renderView();
   });
 
@@ -365,6 +375,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Auto login
     setCurrentUser(newUser);
     showToast('Tạo tài khoản thành công! Chào mừng bạn gia nhập TT Bottly.', 'success');
+
+    // Check redirect parameter
+    const searchParams = new URLSearchParams(window.location.search || (window.location.hash.includes('?') ? window.location.hash.split('?')[1] : ''));
+    const redirectUrl = searchParams.get('redirect');
+    if (redirectUrl) {
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 500);
+      return;
+    }
     renderView();
   });
 
@@ -435,7 +455,17 @@ document.addEventListener('DOMContentLoaded', () => {
      --------------------------------------------------------- */
   function renderView() {
     const user = getCurrentUser();
+
+    // Check if redirected from order page
+    const searchParams = new URLSearchParams(window.location.search || (window.location.hash.includes('?') ? window.location.hash.split('?')[1] : ''));
+    const isLoginRequired = searchParams.get('msg') === 'login_required' || searchParams.get('redirect') === 'order.html';
+
     if (user) {
+      // If already logged in and has redirect query, return to order page
+      if (searchParams.get('redirect') === 'order.html') {
+        window.location.href = 'order.html';
+        return;
+      }
       // Logged in
       authBox.hidden = true;
       profileBox.hidden = false;
@@ -446,11 +476,18 @@ document.addEventListener('DOMContentLoaded', () => {
       authBox.hidden = false;
       profileBox.hidden = true;
       breadcrumbCurrent.textContent = 'Tài khoản & Đăng nhập';
+
       // Read URL hash
-      if (window.location.hash === '#register') {
+      if (window.location.hash.startsWith('#register')) {
         switchTab('register');
       } else {
         switchTab('login');
+      }
+
+      // Display order requirement alert if redirected from order
+      if (isLoginRequired) {
+        showAlert('🔒 Vui lòng đăng nhập hoặc tạo tài khoản mới để tiếp tục đặt mua sản phẩm TT Bottly.');
+        showToast('Vui lòng đăng nhập tài khoản để đặt hàng!', 'info');
       }
     }
     updateNavAccountText();

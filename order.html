@@ -30,7 +30,6 @@
         <a href="order.html" class="is-active" aria-current="page">Đặt hàng</a>
         <a href="support.html">Hỗ trợ</a>
         <a href="auth.html" id="navAccountLink">Tài khoản</a>
-        <a href="index.html" class="btn btn--ghost nav__cta">← Về trang chủ</a>
       </nav>
 
       <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
@@ -68,6 +67,14 @@
             <span class="step-num">3</span>
             <span>Xác nhận đơn</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Logged-in Account Pill (Hiển thị khi đã đăng nhập) -->
+      <div class="auth-user-notice" id="authUserNotice" hidden>
+        <div class="auth-user-pill">
+          <span>👤 Đang đặt hàng với tài khoản: <strong id="loggedInUserName">Nguyễn Văn A</strong> (<span id="loggedInUserEmail">demo@bottly.vn</span>)</span>
+          <a href="auth.html" class="auth-switch-user-link">Đổi tài khoản</a>
         </div>
       </div>
 
@@ -488,6 +495,8 @@
     </div>
   </main>
 
+
+
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container footer__inner">
@@ -503,10 +512,10 @@
         <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
       </ul>
       <ul>
-        <li><a href="#">Chính sách bảo hành 12 tháng</a></li>
-        <li><a href="#">Chính sách đổi trả trong 7 ngày</a></li>
-        <li><a href="#">Chính sách bảo mật thông tin</a></li>
-        <li><a href="#">Chính sách giao hàng toàn quốc</a></li>
+        <li><a href="support.html">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="support.html">Chính sách đổi trả trong 7 ngày</a></li>
+        <li><a href="support.html">Chính sách bảo mật thông tin</a></li>
+        <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
       </ul>
     </div>
     <p class="footer__copy">© 2026 TT Bottly Việt Nam. All rights reserved.</p>

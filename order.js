@@ -120,6 +120,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPrintOrder = $('#btnPrintOrder');
   const btnSubmitOrder = $('#btnSubmitOrder');
 
+  function getLoggedInUser() {
+    try {
+      return JSON.parse(localStorage.getItem('tt_bottly_current_user'));
+    } catch {
+      return null;
+    }
+  }
+
+  function syncAuthState() {
+    const user = getLoggedInUser();
+    const notice = $('#authUserNotice');
+
+    if (user) {
+      if (notice) notice.hidden = false;
+      if ($('#loggedInUserName')) $('#loggedInUserName').textContent = user.fullname;
+      if ($('#loggedInUserEmail')) $('#loggedInUserEmail').textContent = user.email;
+    } else {
+      if (notice) notice.hidden = true;
+    }
+  }
+
   // Initialize
   function updateStateAndUI() {
     const prod = PRODUCTS[state.variant];
@@ -413,6 +434,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Form submission
   checkoutForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // 1. Kiểm tra tài khoản: Nếu chưa đăng nhập thì tự động chuyển sang trang tài khoản kèm thông báo
+    const currentUser = getLoggedInUser();
+    if (!currentUser) {
+      window.location.href = 'auth.html?redirect=order.html&msg=login_required#login';
+      return;
+    }
+
     if (!validateCheckoutForm()) {
       const firstInvalid = $('[aria-invalid="true"]', checkoutForm);
       if (firstInvalid) firstInvalid.focus();
@@ -497,9 +526,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Pre-fill user information if logged in
+
+
+  // Sync auth state & Pre-fill user information if logged in
+  syncAuthState();
   try {
-    const currentUser = JSON.parse(localStorage.getItem('tt_bottly_current_user'));
+    const currentUser = getLoggedInUser();
     if (currentUser) {
       if (currentUser.fullname && $('#fullname')) $('#fullname').value = currentUser.fullname;
       if (currentUser.phone && $('#phone')) $('#phone').value = currentUser.phone;
