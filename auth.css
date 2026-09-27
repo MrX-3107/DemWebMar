@@ -34,6 +34,13 @@
   font-weight: 600;
 }
 
+/* Ensure hidden attribute is strictly respected */
+[hidden],
+.auth-box-wrapper[hidden],
+.profile-dashboard-wrapper[hidden] {
+  display: none !important;
+}
+
 /* =========================================================
    AUTH BOX (LOGIN & REGISTER)
    ========================================================= */
@@ -232,18 +239,22 @@
 
 .btn-toggle-pwd {
   position: absolute;
-  right: 12px;
-  background: none;
-  border: 0;
-  font-size: 16px;
+  right: 10px;
+  background: #f1f5f3;
+  border: 1px solid rgba(27, 59, 50, 0.15);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
   cursor: pointer;
-  opacity: 0.55;
-  transition: opacity 0.2s;
-  padding: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .btn-toggle-pwd:hover {
-  opacity: 1;
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
 }
 
 .field-label-row {
@@ -602,13 +613,10 @@
   border: 1px solid #e5ebe7;
   padding: 18px 20px;
   display: flex;
-  align-items: center;
-  gap: 14px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
-}
-
-.stat-card__icon {
-  font-size: 28px;
 }
 
 .stat-card__num {

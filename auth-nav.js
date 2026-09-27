@@ -9,14 +9,11 @@
 
     try {
       const currentUser = JSON.parse(localStorage.getItem('tt_bottly_current_user'));
+      navAccountLink.textContent = 'Tài khoản';
       if (currentUser && currentUser.fullname) {
-        const parts = currentUser.fullname.trim().split(' ');
-        const shortName = parts.length > 1 ? parts.slice(-2).join(' ') : parts[0];
-        navAccountLink.innerHTML = `👤 ${shortName}`;
         navAccountLink.title = `Tài khoản: ${currentUser.fullname}`;
       } else {
-        navAccountLink.textContent = 'Tài khoản';
-        navAccountLink.title = 'Đăng nhập / Đăng ký';
+        navAccountLink.title = 'Tài khoản';
       }
     } catch {
       // Ignore

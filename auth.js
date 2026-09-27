@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!input) return;
       const isPwd = input.type === 'password';
       input.type = isPwd ? 'text' : 'password';
-      btn.textContent = isPwd ? '🙈' : '👁️';
+      btn.textContent = isPwd ? 'Ẩn' : 'Hiện';
     });
   });
 
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setCurrentUser(currentUser);
 
-    feedback.textContent = '✓ Đã cập nhật thông tin thành công!';
+    feedback.textContent = 'Đã cập nhật thông tin thành công!';
     feedback.className = 'save-feedback is-success';
     showToast('Thông tin tài khoản đã được lưu.', 'success');
 
@@ -466,15 +466,19 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'order.html';
         return;
       }
-      // Logged in
+      // Logged in: Hide login/register form completely, display profile dashboard
       authBox.hidden = true;
+      authBox.style.display = 'none';
       profileBox.hidden = false;
-      breadcrumbCurrent.textContent = `Tài khoản (${user.fullname})`;
+      profileBox.style.display = 'block';
+      breadcrumbCurrent.textContent = 'Tài khoản';
       renderProfileData(user);
     } else {
-      // Not logged in
+      // Not logged in: Display login/register form, hide profile dashboard completely
       authBox.hidden = false;
+      authBox.style.display = 'flex';
       profileBox.hidden = true;
+      profileBox.style.display = 'none';
       breadcrumbCurrent.textContent = 'Tài khoản & Đăng nhập';
 
       // Read URL hash
@@ -486,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Display order requirement alert if redirected from order
       if (isLoginRequired) {
-        showAlert('🔒 Vui lòng đăng nhập hoặc tạo tài khoản mới để tiếp tục đặt mua sản phẩm TT Bottly.');
+        showAlert('Vui lòng đăng nhập hoặc tạo tài khoản mới để tiếp tục đặt mua sản phẩm TT Bottly.');
         showToast('Vui lòng đăng nhập tài khoản để đặt hàng!', 'info');
       }
     }
@@ -498,8 +502,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const initials = user.fullname.split(' ').map(w => w[0]).slice(-2).join('').toUpperCase() || 'TB';
     document.getElementById('profileAvatar').textContent = initials;
     document.getElementById('profileNameDisplay').textContent = user.fullname;
-    document.getElementById('profileEmailDisplay').textContent = `✉️ ${user.email}`;
-    document.getElementById('profilePhoneDisplay').textContent = `📱 ${user.phone}`;
+    document.getElementById('profileEmailDisplay').textContent = user.email;
+    document.getElementById('profilePhoneDisplay').textContent = user.phone;
 
     // Edit form fields
     document.getElementById('editFullname').value = user.fullname;
@@ -521,7 +525,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!orders || orders.length === 0) {
       listEl.innerHTML = `
         <div class="order-empty-state">
-          <div class="order-empty-icon">🛒</div>
           <h4>Chưa có đơn hàng nào</h4>
           <p>Bạn chưa đặt hàng nào trên TT Bottly. Hãy trải nghiệm bình giữ nhiệt cao cấp ngay!</p>
           <a href="order.html" class="btn btn--cta" style="font-size: 13.5px; padding: 0 18px; min-height: 40px; display: inline-flex;">Mua sắm ngay</a>
@@ -550,14 +553,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateNavAccountText() {
     if (!navAccountLink) return;
+    navAccountLink.textContent = 'Tài khoản';
     const user = getCurrentUser();
     if (user) {
-      const firstName = user.fullname.split(' ').pop();
-      navAccountLink.textContent = `👤 ${firstName}`;
       navAccountLink.title = `Tài khoản: ${user.fullname}`;
     } else {
-      navAccountLink.textContent = 'Tài khoản';
-      navAccountLink.title = 'Đăng nhập / Đăng ký';
+      navAccountLink.title = 'Tài khoản';
     }
   }
 
@@ -639,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
     const toast = document.createElement('div');
     toast.className = `auth-toast is-${type}`;
-    toast.innerHTML = `<span>${type === 'success' ? '✓' : 'ℹ️'}</span> <span>${msg}</span>`;
+    toast.innerHTML = `<span>${msg}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {

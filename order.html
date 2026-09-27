@@ -303,51 +303,6 @@
               </div>
             </section>
 
-            <!-- Card 4: Phương thức thanh toán -->
-            <section class="checkout-card" aria-labelledby="heading-payment">
-              <h2 class="checkout-card__title" id="heading-payment">
-                <span class="checkout-card__icon">💳</span>
-                Phương thức thanh toán
-              </h2>
-
-              <div class="payment-methods">
-                <label class="payment-method-card is-selected">
-                  <input type="radio" name="paymentMethod" value="cod" checked>
-                  <div class="payment-method-details">
-                    <h4>Thanh toán khi nhận hàng (COD) <span class="payment-method-badge">An tâm nhất</span></h4>
-                    <p>Khách hàng được mở hộp kiểm tra đúng màu, đúng dung tích rồi mới thanh toán tiền mặt cho shipper.</p>
-                  </div>
-                </label>
-
-                <label class="payment-method-card">
-                  <input type="radio" name="paymentMethod" value="bank">
-                  <div class="payment-method-details">
-                    <h4>Chuyển khoản ngân hàng 24/7 (VietQR) <span class="payment-method-badge">Xử lý nhanh</span></h4>
-                    <p>Quét mã VietQR chuyển khoản tức thì, xác nhận đơn tự động không cần chờ đợi.</p>
-                  </div>
-                </label>
-
-                <label class="payment-method-card">
-                  <input type="radio" name="paymentMethod" value="momo">
-                  <div class="payment-method-details">
-                    <h4>Ví điện tử MoMo</h4>
-                    <p>Thanh toán bảo mật và tiện lợi qua ứng dụng MoMo trên điện thoại.</p>
-                  </div>
-                </label>
-              </div>
-
-              <!-- Chi tiết thông tin chuyển khoản nếu chọn -->
-              <div class="bank-transfer-info" id="bankInfoBox">
-                <div class="bank-qr-wrap">
-                  <p style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">Thông tin tài khoản chính thức:</p>
-                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Ngân hàng: <strong>MB Bank (Quân Đội)</strong></p>
-                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Số tài khoản: <strong>9999 8888 6868</strong></p>
-                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Chủ tài khoản: <strong>CTY TNHH AQUABOTTLE VN</strong></p>
-                  <p id="bankTransferDesc" style="font-size: 13px; color: var(--cta); margin-top: 6px;"></p>
-                </div>
-              </div>
-            </section>
-
           </div>
 
           <!-- RIGHT COLUMN: Sticky Order Summary -->
@@ -403,6 +358,48 @@
                   <div class="cost-row cost-total">
                     <span>TỔNG THANH TOÁN:</span>
                     <span class="cost-total-num" id="totalCost">649.000₫</span>
+                  </div>
+                </div>
+
+                <!-- Phương thức thanh toán -->
+                <div class="summary-payment-box">
+                  <span class="summary-payment-title">Phương thức thanh toán:</span>
+
+                  <div class="payment-methods">
+                    <label class="payment-method-card is-selected">
+                      <input type="radio" name="paymentMethod" value="cod" checked>
+                      <div class="payment-method-details">
+                        <h4>Thanh toán khi nhận hàng (COD) <span class="payment-method-badge">An tâm nhất</span></h4>
+                        <p>Kiểm tra đúng màu, đúng dung tích rồi mới thanh toán cho shipper.</p>
+                      </div>
+                    </label>
+
+                    <label class="payment-method-card">
+                      <input type="radio" name="paymentMethod" value="bank">
+                      <div class="payment-method-details">
+                        <h4>Chuyển khoản VietQR 24/7 <span class="payment-method-badge">Xử lý nhanh</span></h4>
+                        <p>Quét mã VietQR chuyển khoản tức thì, xác nhận tự động.</p>
+                      </div>
+                    </label>
+
+                    <label class="payment-method-card">
+                      <input type="radio" name="paymentMethod" value="momo">
+                      <div class="payment-method-details">
+                        <h4>Ví điện tử MoMo</h4>
+                        <p>Thanh toán bảo mật và tiện lợi qua ứng dụng MoMo trên điện thoại.</p>
+                      </div>
+                    </label>
+                  </div>
+
+                  <!-- Chi tiết thông tin chuyển khoản nếu chọn -->
+                  <div class="bank-transfer-info" id="bankInfoBox">
+                    <div class="bank-qr-wrap">
+                      <p style="font-weight: 700; color: var(--primary); margin-bottom: 4px; font-size: 13px;">Thông tin tài khoản chính thức:</p>
+                      <p style="font-size: 12.5px; color: var(--muted); margin: 0;">Ngân hàng: <strong>MB Bank (Quân Đội)</strong></p>
+                      <p style="font-size: 12.5px; color: var(--muted); margin: 0;">Số tài khoản: <strong>9999 8888 6868</strong></p>
+                      <p style="font-size: 12.5px; color: var(--muted); margin: 0;">Chủ tài khoản: <strong>CTY TNHH AQUABOTTLE VN</strong></p>
+                      <p id="bankTransferDesc" style="font-size: 12px; color: var(--cta); margin-top: 6px;"></p>
+                    </div>
                   </div>
                 </div>
 
