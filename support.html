@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trung Tâm Hỗ Trợ & Chatbot Giải Đáp – TT Bottly</title>
+  <meta name="description"
+    content="Trung tâm hỗ trợ khách hàng TT Bottly. Trợ lý ảo tự động giải đáp mọi thắc mắc về cốc giữ nhiệt, chính sách bảo hành, giao hàng và tiếp nhận hỗ trợ 24/7.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="support.css">
+</head>
+
+<body class="support-page">
+
+  <!-- ========== 1. HEADER ========== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+        <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Menu chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="order.html">Đặt hàng</a>
+        <a href="support.html" class="is-active" aria-current="page">Hỗ trợ</a>
+        <a href="auth.html" id="navAccountLink">Tài khoản</a>
+        <a href="order.html" class="btn btn--cta nav__cta">Đặt hàng ngay</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Đường dẫn trang" style="padding: 16px 0; font-size: 14px; color: var(--muted);">
+        <a href="index.html" style="text-decoration: none; color: var(--muted);">Trang chủ</a>
+        <span style="margin: 0 8px; color: #a0aec0;">›</span>
+        <span style="color: var(--primary); font-weight: 600;">Trung tâm Hỗ trợ & Chatbot</span>
+      </nav>
+
+      <!-- Support Hero Header -->
+      <section class="support-hero">
+        <span class="support-hero-badge">🌿 TRUNG TÂM CSKH TT BOTTLY 24/7</span>
+        <h1>Hỗ Trợ Khách Hàng & Giải Đáp Tự Động</h1>
+        <p>Trợ lý ảo TT Bottly sẵn sàng trả lời ngay các câu hỏi thường gặp về sản phẩm. Nếu bạn gặp vấn đề phát sinh khác, hãy để lại thông tin để chuyên viên hỗ trợ trực tiếp.</p>
+
+        <!-- Quick Channel Pills -->
+        <div class="support-channels">
+          <a href="tel:19006868" class="channel-pill">
+            <span class="channel-pill-icon">📞</span>
+            <span>Hotline: 1900 6868 (8h00 - 21h00)</span>
+          </a>
+          <a href="mailto:cskh@ttbottly.vn" class="channel-pill">
+            <span class="channel-pill-icon">✉️</span>
+            <span>Email: cskh@ttbottly.vn</span>
+          </a>
+          <div class="channel-pill" style="cursor: default;">
+            <span class="channel-pill-icon" style="background: #e6f7ef; color: #059669;">●</span>
+            <span>Chatbot giải đáp tự động tức thì</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Support Layout -->
+      <div class="support-grid">
+
+        <!-- LEFT: Chatbot Interface -->
+        <div class="chatbot-card">
+          <!-- Chat Header -->
+          <div class="chat-header">
+            <div class="chat-bot-info">
+              <div class="bot-avatar">
+                🤖
+                <span class="bot-status-dot"></span>
+              </div>
+              <div>
+                <div class="bot-name">Trợ Lý Ảo TT Bottly</div>
+                <div class="bot-role">Tự động giải đáp 24/7 • Đang trực tuyến</div>
+              </div>
+            </div>
+            <button type="button" class="chat-refresh-btn" id="chatRefreshBtn" title="Bắt đầu lại cuộc trò chuyện">
+              🔄 Làm mới chat
+            </button>
+          </div>
+
+          <!-- Quick Question Chips -->
+          <div class="chat-quick-chips" role="toolbar" aria-label="Gợi ý câu hỏi nhanh">
+            <button type="button" class="chat-chip">Giữ nóng / lạnh bao lâu?</button>
+            <button type="button" class="chat-chip">Chất liệu inox gì?</button>
+            <button type="button" class="chat-chip">Có bị rò rỉ nước không?</button>
+            <button type="button" class="chat-chip">Dung tích & màu sắc?</button>
+            <button type="button" class="chat-chip">Chính sách bảo hành?</button>
+            <button type="button" class="chat-chip">Phí ship & giao hàng?</button>
+            <button type="button" class="chat-chip" style="border-color: var(--cta); color: var(--cta);">Gặp vấn đề khác / Cần tư vấn</button>
+          </div>
+
+          <!-- Messages Area -->
+          <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+            <!-- Bot Greeting -->
+            <div class="chat-bubble chat-bubble--bot">
+              Xin chào! Em là <strong>Trợ lý ảo TT Bottly</strong> 🌿. Em có thể giải đáp nhanh mọi thắc mắc về chất liệu Inox 304, dung tích, khả năng giữ nhiệt, thời gian giao hàng và chính sách bảo hành 12 tháng.
+              <br><br>
+              Anh/chị có thể bấm vào các gợi ý phía trên hoặc nhập câu hỏi trực tiếp vào khung chat bên dưới nhé!
+              <span class="chat-time">Vừa xong</span>
+            </div>
+          </div>
+
+          <!-- Chat Input -->
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="Nhập thắc mắc hoặc câu hỏi cần giải đáp..." aria-label="Nhập tin nhắn chat">
+            <button type="button" class="chat-send-btn" id="chatSendBtn" aria-label="Gửi tin nhắn">
+              ➤
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact Form for Custom Issues + Mini FAQ -->
+        <aside class="support-aside">
+
+          <!-- Card: Gửi yêu cầu hỗ trợ trực tiếp -->
+          <div class="support-aside-card">
+            <h3 class="support-aside-title">
+              <span>✍️</span> Để Lại Thông Tin Hỗ Trợ
+            </h3>
+            <p class="support-aside-sub">
+              Khi gặp vấn đề ngoài danh mục FAQ hoặc cần đổi trả, bảo hành, vui lòng để lại số điện thoại và email kèm ghi chú để chuyên viên liên hệ giải quyết.
+            </p>
+
+            <!-- Success Alert -->
+            <div class="ticket-success-alert" id="ticketAlert">
+              <strong>✓ Tiếp nhận thành công!</strong><br>
+              Mã yêu cầu hỗ trợ của bạn là: <span class="ticket-id" id="ticketId">#CSKH-123456</span>.<br>
+              Đội ngũ CSKH TT Bottly sẽ liên hệ qua điện thoại hoặc email trong vòng 15–30 phút.
+            </div>
+
+            <!-- Support Form -->
+            <form class="support-form" id="supportForm" novalidate>
+              <div class="field">
+                <label for="supportName">Họ và tên của bạn *</label>
+                <input type="text" id="supportName" name="name" placeholder="Nguyễn Văn A" autocomplete="name" required>
+              </div>
+
+              <div class="field">
+                <label for="supportPhone">Số điện thoại liên hệ *</label>
+                <input type="tel" id="supportPhone" name="phone" placeholder="0912 345 678" inputmode="tel" autocomplete="tel" required>
+              </div>
+
+              <div class="field">
+                <label for="supportEmail">Email nhận kết quả xử lý *</label>
+                <input type="email" id="supportEmail" name="email" placeholder="example@email.com" autocomplete="email" required>
+              </div>
+
+              <div class="field">
+                <label for="supportTopic">Vấn đề cần hỗ trợ</label>
+                <select id="supportTopic" name="topic">
+                  <option value="warranty">Bảo hành / Đổi trả sản phẩm</option>
+                  <option value="shipping">Tra cứu vận chuyển / Giao hàng chậm</option>
+                  <option value="product">Tư vấn chọn mẫu & Combo quà tặng</option>
+                  <option value="corporate">Đặt hàng số lượng lớn / Khắc tên doanh nghiệp</option>
+                  <option value="other">Vấn đề khác</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="supportNote">Nội dung ghi chú chi tiết *</label>
+                <textarea id="supportNote" name="note" rows="3" placeholder="Mô tả chi tiết vấn đề bạn đang gặp phải hoặc yêu cầu hỗ trợ..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn--cta btn--block btn--lg" style="margin-top: 10px;">
+                Gửi Yêu Cầu Hỗ Trợ Ngay
+              </button>
+            </form>
+          </div>
+
+          <!-- Card: FAQ Mini Accordion -->
+          <div class="support-aside-card">
+            <h3 class="support-aside-title">
+              <span>❓</span> Câu Hỏi Thường Gặp
+            </h3>
+            
+            <div class="faq-mini-list">
+              <div class="faq-mini-item">
+                <button type="button" class="faq-mini-q" aria-expanded="false">
+                  Bảo hành cốc giữ nhiệt trong bao lâu?
+                </button>
+                <div class="faq-mini-a">
+                  <p>Sản phẩm được bảo hành chính hãng 12 tháng về khả năng giữ nhiệt và 1 đổi 1 trong 7 ngày nếu có lỗi kỹ thuật từ nhà sản xuất.</p>
+                </div>
+              </div>
+
+              <div class="faq-mini-item">
+                <button type="button" class="faq-mini-q" aria-expanded="false">
+                  Tôi có được kiểm tra hàng trước khi nhận không?
+                </button>
+                <div class="faq-mini-a">
+                  <p>Có, TT Bottly áp dụng chính sách đồng kiểm toàn quốc. Bạn được mở hộp kiểm tra đúng màu sắc, kích cỡ trước khi thanh toán cho shipper.</p>
+                </div>
+              </div>
+
+              <div class="faq-mini-item">
+                <button type="button" class="faq-mini-q" aria-expanded="false">
+                  Cốc có cho vào máy rửa bát được không?
+                </button>
+                <div class="faq-mini-a">
+                  <p>Phần nắp và gioăng silicone có thể rửa bằng máy rửa bát. Thân cốc sơn tĩnh điện khuyến khích rửa bằng tay với cọ mềm để lớp sơn luôn bền đẹp nhất.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <p class="footer__brand">TT BOTTLY</p>
+        <p>Thương hiệu thuộc<br><strong>Công ty TNHH Thương mại Aquabottle Việt Nam</strong></p>
+        <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8;">Hỗ trợ tận tâm – Luôn đồng hành cùng trải nghiệm của bạn.</p>
+      </div>
+      <ul>
+        <li>Hotline: <a href="tel:19006868">1900 6868</a> (8h00 - 21h00)</li>
+        <li>Email: <a href="mailto:cskh@ttbottly.vn">cskh@ttbottly.vn</a></li>
+        <li>Địa chỉ: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+        <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="#">Chính sách đổi trả trong 7 ngày</a></li>
+        <li><a href="#">Chính sách bảo mật thông tin</a></li>
+        <li><a href="#">Chính sách vận chuyển</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">© 2026 TT Bottly Việt Nam. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="support.js"></script>
+  <script src="auth-nav.js" defer></script>
+</body>
+
+</html>

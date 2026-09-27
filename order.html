@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đặt Hàng Cốc Giữ Nhiệt TT Bottly – Ưu Đãi Độc Quyền & Freeship</title>
+  <meta name="description" content="Trang đặt hàng chính hãng cốc giữ nhiệt TT Bottly. Giữ nhiệt vượt trội, thiết kế thanh lịch, bảo hành 12 tháng, kiểm tra hàng trước khi thanh toán.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="order.css">
+</head>
+<body class="order-page">
+
+  <!-- ========== 1. HEADER ========== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+        <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+      </a>
+
+      <nav class="nav" id="nav" aria-label="Menu chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="order.html" class="is-active" aria-current="page">Đặt hàng</a>
+        <a href="support.html">Hỗ trợ</a>
+        <a href="auth.html" id="navAccountLink">Tài khoản</a>
+        <a href="index.html" class="btn btn--ghost nav__cta">← Về trang chủ</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Đường dẫn trang">
+        <a href="index.html">Trang chủ</a>
+        <span>›</span>
+        <span class="current">Đặt hàng & Thanh toán</span>
+      </nav>
+
+      <!-- Page Title & Step Bar -->
+      <div class="order-header">
+        <h1>Hoàn Tất Đặt Hàng TT Bottly</h1>
+        <p>Vui lòng chọn phiên bản và điền thông tin để nhận ưu đãi vận chuyển hôm nay</p>
+        
+        <div class="checkout-steps">
+          <div class="step-item is-done">
+            <span class="step-num">✓</span>
+            <span>Chọn sản phẩm</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item is-active">
+            <span class="step-num">2</span>
+            <span>Thông tin đặt hàng</span>
+          </div>
+          <div class="step-divider"></div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <span>Xác nhận đơn</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout Grid -->
+      <form id="checkoutForm" novalidate>
+        <div class="checkout-layout">
+
+          <!-- LEFT COLUMN: Configurations & Customer Info -->
+          <div class="checkout-main">
+
+            <!-- Card 1: Chọn phiên bản & gói mua -->
+            <section class="checkout-card" aria-labelledby="heading-variants">
+              <h2 class="checkout-card__title" id="heading-variants">
+                <span class="checkout-card__icon">1</span>
+                Chọn phiên bản hoặc gói Combo tiết kiệm
+              </h2>
+
+              <div class="variant-options">
+                <!-- Combo 2 Cốc (Mặc định) -->
+                <label class="variant-card is-selected" data-variant="combo">
+                  <span class="variant-badge variant-badge--hot">Bán chạy nhất 🔥</span>
+                  <div class="variant-info">
+                    <input type="radio" name="variant" value="combo" checked>
+                    <img src="images/product-colors.jpg" alt="Combo 2 Cốc" class="variant-thumb">
+                    <div class="variant-details">
+                      <h4>Combo 2 Cốc TT Bottly (Tiết kiệm 35%)</h4>
+                      <p>Lựa chọn tối ưu cho gia đình / cặp đôi – Miễn phí vận chuyển toàn quốc</p>
+                    </div>
+                  </div>
+                  <div class="variant-pricing">
+                    <span class="variant-price">649.000₫</span>
+                    <span class="variant-old-price">998.000₫</span>
+                  </div>
+                </label>
+
+                <!-- 1 Cốc đơn -->
+                <label class="variant-card" data-variant="single">
+                  <span class="variant-badge">Ưa chuộng</span>
+                  <div class="variant-info">
+                    <input type="radio" name="variant" value="single">
+                    <img src="images/product-main.jpg" alt="1 Cốc TT Bottly" class="variant-thumb">
+                    <div class="variant-details">
+                      <h4>1 Cốc giữ nhiệt TT Bottly tiêu chuẩn</h4>
+                      <p>Đầy đủ nắp chống tràn, đế cao su chống trượt & gioăng silicone kín khí</p>
+                    </div>
+                  </div>
+                  <div class="variant-pricing">
+                    <span class="variant-price">349.000₫</span>
+                    <span class="variant-old-price">499.000₫</span>
+                  </div>
+                </label>
+
+                <!-- Combo 3 Cốc -->
+                <label class="variant-card" data-variant="trio">
+                  <span class="variant-badge">Siêu ưu đãi</span>
+                  <div class="variant-info">
+                    <input type="radio" name="variant" value="trio">
+                    <img src="images/product-3.jpg" alt="Combo 3 Cốc" class="variant-thumb">
+                    <div class="variant-details">
+                      <h4>Combo 3 Cốc TT Bottly Gia Đình</h4>
+                      <p>Tặng kèm trọn bộ 3 bộ cọ vệ sinh chuyên dụng + Túi canvas</p>
+                    </div>
+                  </div>
+                  <div class="variant-pricing">
+                    <span class="variant-price">929.000₫</span>
+                    <span class="variant-old-price">1.497.000₫</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Chọn màu sắc -->
+              <div class="selector-group">
+                <div class="selector-label">
+                  <span>Màu sắc ưu tiên:</span>
+                  <span class="chosen-val" id="chosenColorText">Xanh Rêu Forest</span>
+                </div>
+                <div class="color-swatches" role="radiogroup" aria-label="Chọn màu sắc cốc">
+                  <button type="button" class="color-btn is-active" data-color="green" aria-label="Xanh Rêu Forest">
+                    <span class="color-dot color-dot--green"></span>
+                    <span>Xanh Rêu Forest</span>
+                  </button>
+                  <button type="button" class="color-btn" data-color="gray" aria-label="Xám Slate Metal">
+                    <span class="color-dot color-dot--gray"></span>
+                    <span>Xám Slate</span>
+                  </button>
+                  <button type="button" class="color-btn" data-color="black" aria-label="Đen Nhám Matte">
+                    <span class="color-dot color-dot--black"></span>
+                    <span>Đen Nhám Matte</span>
+                  </button>
+                  <button type="button" class="color-btn" data-color="white" aria-label="Trắng Ngà Classic">
+                    <span class="color-dot color-dot--white"></span>
+                    <span>Trắng Ngà Classic</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Chọn dung tích -->
+              <div class="selector-group">
+                <div class="selector-label">
+                  <span>Dung tích bình:</span>
+                </div>
+                <div class="capacity-options">
+                  <div class="cap-btn is-active" data-capacity="500ml">
+                    <span class="cap-size">500 ml</span>
+                    <span class="cap-note">Vừa vặn hộc ô tô, cầm tay tiện lợi</span>
+                  </div>
+                  <div class="cap-btn" data-capacity="750ml">
+                    <span class="cap-size">750 ml (+50.000₫)</span>
+                    <span class="cap-note">Dung tích lớn cho cả ngày dài</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Số lượng -->
+              <div class="qty-row">
+                <span class="qty-row-label">Số lượng gói đặt mua:</span>
+                <div class="qty">
+                  <button type="button" class="qty__btn" data-step="-1" aria-label="Giảm số lượng">−</button>
+                  <input id="qtyInput" name="qty" type="number" min="1" value="1" inputmode="numeric">
+                  <button type="button" class="qty__btn" data-step="1" aria-label="Tăng số lượng">+</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Card 2: Phụ kiện mua kèm trợ giá -->
+            <section class="checkout-card" aria-labelledby="heading-addons">
+              <h2 class="checkout-card__title" id="heading-addons">
+                <span class="checkout-card__icon">🎁</span>
+                Phụ kiện mua kèm ưu đãi (Tùy chọn)
+              </h2>
+
+              <div class="addons-list">
+                <label class="addon-item">
+                  <div class="addon-left">
+                    <input type="checkbox" name="addons" value="bag">
+                    <div>
+                      <div class="addon-title">Túi Canvas đựng cốc quai da chống trầy xước</div>
+                      <div class="addon-desc">Vải Canvas mộc 2 lớp cách nhiệt, quai xách chắc chắn mang đi làm, dạo phố</div>
+                    </div>
+                  </div>
+                  <div class="addon-price">+49.000₫ <s style="font-size: 11px; color: var(--muted); font-weight: normal;">99.000₫</s></div>
+                </label>
+
+                <label class="addon-item">
+                  <div class="addon-left">
+                    <input type="checkbox" name="addons" value="straw">
+                    <div>
+                      <div class="addon-title">Set 2 ống hút Inox 304 chuẩn an toàn + Cọ cọ rửa</div>
+                      <div class="addon-desc">Thép không gỉ cao cấp bo tròn miệng, tặng kèm túi nỉ bảo quản</div>
+                    </div>
+                  </div>
+                  <div class="addon-price">+29.000₫ <s style="font-size: 11px; color: var(--muted); font-weight: normal;">60.000₫</s></div>
+                </label>
+
+                <label class="addon-item">
+                  <div class="addon-left">
+                    <input type="checkbox" name="addons" value="laser">
+                    <div>
+                      <div class="addon-title">Dịch vụ khắc laser tên riêng / ngày kỷ niệm lên thân cốc</div>
+                      <div class="addon-desc">Khắc công nghệ Fiber siêu nét, tạo dấu ấn cá nhân hoặc làm quà tặng ý nghĩa</div>
+                    </div>
+                  </div>
+                  <div class="addon-price">+39.000₫</div>
+                </label>
+              </div>
+
+              <!-- Input khắc tên laser nếu chọn -->
+              <div class="laser-input-box" id="laserInputWrap">
+                <label for="laserTextInput" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 4px;">Nội dung muốn khắc lên thân cốc:</label>
+                <input type="text" id="laserTextInput" placeholder="Ví dụ: Minh Anh - 2026 hoặc TT.Bottly" maxlength="30">
+              </div>
+            </section>
+
+            <!-- Card 3: Thông tin giao hàng -->
+            <section class="checkout-card" aria-labelledby="heading-shipping">
+              <h2 class="checkout-card__title" id="heading-shipping">
+                <span class="checkout-card__icon">📍</span>
+                Địa chỉ nhận hàng
+              </h2>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="fullname">Họ và tên người nhận *</label>
+                  <input id="fullname" name="fullname" type="text" placeholder="Nguyễn Văn A" autocomplete="name" required>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                  <label for="phone">Số điện thoại liên hệ *</label>
+                  <input id="phone" name="phone" type="tel" placeholder="0912345678" inputmode="tel" autocomplete="tel" required>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="province">Tỉnh / Thành phố *</label>
+                  <select id="province" name="province" required>
+                    <option value="">-- Chọn Tỉnh / Thành phố --</option>
+                    <option value="HN">Hà Nội</option>
+                    <option value="HCM">TP. Hồ Chí Minh</option>
+                    <option value="DN">Đà Nẵng</option>
+                    <option value="HP">Hải Phòng</option>
+                    <option value="CT">Cần Thơ</option>
+                    <option value="BD">Bình Dương</option>
+                    <option value="DNA">Đồng Nai</option>
+                    <option value="QN">Quảng Ninh</option>
+                    <option value="other">Tỉnh / Thành khác...</option>
+                  </select>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                  <label for="email">Email (Nhận mã vận đơn & hoá đơn điện tử)</label>
+                  <input id="email" name="email" type="email" placeholder="example@email.com" autocomplete="email">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="address">Địa chỉ cụ thể (Số nhà, tên đường, phường/xã) *</label>
+                <input id="address" name="address" type="text" placeholder="Số 123 Đường Nguyễn Trãi, Phường 2..." autocomplete="street-address" required>
+                <small class="error" aria-live="polite"></small>
+              </div>
+
+              <div class="field">
+                <label for="orderNote">Ghi chú giao hàng (Tùy chọn)</label>
+                <textarea id="orderNote" name="orderNote" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi điện trước khi đến 15 phút..."></textarea>
+              </div>
+            </section>
+
+            <!-- Card 4: Phương thức thanh toán -->
+            <section class="checkout-card" aria-labelledby="heading-payment">
+              <h2 class="checkout-card__title" id="heading-payment">
+                <span class="checkout-card__icon">💳</span>
+                Phương thức thanh toán
+              </h2>
+
+              <div class="payment-methods">
+                <label class="payment-method-card is-selected">
+                  <input type="radio" name="paymentMethod" value="cod" checked>
+                  <div class="payment-method-details">
+                    <h4>Thanh toán khi nhận hàng (COD) <span class="payment-method-badge">An tâm nhất</span></h4>
+                    <p>Khách hàng được mở hộp kiểm tra đúng màu, đúng dung tích rồi mới thanh toán tiền mặt cho shipper.</p>
+                  </div>
+                </label>
+
+                <label class="payment-method-card">
+                  <input type="radio" name="paymentMethod" value="bank">
+                  <div class="payment-method-details">
+                    <h4>Chuyển khoản ngân hàng 24/7 (VietQR) <span class="payment-method-badge">Xử lý nhanh</span></h4>
+                    <p>Quét mã VietQR chuyển khoản tức thì, xác nhận đơn tự động không cần chờ đợi.</p>
+                  </div>
+                </label>
+
+                <label class="payment-method-card">
+                  <input type="radio" name="paymentMethod" value="momo">
+                  <div class="payment-method-details">
+                    <h4>Ví điện tử MoMo</h4>
+                    <p>Thanh toán bảo mật và tiện lợi qua ứng dụng MoMo trên điện thoại.</p>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Chi tiết thông tin chuyển khoản nếu chọn -->
+              <div class="bank-transfer-info" id="bankInfoBox">
+                <div class="bank-qr-wrap">
+                  <p style="font-weight: 700; color: var(--primary); margin-bottom: 4px;">Thông tin tài khoản chính thức:</p>
+                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Ngân hàng: <strong>MB Bank (Quân Đội)</strong></p>
+                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Số tài khoản: <strong>9999 8888 6868</strong></p>
+                  <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Chủ tài khoản: <strong>CTY TNHH AQUABOTTLE VN</strong></p>
+                  <p id="bankTransferDesc" style="font-size: 13px; color: var(--cta); margin-top: 6px;"></p>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Sticky Order Summary -->
+          <aside class="checkout-sidebar">
+            <div class="order-summary-sidebar">
+              <div class="summary-card">
+                <h3 class="summary-title">Tóm tắt đơn hàng</h3>
+
+                <!-- Product Preview -->
+                <div class="summary-product-preview">
+                  <img src="images/product-colors.jpg" alt="TT Bottly" id="summaryImg" class="summary-img">
+                  <div>
+                    <h4 class="summary-prod-name" id="summaryProdName">Combo 2 Cốc TT Bottly</h4>
+                    <p class="summary-prod-variant" id="summaryProdVariant">Dung tích: 500ml | Xanh Rêu | SL: 1</p>
+                    <div class="summary-prod-price" id="summaryProdPrice">649.000₫</div>
+                  </div>
+                </div>
+
+                <!-- Coupon Box -->
+                <div class="coupon-box">
+                  <label for="couponInput" style="font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Mã ưu đãi / Voucher:</label>
+                  <div class="coupon-input-group">
+                    <input type="text" id="couponInput" placeholder="Nhập mã giảm giá..." aria-label="Mã giảm giá">
+                    <button type="button" class="btn btn--primary" id="btnApplyCoupon">Áp dụng</button>
+                  </div>
+                  <div class="coupon-tags">
+                    <span style="font-size: 11px; color: var(--muted); align-self: center;">Gợi ý mã:</span>
+                    <button type="button" class="coupon-tag-btn" data-code="FREESHIP">FREESHIP</button>
+                    <button type="button" class="coupon-tag-btn" data-code="GIAM20K">GIAM20K</button>
+                    <button type="button" class="coupon-tag-btn" data-code="TTBOTTLY10">TTBOTTLY10</button>
+                  </div>
+                  <div id="couponMsg" class="coupon-msg"></div>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="cost-breakdown">
+                  <div class="cost-row">
+                    <span>Tạm tính tiền hàng:</span>
+                    <span id="subtotalCost">649.000₫</span>
+                  </div>
+                  <div class="cost-row" id="addonsCostRow" style="display: none;">
+                    <span>Phụ kiện mua kèm:</span>
+                    <span id="addonsCost">+0₫</span>
+                  </div>
+                  <div class="cost-row">
+                    <span>Phí vận chuyển:</span>
+                    <span id="shippingCost">30.000₫</span>
+                  </div>
+                  <div class="cost-row cost-discount" id="discountRow" style="display: none;">
+                    <span>Chiết khấu mã giảm:</span>
+                    <span id="discountAmount">-0₫</span>
+                  </div>
+                  <div class="cost-row cost-total">
+                    <span>TỔNG THANH TOÁN:</span>
+                    <span class="cost-total-num" id="totalCost">649.000₫</span>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn--cta btn--lg btn--block" id="btnSubmitOrder" style="box-shadow: 0 8px 24px rgba(242, 107, 58, 0.45);">
+                  Xác nhận đặt hàng ngay
+                </button>
+
+                <p style="text-align: center; font-size: 12px; color: var(--muted); margin-top: 12px;">
+                  🔒 Dữ liệu được mã hóa bảo mật 256-bit SSL. Cam kết không spam.
+                </p>
+
+                <!-- Trust Badges -->
+                <div class="trust-points">
+                  <div class="trust-point">
+                    <span class="trust-point-icon">✓</span>
+                    <span>100% Inox 304 nguyên khối cao cấp</span>
+                  </div>
+                  <div class="trust-point">
+                    <span class="trust-point-icon">✓</span>
+                    <span>Bảo hành chính hãng 12 tháng giữ nhiệt</span>
+                  </div>
+                  <div class="trust-point">
+                    <span class="trust-point-icon">✓</span>
+                    <span>Đồng kiểm thoải mái trước khi nhận hàng</span>
+                  </div>
+                  <div class="trust-point">
+                    <span class="trust-point-icon">✓</span>
+                    <span>1 đổi 1 trong 7 ngày nếu lỗi từ nhà sản xuất</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- ========== THÔNG BÁO ĐẶT HÀNG THÀNH CÔNG (DƯỚI PHẦN TÓM TẮT ĐƠN HÀNG) ========== -->
+              <div class="order-success-card" id="orderSuccessCard" hidden>
+                <div class="confirm-header">
+                  <div class="confirm-success-icon">✓</div>
+                  <h3 class="confirm-title" id="modalTitle">Đặt Hàng Thành Công!</h3>
+                  <p class="confirm-sub">Cảm ơn quý khách đã tin chọn Cốc giữ nhiệt TT Bottly.</p>
+                  <div class="order-id-badge">Mã đơn: <span id="modalOrderId">TTB-123456</span></div>
+                </div>
+
+                <div class="confirm-body">
+                  <div class="confirm-row">
+                    <span>Khách hàng:</span>
+                    <strong id="modalCustomerName">-</strong>
+                  </div>
+                  <div class="confirm-row">
+                    <span>Số điện thoại:</span>
+                    <strong id="modalCustomerPhone">-</strong>
+                  </div>
+                  <div class="confirm-row">
+                    <span>Địa chỉ nhận:</span>
+                    <span id="modalCustomerAddress" style="text-align: right; max-width: 240px; font-weight: 500;">-</span>
+                  </div>
+                  <div class="confirm-row">
+                    <span>Sản phẩm đặt mua:</span>
+                    <span id="modalProductInfo" style="text-align: right; max-width: 240px; font-weight: 500;">-</span>
+                  </div>
+                  <div class="confirm-row">
+                    <span>Hình thức thanh toán:</span>
+                    <span id="modalPaymentMethod" style="color: #0f766e; font-weight: 600;">-</span>
+                  </div>
+                  <div class="confirm-row confirm-row--total">
+                    <span>Tổng thanh toán:</span>
+                    <span id="modalGrandTotal">0₫</span>
+                  </div>
+                </div>
+
+                <p class="confirm-note">
+                  Chuyên viên tư vấn của TT Bottly sẽ gọi điện xác nhận trong vòng 15–30 phút để đóng gói và gửi hàng sớm nhất đến bạn.
+                </p>
+
+                <div class="confirm-actions">
+                  <button type="button" class="btn-action-invoice" id="btnPrintOrder">
+                    IN HOÁ ĐƠN
+                  </button>
+                  <a href="index.html" class="btn btn-action-home" id="btnCloseConfirm">
+                    VỀ TRANG CHỦ
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </aside>
+
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <p class="footer__brand">TT BOTTLY</p>
+        <p>Thương hiệu thuộc<br><strong>Công ty TNHH Thương mại Aquabottle Việt Nam</strong></p>
+        <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8;">Cốc giữ nhiệt chất lượng cao đồng hành cùng bạn trên mọi hành trình.</p>
+      </div>
+      <ul>
+        <li>Hotline: <a href="tel:19006868">1900 6868</a> (8h00 - 21h00)</li>
+        <li>Email: <a href="mailto:cskh@ttbottly.vn">cskh@ttbottly.vn</a></li>
+        <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+        <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="#">Chính sách đổi trả trong 7 ngày</a></li>
+        <li><a href="#">Chính sách bảo mật thông tin</a></li>
+        <li><a href="#">Chính sách giao hàng toàn quốc</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">© 2026 TT Bottly Việt Nam. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="order.js"></script>
+  <script src="auth-nav.js" defer></script>
+</body>
+</html>
