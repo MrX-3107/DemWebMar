@@ -100,7 +100,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 640px;
+  height: 680px;
 }
 
 /* Chatbot Header */
@@ -211,33 +211,77 @@
   text-align: left;
 }
 
-/* Quick Chips within Chat */
+/* Quick Chips within Chat - Dạng hàng dọc */
 .chat-quick-chips {
-  padding: 10px 16px;
-  background: #f4f8f5;
+  padding: 14px 16px;
+  background: #f8faf9;
   border-top: 1px solid #edf2ee;
   border-bottom: 1px solid #edf2ee;
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  overflow-x: auto;
-  white-space: nowrap;
+  max-height: 205px;
+  overflow-y: auto;
 }
+
+.chat-quick-chips::-webkit-scrollbar {
+  width: 5px;
+}
+.chat-quick-chips::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat-quick-chips::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.chat-quick-chips::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.chat-chips-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0f766e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+  display: block;
+}
+
 .chat-chip {
   background: var(--white);
   border: 1px solid #d0ded6;
   color: var(--primary);
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 999px;
+  padding: 10px 16px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s;
-  flex-shrink: 0;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  display: block;
+  box-shadow: 0 1px 3px rgba(14, 41, 32, 0.03);
 }
+
 .chat-chip:hover {
   background: var(--primary);
   color: var(--white);
   border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: 0 4px 10px rgba(14, 41, 32, 0.1);
+}
+
+.chat-chip--accent {
+  border-color: #fdba74 !important;
+  color: var(--cta) !important;
+  background: #fffaf5 !important;
+}
+
+.chat-chip--accent:hover {
+  background: var(--cta) !important;
+  color: var(--white) !important;
+  border-color: var(--cta) !important;
 }
 
 /* Chat Input Bar */

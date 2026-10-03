@@ -69,22 +69,25 @@ if (toTop) {
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-/* ---------- 4. Mobile menu ---------- */
-const burger = $('#burger');
-const nav = $('#nav');
-
-function setMenu(open) {
-  if (!nav || !burger) return;
-  nav.classList.toggle('is-open', open);
-  burger.classList.toggle('is-open', open);
-  burger.setAttribute('aria-expanded', String(open));
-  burger.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+/* ---------- 4. Left Offcanvas Sidebar Helper ---------- */
+function closeSidebar() {
+  if (typeof window.setSidebar === 'function') {
+    window.setSidebar(false, false);
+  } else {
+    const sm = $('#sidebarMenu');
+    const so = $('#sidebarOverlay');
+    const st = $('#sidebarToggle') || $('#burger');
+    if (sm) sm.classList.remove('is-open');
+    if (so) so.classList.remove('is-open');
+    if (st) {
+      st.classList.remove('is-open');
+      st.setAttribute('aria-expanded', 'false');
+    }
+    document.body.classList.remove('sidebar-open');
+  }
 }
-if (burger) {
-  burger.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
-}
 
-/* ---------- 5. Smooth scroll (đóng menu khi chọn link) ---------- */
+/* ---------- 5. Smooth scroll (đóng sidebar/menu khi chọn link nội bộ) ---------- */
 $$('a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
     const id = link.getAttribute('href');
@@ -93,7 +96,7 @@ $$('a[href^="#"]').forEach(link => {
       const target = $(id);
       if (!target) return;
       e.preventDefault();
-      setMenu(false);
+      closeSidebar();
       target.scrollIntoView({ behavior: 'smooth' });
     } catch (err) {}
   });

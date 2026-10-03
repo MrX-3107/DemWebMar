@@ -431,13 +431,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
   });
 
-  // Handle LOGOUT
+  // Handle LOGOUT with Custom Modal (Thay thế hàm confirm)
+  const logoutModal = document.getElementById('logoutModal');
+  const btnCloseLogoutModal = document.getElementById('btnCloseLogoutModal');
+  const btnCancelLogout = document.getElementById('btnCancelLogout');
+  const btnConfirmLogout = document.getElementById('btnConfirmLogout');
+
+  function openLogoutModal() {
+    if (logoutModal) {
+      logoutModal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      if (btnCancelLogout) btnCancelLogout.focus();
+    }
+  }
+
+  function closeLogoutModal() {
+    if (logoutModal) {
+      logoutModal.hidden = true;
+      document.body.style.overflow = '';
+      if (btnLogout) btnLogout.focus();
+    }
+  }
+
   if (btnLogout) {
-    btnLogout.addEventListener('click', () => {
-      if (confirm('Bạn có chắc chắn muốn đăng xuất tài khoản?')) {
-        setCurrentUser(null);
-        showToast('Bạn đã đăng xuất tài khoản an toàn.', 'success');
-        renderView();
+    btnLogout.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLogoutModal();
+    });
+  }
+
+  if (btnCloseLogoutModal) {
+    btnCloseLogoutModal.addEventListener('click', closeLogoutModal);
+  }
+
+  if (btnCancelLogout) {
+    btnCancelLogout.addEventListener('click', closeLogoutModal);
+  }
+
+  if (btnConfirmLogout) {
+    btnConfirmLogout.addEventListener('click', () => {
+      closeLogoutModal();
+      setCurrentUser(null);
+      showToast('Bạn đã đăng xuất tài khoản an toàn.', 'success');
+      renderView();
+    });
+  }
+
+  if (logoutModal) {
+    logoutModal.addEventListener('click', (e) => {
+      if (e.target === logoutModal) {
+        closeLogoutModal();
       }
     });
   }
@@ -582,27 +625,49 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------------------------------------------------------
      5. FORGOT PASSWORD MODAL
      --------------------------------------------------------- */
+  const btnCloseForgotCorner = document.getElementById('btnCloseForgotCorner');
   if (btnForgotPwd && forgotModal) {
     btnForgotPwd.addEventListener('click', (e) => {
       e.preventDefault();
       forgotModal.hidden = false;
+      document.body.style.overflow = 'hidden';
       forgotResult.hidden = true;
       forgotError.textContent = '';
       forgotEmailInput.value = '';
     });
   }
 
-  if (btnCloseForgot) {
-    btnCloseForgot.addEventListener('click', () => {
+  function closeForgotModal() {
+    if (forgotModal) {
       forgotModal.hidden = true;
-    });
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (btnCloseForgot) {
+    btnCloseForgot.addEventListener('click', closeForgotModal);
+  }
+  if (btnCloseForgotCorner) {
+    btnCloseForgotCorner.addEventListener('click', closeForgotModal);
   }
 
   if (forgotModal) {
     forgotModal.addEventListener('click', (e) => {
-      if (e.target === forgotModal) forgotModal.hidden = true;
+      if (e.target === forgotModal) closeForgotModal();
     });
   }
+
+  // Keyboard accessibility: Escape closes any open modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (logoutModal && !logoutModal.hidden) {
+        closeLogoutModal();
+      }
+      if (forgotModal && !forgotModal.hidden) {
+        closeForgotModal();
+      }
+    }
+  });
 
   if (forgotForm) {
     forgotForm.addEventListener('submit', (e) => {

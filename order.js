@@ -221,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     totalCostEl.textContent = formatVND(grandTotal);
 
+    const mobileStickyTotalEl = $('#mobileStickyTotal');
+    if (mobileStickyTotalEl) mobileStickyTotalEl.textContent = formatVND(grandTotal);
+
     // Update Color label
     chosenColorText.textContent = colorInfo.name;
 
@@ -444,7 +447,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!validateCheckoutForm()) {
       const firstInvalid = $('[aria-invalid="true"]', checkoutForm);
-      if (firstInvalid) firstInvalid.focus();
+      if (firstInvalid) {
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.focus();
+      }
       return;
     }
 
@@ -498,6 +504,12 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSubmitOrder.classList.add('btn--success-placed');
       btnSubmitOrder.disabled = true;
     }
+
+    // Hide mobile sticky bar on successful order placement
+    const mobileStickyBarEl = $('#mobileStickyBar');
+    if (mobileStickyBarEl) {
+      mobileStickyBarEl.classList.add('is-hidden');
+    }
   });
 
   // Print invoice interaction
@@ -505,6 +517,58 @@ document.addEventListener('DOMContentLoaded', () => {
     btnPrintOrder.addEventListener('click', () => {
       window.print();
     });
+  }
+
+  // Copy Bank Account Number
+  const copyBankAccBtn = $('#copyBankAccBtn');
+  const copyAccBadge = $('#copyAccBadge');
+  if (copyBankAccBtn && copyAccBadge) {
+    const handleCopy = async () => {
+      try {
+        await navigator.clipboard.writeText('999988886868');
+        copyAccBadge.textContent = '✓ Đã chép!';
+        copyAccBadge.classList.add('is-copied');
+        setTimeout(() => {
+          copyAccBadge.textContent = '📋 Sao chép';
+          copyAccBadge.classList.remove('is-copied');
+        }, 2200);
+      } catch (err) {
+        copyAccBadge.textContent = '9999 8888 6868';
+      }
+    };
+    copyBankAccBtn.addEventListener('click', handleCopy);
+    copyBankAccBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCopy();
+      }
+    });
+  }
+
+  // Mobile Sticky Checkout Bar handler & intersection observer
+  const mobileStickyBar = $('#mobileStickyBar');
+  const mobileStickyBtn = $('#mobileStickyBtn');
+
+  if (mobileStickyBtn && checkoutForm) {
+    mobileStickyBtn.addEventListener('click', () => {
+      if (btnSubmitOrder && !btnSubmitOrder.disabled) {
+        btnSubmitOrder.click();
+      }
+    });
+  }
+
+  // Hide sticky bar when user scrolls near the main submit button
+  if (mobileStickyBar && btnSubmitOrder && 'IntersectionObserver' in window) {
+    const stickyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting || btnSubmitOrder.disabled) {
+          mobileStickyBar.classList.add('is-hidden');
+        } else {
+          mobileStickyBar.classList.remove('is-hidden');
+        }
+      });
+    }, { threshold: 0.15 });
+    stickyObserver.observe(btnSubmitOrder);
   }
 
   // Sticky header and Mobile nav

@@ -29,10 +29,33 @@
   <!-- ========== 1. HEADER ========== -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
-        <!-- Thay logo: đổi thẻ span này thành <img src="images/logo.svg" alt="TT Bottly" width="120" height="32"> -->
-        <span class="logo__mark" aria-hidden="true"></span>TT Bottly
-      </a>
+      <div class="header__left">
+        <!-- Hamburger Menu Wrapper with Dropdown Menu -->
+        <div class="hamburger-dropdown-wrapper" id="hamburgerDropdownWrapper">
+          <button class="hamburger-btn" id="sidebarToggle" aria-label="Mở danh mục menu" aria-expanded="false" aria-haspopup="true">
+            <span class="hamburger-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="hamburger-text">
+              <span>Danh</span>
+              <span>mục</span>
+            </span>
+          </button>
+
+          <!-- Menu Sổ Xuống Trong Suốt Chuẩn Kính Pha Lê -->
+          <nav class="dark-category-menu" id="hamburgerDropdownMenu" aria-label="Danh mục điều hướng">
+            <a href="about.html" class="dark-category-item">Về Chúng Tôi</a>
+            <a href="index.html#san-pham" class="dark-category-item">Sản Phẩm</a>
+            <a href="warranty.html" class="dark-category-item">Chính Sách Bảo Hành</a>
+          </nav>
+        </div>
+
+        <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+          <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+        </a>
+      </div>
 
       <nav class="nav" id="nav" aria-label="Menu chính">
         <a href="index.html" class="is-active" aria-current="page">Trang chủ</a>
@@ -40,12 +63,9 @@
         <a href="support.html">Hỗ trợ</a>
         <a href="auth.html" id="navAccountLink">Tài khoản</a>
       </nav>
-
-      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
+
 
   <main>
 
@@ -205,9 +225,8 @@
             <div class="pain-icon-wrap">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
-                <path d="m14 12-4-4 4-4" />
-                <path d="M4 12a8 8 0 0 1 14.93-4" />
-                <path d="M12 20a8 8 0 0 0 7.93-7" />
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
               </svg>
             </div>
             <h3>Cốc dễ rò rỉ khi mang theo</h3>
@@ -698,10 +717,10 @@
         <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
       </ul>
       <ul>
-        <li><a href="support.html">Chính sách bảo hành 12 tháng</a></li>
-        <li><a href="support.html">Chính sách đổi trả trong 7 ngày</a></li>
-        <li><a href="support.html">Chính sách bảo mật thông tin</a></li>
-        <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
+        <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="warranty.html">Chính sách đổi trả trong 7 ngày</a></li>
+        <li><a href="warranty.html">Chính sách bảo mật thông tin</a></li>
+        <li><a href="warranty.html">Chính sách giao hàng toàn quốc</a></li>
       </ul>
     </div>
     <p class="footer__copy">© 2026 TT Bottly Việt Nam. All rights reserved.</p>

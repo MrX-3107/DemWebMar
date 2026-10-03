@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Về Chúng Tôi – TT Bottly | Câu Chuyện Thương Hiệu & Sứ Mệnh Vì Lối Sống Xanh</title>
+  <meta name="description"
+    content="Khám phá câu chuyện thương hiệu TT Bottly, sứ mệnh giảm thiểu rác thải nhựa, tiêu chuẩn chất lượng Inox 304 cao cấp và cam kết mang lại trải nghiệm nước uống trọn vẹn mỗi ngày.">
+  <meta property="og:title" content="Về Chúng Tôi – Cốc Giữ Nhiệt TT Bottly Chính Hãng">
+  <meta property="og:description" content="Khởi nguồn từ tình yêu phong cách sống xanh và tiêu chuẩn chất lượng khắt khe.">
+  <meta property="og:image" content="images/hero-banner.jpg">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Styling riêng cho trang Về Chúng Tôi */
+    .about-hero {
+      background: linear-gradient(135deg, rgba(9, 26, 20, 0.95) 0%, rgba(14, 41, 32, 0.88) 100%), url('images/hero-banner.jpg') center/cover no-repeat;
+      color: var(--white);
+      padding: 72px 0 60px;
+      text-align: center;
+    }
+    .about-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: rgba(242, 107, 58, 0.2);
+      border: 1px solid rgba(242, 107, 58, 0.5);
+      color: #ff9d76;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .about-hero h1 {
+      font-size: clamp(28px, 5vw, 46px);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .about-hero h1 span {
+      color: var(--cta);
+    }
+    .about-hero p {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      font-size: 16.5px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .about-stats {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .about-stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 20px 14px;
+      text-align: center;
+    }
+    .about-stat-num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--cta);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .about-stat-label {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.35;
+    }
+
+    /* Section Cards & Story */
+    .about-section {
+      padding: 60px 0;
+    }
+    .about-section--tint {
+      background: var(--tint);
+    }
+    .about-story-grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (min-width: 880px) {
+      .about-story-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      }
+      .about-story-grid--reverse .about-story-img {
+        order: 2;
+      }
+      .about-story-grid--reverse .about-story-content {
+        order: 1;
+      }
+    }
+    .about-story-img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(14, 41, 32, 0.12);
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+    }
+    .about-story-content h2 {
+      font-size: clamp(22px, 4.5vw, 34px);
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 16px;
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .about-story-content p {
+      font-size: 15.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .about-checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px 0;
+    }
+    .about-checklist li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 9px;
+      line-height: 1.65;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+    .about-checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #10b981;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .about-highlight-box {
+      background: #edf6f2;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      font-size: 14.5px;
+      color: var(--primary);
+      font-weight: 600;
+      margin: 20px 0;
+    }
+
+    /* Quality Pillars */
+    .pillar-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 22px;
+      box-shadow: 0 4px 18px rgba(14, 41, 32, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .pillar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(14, 41, 32, 0.1);
+      border-color: #b9d7cb;
+    }
+    .pillar-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #eef6f2;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .pillar-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .pillar-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Contact Form & B2B */
+    .b2b-card {
+      background: linear-gradient(135deg, #172b25 0%, #0e2920 100%);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(14, 41, 32, 0.2);
+    }
+    @media (min-width: 768px) {
+      .b2b-card {
+        padding: 56px 48px;
+      }
+    }
+    .b2b-title {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+    .b2b-desc {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 640px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+    .b2b-contact-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .b2b-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      backdrop-filter: blur(6px);
+      transition: all 0.2s;
+    }
+    .b2b-pill:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== 1. HEADER ========== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <div class="header__left">
+        <!-- Hamburger Menu Wrapper with Dropdown Menu -->
+        <div class="hamburger-dropdown-wrapper" id="hamburgerDropdownWrapper">
+          <button class="hamburger-btn" id="sidebarToggle" aria-label="Mở danh mục menu" aria-expanded="false" aria-haspopup="true">
+            <span class="hamburger-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="hamburger-text">
+              <span>Danh</span>
+              <span>mục</span>
+            </span>
+          </button>
+
+          <!-- Menu Sổ Xuống Trong Suốt Chuẩn Kính Pha Lê -->
+          <nav class="dark-category-menu" id="hamburgerDropdownMenu" aria-label="Danh mục điều hướng">
+            <a href="about.html" class="dark-category-item is-active">Về Chúng Tôi</a>
+            <a href="index.html#san-pham" class="dark-category-item">Sản Phẩm</a>
+            <a href="warranty.html" class="dark-category-item">Chính Sách Bảo Hành</a>
+          </nav>
+        </div>
+
+        <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+          <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+        </a>
+      </div>
+
+      <nav class="nav" id="nav" aria-label="Menu chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="order.html">Đặt hàng</a>
+        <a href="support.html">Hỗ trợ</a>
+        <a href="auth.html" id="navAccountLink">Tài khoản</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ========== 1. HERO TỔNG QUAN ========== -->
+    <section class="about-hero" id="tong-quan">
+      <div class="container">
+        <span class="about-hero__badge">🌿 CÂU CHUYỆN & SỨ MỆNH TT BOTTLY</span>
+        <h1>Giữ Trọn Nhiệt Độ,<br>Kiến Tạo <span>Lối Sống Xanh</span></h1>
+        <p>
+          TT Bottly không đơn thuần là một chiếc cốc giữ nhiệt. Chúng tôi là người bạn đồng hành truyền cảm hứng cho lối sống văn minh, tiết kiệm và bảo vệ môi trường thông qua từng ngụm nước trong lành mỗi ngày.
+        </p>
+
+        <!-- 4 Thống kê ấn tượng -->
+        <div class="about-stats">
+          <div class="about-stat-card">
+            <span class="about-stat-num">100.000+</span>
+            <span class="about-stat-label">Khách hàng tin chọn trên toàn quốc</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="about-stat-num">12 Giờ</span>
+            <span class="about-stat-label">Giữ đá lạnh sâu, không tan nước ngoài</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="about-stat-num">100%</span>
+            <span class="about-stat-label">Inox 304 nguyên khối chuẩn an toàn thực phẩm</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="about-stat-num">12 Tháng</span>
+            <span class="about-stat-label">Bảo hành chính hãng lỗi 1 đổi 1 tận nhà</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 2. CÂU CHUYỆN THƯƠNG HIỆU ========== -->
+    <section class="about-section" id="cau-chuyen">
+      <div class="container">
+        <div class="about-story-grid">
+          <img src="images/hero-banner.jpg" alt="Câu chuyện thương hiệu TT Bottly" class="about-story-img">
+          <div class="about-story-content">
+            <span class="section-tag">HÀNH TRÌNH KHỞI NGUỒN</span>
+            <h2>Bắt Đầu Từ Nỗi Trăn Trở Về Một Ly Cà Phê Nhạt Vị</h2>
+            <p>
+              Ý tưởng về TT Bottly ra đời vào một buổi chiều mùa hè oi ả tại Hà Nội. Người sáng lập của chúng tôi mua một ly cà phê đá mang đi làm, nhưng chỉ sau 45 phút ngồi họp, đá đã tan thành nước lã, ly nhựa ướt đẫm mồ hôi tràn ra mặt bàn làm hỏng cả tài liệu quan trọng.
+            </p>
+            <p>
+              Tại sao chúng ta phải chấp nhận những trải nghiệm nước uống bất tiện như vậy, trong khi mỗi ngày có hàng triệu chiếc cốc nhựa dùng một lần bị vứt bỏ, gây hại nghiêm trọng cho hệ sinh thái?
+            </p>
+            <div class="about-highlight-box">
+              "TT Bottly được tạo ra để chứng minh: Bạn hoàn toàn có thể thưởng thức đồ uống chuẩn vị suốt cả ngày mà không cần đến một chiếc ly nhựa nào."
+            </div>
+            <p>
+              Sau hơn 18 tháng nghiên cứu cùng 40 phiên bản mẫu thử nghiệm cấu trúc chân không, TT Bottly chính thức ra mắt với lớp Inox 304 tráng gương độc quyền, gioăng silicone chống tràn tuyệt đối và phong cách tối giản Scandinavian hiện đại.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========== 3. TIÊU CHUẨN INOX 304 & CHẤT LƯỢNG ========== -->
+    <section class="about-section" id="chat-luong">
+      <div class="container">
+        <div class="about-story-grid about-story-grid--reverse">
+          <img src="images/product-colors.jpg" alt="Tiêu chuẩn chất lượng cốc TT Bottly" class="about-story-img">
+          <div class="about-story-content">
+            <span class="section-tag">TIÊU CHUẨN VẬT LIỆU</span>
+            <h2>100% Thép Không Gỉ Inox 304 Chuẩn An Toàn Quốc Tế</h2>
+            <p>
+              Khác với những dòng cốc giá rẻ trên thị trường sử dụng thép pha tạp chất hoặc Inox 201 dễ bị hoen rỉ và thôi nhiễm kim loại nặng khi tiếp xúc với axit (nước cam, chanh, cà phê), ruột cốc <strong>TT Bottly</strong> được chế tác từ <strong>Inox 304 Austenitic nguyên khối</strong>.
+            </p>
+            <ul class="about-checklist">
+              <li>Không phản ứng hóa học với đồ uống có tính axit cao</li>
+              <li>Công nghệ tráng gương Nano không bám mùi, dễ dàng cọ rửa</li>
+              <li>Đạt kiểm nghiệm an toàn thực phẩm Quốc tế FDA (Mỹ) & RoHS (Châu Âu)</li>
+              <li>Nắp nhựa nguyên sinh PP5 cao cấp, 100% không chứa chất độc hại BPA</li>
+            </ul>
+            <a href="order.html" class="btn btn--cta" style="max-width: 100%; white-space: normal; text-align: center;">Trải nghiệm chất lượng TT Bottly ngay</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <p class="footer__brand">TT BOTTLY</p>
+        <p>Thương hiệu thuộc<br><strong>Công ty TNHH Thương mại Aquabottle Việt Nam</strong></p>
+        <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8;">Cốc giữ nhiệt chất lượng cao đồng hành cùng bạn trên mọi hành trình.</p>
+      </div>
+      <ul>
+        <li>Hotline: <a href="tel:19006868">1900 6868</a> (8h00 - 21h00)</li>
+        <li>Email: <a href="mailto:cskh@ttbottly.vn">cskh@ttbottly.vn</a></li>
+        <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+        <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
+      </ul>
+      <ul>
+        <li><a href="about.html">Về chúng tôi & Câu chuyện thương hiệu</a></li>
+        <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="warranty.html">Chính sách đổi trả trong 7 ngày</a></li>
+        <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">© 2026 TT Bottly Việt Nam. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="auth-nav.js" defer></script>
+</body>
+</html>

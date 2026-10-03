@@ -25,9 +25,33 @@
   <!-- ========== 1. HEADER ========== -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
-        <span class="logo__mark" aria-hidden="true"></span>TT Bottly
-      </a>
+      <div class="header__left">
+        <!-- Hamburger Menu Wrapper with Dropdown Menu -->
+        <div class="hamburger-dropdown-wrapper" id="hamburgerDropdownWrapper">
+          <button class="hamburger-btn" id="sidebarToggle" aria-label="Mở danh mục menu" aria-expanded="false" aria-haspopup="true">
+            <span class="hamburger-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="hamburger-text">
+              <span>Danh</span>
+              <span>mục</span>
+            </span>
+          </button>
+
+          <!-- Menu Sổ Xuống Trong Suốt Chuẩn Kính Pha Lê -->
+          <nav class="dark-category-menu" id="hamburgerDropdownMenu" aria-label="Danh mục điều hướng">
+            <a href="about.html" class="dark-category-item">Về Chúng Tôi</a>
+            <a href="index.html#san-pham" class="dark-category-item">Sản Phẩm</a>
+            <a href="warranty.html" class="dark-category-item">Chính Sách Bảo Hành</a>
+          </nav>
+        </div>
+
+        <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+          <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+        </a>
+      </div>
 
       <nav class="nav" id="nav" aria-label="Menu chính">
         <a href="index.html">Trang chủ</a>
@@ -35,12 +59,9 @@
         <a href="support.html" class="is-active" aria-current="page">Hỗ trợ</a>
         <a href="auth.html" id="navAccountLink">Tài khoản</a>
       </nav>
-
-      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
+
 
   <main>
     <div class="container">
@@ -97,15 +118,16 @@
             </button>
           </div>
 
-          <!-- Quick Question Chips -->
+          <!-- Quick Question Chips (Hàng dọc) -->
           <div class="chat-quick-chips" role="toolbar" aria-label="Gợi ý câu hỏi nhanh">
+            <span class="chat-chips-label">Gợi ý câu hỏi nhanh:</span>
             <button type="button" class="chat-chip">Giữ nóng / lạnh bao lâu?</button>
             <button type="button" class="chat-chip">Chất liệu inox gì?</button>
             <button type="button" class="chat-chip">Có bị rò rỉ nước không?</button>
             <button type="button" class="chat-chip">Dung tích & màu sắc?</button>
             <button type="button" class="chat-chip">Chính sách bảo hành?</button>
             <button type="button" class="chat-chip">Phí ship & giao hàng?</button>
-            <button type="button" class="chat-chip" style="border-color: var(--cta); color: var(--cta);">Gặp vấn đề khác / Cần tư vấn</button>
+            <button type="button" class="chat-chip chat-chip--accent">Gặp vấn đề khác / Cần tư vấn</button>
           </div>
 
           <!-- Messages Area -->
@@ -244,9 +266,9 @@
         <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
       </ul>
       <ul>
-        <li><a href="support.html">Chính sách bảo hành 12 tháng</a></li>
-        <li><a href="support.html">Chính sách đổi trả trong 7 ngày</a></li>
-        <li><a href="support.html">Chính sách bảo mật thông tin</a></li>
+        <li><a href="about.html">Về chúng tôi & Câu chuyện thương hiệu</a></li>
+        <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="warranty.html">Chính sách đổi trả trong 7 ngày</a></li>
         <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
       </ul>
     </div>

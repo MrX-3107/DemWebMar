@@ -20,9 +20,33 @@
   <!-- ========== 1. HEADER ========== -->
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
-        <span class="logo__mark" aria-hidden="true"></span>TT Bottly
-      </a>
+      <div class="header__left">
+        <!-- Hamburger Menu Wrapper with Dropdown Menu -->
+        <div class="hamburger-dropdown-wrapper" id="hamburgerDropdownWrapper">
+          <button class="hamburger-btn" id="sidebarToggle" aria-label="Mở danh mục menu" aria-expanded="false" aria-haspopup="true">
+            <span class="hamburger-icon" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <span class="hamburger-text">
+              <span>Danh</span>
+              <span>mục</span>
+            </span>
+          </button>
+
+          <!-- Menu Sổ Xuống Trong Suốt Chuẩn Kính Pha Lê -->
+          <nav class="dark-category-menu" id="hamburgerDropdownMenu" aria-label="Danh mục điều hướng">
+            <a href="about.html" class="dark-category-item">Về Chúng Tôi</a>
+            <a href="index.html#san-pham" class="dark-category-item">Sản Phẩm</a>
+            <a href="warranty.html" class="dark-category-item">Chính Sách Bảo Hành</a>
+          </nav>
+        </div>
+
+        <a href="index.html" class="logo" aria-label="TT Bottly – về trang chủ">
+          <span class="logo__mark" aria-hidden="true"></span>TT Bottly
+        </a>
+      </div>
 
       <nav class="nav" id="nav" aria-label="Menu chính">
         <a href="index.html">Trang chủ</a>
@@ -30,12 +54,9 @@
         <a href="support.html">Hỗ trợ</a>
         <a href="auth.html" class="is-active" id="navAccountLink">Tài khoản</a>
       </nav>
-
-      <button class="burger" id="burger" aria-label="Mở menu" aria-expanded="false" aria-controls="nav">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
+
 
   <main>
     <div class="container auth-container">
@@ -380,6 +401,7 @@
        ========================================== -->
   <div class="modal" id="forgotModal" role="dialog" aria-modal="true" aria-labelledby="modalForgotTitle" hidden>
     <div class="modal__box auth-modal-box">
+      <button type="button" class="modal-close-corner" id="btnCloseForgotCorner" aria-label="Đóng popup">×</button>
       <h3 id="modalForgotTitle">Khôi phục mật khẩu</h3>
       <p>Nhập email đăng ký của bạn, hệ thống sẽ hỗ trợ lấy lại quyền truy cập tài khoản.</p>
       
@@ -397,6 +419,29 @@
           <button type="submit" class="btn btn--cta" id="btnSubmitForgot" style="flex: 1;">Khôi phục</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       LOGOUT CONFIRMATION MODAL (Popup xác nhận đăng xuất)
+       ========================================== -->
+  <div class="modal auth-logout-modal" id="logoutModal" role="dialog" aria-modal="true" aria-labelledby="modalLogoutTitle" aria-describedby="modalLogoutDesc" hidden>
+    <div class="modal__box auth-logout-box">
+      <button type="button" class="modal-close-corner" id="btnCloseLogoutModal" aria-label="Đóng popup">×</button>
+      <div class="logout-modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+      </div>
+      <h3 id="modalLogoutTitle">Xác nhận đăng xuất</h3>
+      <p id="modalLogoutDesc">Bạn có chắc chắn muốn đăng xuất khỏi tài khoản TT Bottly trên thiết bị này không?</p>
+      
+      <div class="logout-modal-actions">
+        <button type="button" class="btn btn--ghost" id="btnCancelLogout">Ở lại</button>
+        <button type="button" class="btn btn-confirm-logout" id="btnConfirmLogout">Đăng xuất</button>
+      </div>
     </div>
   </div>
 
@@ -418,9 +463,9 @@
         <li><a href="#" rel="noopener">Facebook Official</a> · <a href="#" rel="noopener">TikTok Shop</a></li>
       </ul>
       <ul>
-        <li><a href="support.html">Chính sách bảo hành 12 tháng</a></li>
-        <li><a href="support.html">Chính sách đổi trả trong 7 ngày</a></li>
-        <li><a href="support.html">Chính sách bảo mật thông tin</a></li>
+        <li><a href="about.html">Về chúng tôi & Câu chuyện thương hiệu</a></li>
+        <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+        <li><a href="warranty.html">Chính sách đổi trả trong 7 ngày</a></li>
         <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
       </ul>
     </div>
@@ -428,6 +473,7 @@
   </footer>
 
   <script src="auth.js"></script>
+  <script src="auth-nav.js" defer></script>
 </body>
 
 </html>
