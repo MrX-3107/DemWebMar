@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Về Chúng Tôi – TT Bottly | Câu Chuyện Thương Hiệu & Sứ Mệnh Vì Lối Sống
-      Xanh
-    </title>
+    <title>TT Bottly Website</title>
     <meta
       name="description"
       content="Khám phá câu chuyện thương hiệu TT Bottly, sứ mệnh giảm thiểu rác thải nhựa, tiêu chuẩn chất lượng Inox 304 cao cấp và cam kết mang lại trải nghiệm nước uống trọn vẹn mỗi ngày."
@@ -19,272 +16,24 @@
       property="og:description"
       content="Khởi nguồn từ tình yêu phong cách sống xanh và tiêu chuẩn chất lượng khắt khe."
     />
-    <meta property="og:image" content="images/hero-banner.jpg" />
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <meta property="og:image" content="banner2.jpg" />
+    <link rel="icon" href="logo.png" type="image/png" />
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css" />
-    <style>
-      /* Styling riêng cho trang Về Chúng Tôi */
-      .about-hero {
-        background:
-          linear-gradient(
-            135deg,
-            rgba(9, 26, 20, 0.95) 0%,
-            rgba(14, 41, 32, 0.88) 100%
-          ),
-          url("images/hero-banner.jpg") center/cover no-repeat;
-        color: var(--white);
-        padding: 72px 0 60px;
-        text-align: center;
-      }
-      .about-hero__badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 18px;
-        background: rgba(242, 107, 58, 0.2);
-        border: 1px solid rgba(242, 107, 58, 0.5);
-        color: #ff9d76;
-        border-radius: var(--radius-pill);
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-      .about-hero h1 {
-        font-size: clamp(28px, 5vw, 46px);
-        font-weight: 800;
-        line-height: 1.2;
-        color: #ffffff;
-        margin-bottom: 16px;
-      }
-      .about-hero h1 span {
-        color: var(--cta);
-      }
-      .about-hero p {
-        max-width: 680px;
-        margin: 0 auto 28px;
-        font-size: 16.5px;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.85);
-      }
-      .about-stats {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        max-width: 860px;
-        margin: 0 auto;
-      }
-      @media (min-width: 768px) {
-        .about-stats {
-          grid-template-columns: repeat(4, 1fr);
-        }
-      }
-      .about-stat-card {
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        padding: 20px 14px;
-        text-align: center;
-      }
-      .about-stat-num {
-        font-size: 28px;
-        font-weight: 800;
-        color: var(--cta);
-        display: block;
-        margin-bottom: 4px;
-      }
-      .about-stat-label {
-        font-size: 12.5px;
-        color: rgba(255, 255, 255, 0.8);
-        line-height: 1.35;
-      }
-
-      /* Section Cards & Story */
-      .about-section {
-        padding: 60px 0;
-      }
-      .about-section--tint {
-        background: var(--tint);
-      }
-      .about-story-grid {
-        display: grid;
-        gap: 36px;
-        align-items: center;
-      }
-      @media (min-width: 880px) {
-        .about-story-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 50px;
-        }
-        .about-story-grid--reverse .about-story-img {
-          order: 2;
-        }
-        .about-story-grid--reverse .about-story-content {
-          order: 1;
-        }
-      }
-      .about-story-img {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 16px 40px rgba(14, 41, 32, 0.12);
-        object-fit: cover;
-        aspect-ratio: 4 / 3;
-      }
-      .about-story-content h2 {
-        font-size: clamp(22px, 4.5vw, 34px);
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 16px;
-        line-height: 1.25;
-        word-break: break-word;
-      }
-      .about-story-content p {
-        font-size: 15.5px;
-        color: var(--muted);
-        line-height: 1.7;
-        margin-bottom: 16px;
-      }
-      .about-checklist {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 22px 0;
-      }
-      .about-checklist li {
-        position: relative;
-        padding-left: 24px;
-        margin-bottom: 9px;
-        line-height: 1.65;
-        font-size: 14.5px;
-        color: var(--text);
-      }
-      .about-checklist li::before {
-        content: "✓";
-        position: absolute;
-        left: 0;
-        top: 0;
-        color: #10b981;
-        font-weight: 800;
-        font-size: 15px;
-      }
-      .about-highlight-box {
-        background: #edf6f2;
-        border-left: 4px solid var(--primary);
-        border-radius: 0 12px 12px 0;
-        padding: 14px 18px;
-        font-size: 14.5px;
-        color: var(--primary);
-        font-weight: 600;
-        margin: 20px 0;
-      }
-
-      /* Quality Pillars */
-      .pillar-card {
-        background: var(--white);
-        border: 1.5px solid var(--border);
-        border-radius: 18px;
-        padding: 28px 22px;
-        box-shadow: 0 4px 18px rgba(14, 41, 32, 0.05);
-        transition: all 0.3s ease;
-        height: 100%;
-        box-sizing: border-box;
-      }
-      .pillar-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(14, 41, 32, 0.1);
-        border-color: #b9d7cb;
-      }
-      .pillar-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        background: #eef6f2;
-        color: var(--primary);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        margin-bottom: 16px;
-      }
-      .pillar-title {
-        font-size: 18px;
-        font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 8px;
-      }
-      .pillar-desc {
-        font-size: 14px;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      /* Contact Form & B2B */
-      .b2b-card {
-        background: linear-gradient(135deg, #172b25 0%, #0e2920 100%);
-        color: var(--white);
-        border-radius: 24px;
-        padding: 40px 30px;
-        text-align: center;
-        box-shadow: 0 16px 40px rgba(14, 41, 32, 0.2);
-      }
-      @media (min-width: 768px) {
-        .b2b-card {
-          padding: 56px 48px;
-        }
-      }
-      .b2b-title {
-        font-size: clamp(22px, 4vw, 32px);
-        font-weight: 800;
-        margin-bottom: 14px;
-        color: #ffffff;
-      }
-      .b2b-desc {
-        font-size: 15px;
-        color: rgba(255, 255, 255, 0.85);
-        max-width: 640px;
-        margin: 0 auto 28px;
-        line-height: 1.6;
-      }
-      .b2b-contact-pills {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 16px;
-        margin-bottom: 28px;
-      }
-      .b2b-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 10px 20px;
-        border-radius: var(--radius-pill);
-        font-size: 14px;
-        font-weight: 600;
-        color: #ffffff;
-        text-decoration: none;
-        backdrop-filter: blur(6px);
-        transition: all 0.2s;
-      }
-      .b2b-pill:hover {
-        background: rgba(255, 255, 255, 0.22);
-        border-color: rgba(255, 255, 255, 0.4);
-        transform: translateY(-2px);
-      }
-    </style>
+    <link rel="stylesheet" href="about.css" />
   </head>
 
-  <body>
-    <!-- ========== 1. HEADER ========== -->
+  <body class="about-page">
+    <!-- ========== HEADER ========== -->
     <header class="header" id="header">
       <div class="container header__inner">
         <div class="header__left">
@@ -300,13 +49,29 @@
 
         <nav class="nav" id="nav" aria-label="Menu chính">
           <a href="index.html">Trang chủ</a>
+          <a href="about.html" class="is-active" aria-current="page">Về chúng tôi</a>
           <a href="product.html">Sản phẩm</a>
           <a href="order.html">Đặt hàng</a>
-          <a href="support.html" class="is-active" aria-current="location">Hỗ trợ</a>
+          <a href="support.html">Hỗ trợ</a>
           <a href="auth.html" id="navAccountLink">Tài khoản</a>
         </nav>
       </div>
     </header>
+
+    <!-- ========== BREADCRUMB ========== -->
+    <div class="container">
+      <nav
+        class="breadcrumb"
+        aria-label="Đường dẫn trang"
+        style="padding: 16px 0; font-size: 14px; color: var(--muted)"
+      >
+        <a href="index.html" style="color: var(--muted)">Trang chủ</a>
+        <span style="margin: 0 8px">›</span>
+        <span style="color: var(--primary); font-weight: 600"
+          >Về chúng tôi</span
+        >
+      </nav>
+    </div>
 
     <main>
       <!-- ========== 1. HERO TỔNG QUAN ========== -->
@@ -356,11 +121,17 @@
       <section class="about-section" id="cau-chuyen">
         <div class="container">
           <div class="about-story-grid">
-            <img
-              src="images/hero-banner.jpg"
-              alt="Câu chuyện thương hiệu TT Bottly"
-              class="about-story-img"
-            />
+            <div class="about-story-media">
+              <img
+                src="lifestyle.jpg"
+                alt="Câu chuyện thương hiệu TT Bottly"
+                class="about-story-img"
+                loading="lazy"
+              />
+              <span class="about-story-media__badge"
+                >Tinh thần sống xanh mỗi ngày</span
+              >
+            </div>
             <div class="about-story-content">
               <span class="section-tag">HÀNH TRÌNH KHỞI NGUỒN</span>
               <h2>Bắt Đầu Từ Nỗi Trăn Trở Về Một Ly Cà Phê Nhạt Vị</h2>
@@ -393,14 +164,20 @@
       </section>
 
       <!-- ========== 3. TIÊU CHUẨN INOX 304 & CHẤT LƯỢNG ========== -->
-      <section class="about-section" id="chat-luong">
+      <section class="about-section about-section--tint" id="chat-luong">
         <div class="container">
           <div class="about-story-grid about-story-grid--reverse">
-            <img
-              src="images/product-colors.jpg"
-              alt="Tiêu chuẩn chất lượng cốc TT Bottly"
-              class="about-story-img"
-            />
+            <div class="about-story-media">
+              <img
+                src="anhbabinh.jpg"
+                alt="Tiêu chuẩn chất lượng cốc TT Bottly"
+                class="about-story-img"
+                loading="lazy"
+              />
+              <span class="about-story-media__badge"
+                >Inox 304 cao cấp 3 gam màu pastel</span
+              >
+            </div>
             <div class="about-story-content">
               <span class="section-tag">TIÊU CHUẨN VẬT LIỆU</span>
               <h2>100% Thép Không Gỉ Inox 304 Chuẩn An Toàn Quốc Tế</h2>
@@ -435,6 +212,104 @@
           </div>
         </div>
       </section>
+
+      <!-- ========== 4. 4 TRỤ CỘT CAM KẾT CHẤT LƯỢNG ========== -->
+      <section class="about-section" id="tru-cot-chat-luong">
+        <div class="container">
+          <div class="section-header" style="text-align: center">
+            <span class="section-tag">GIÁ TRỊ CỐT LÕI</span>
+            <h2 class="title" style="margin-bottom: 12px">
+              4 Cam Kết Vàng Từ TT Bottly
+            </h2>
+            <p
+              class="section-subtitle"
+              style="max-width: 650px; margin: 0 auto"
+            >
+              Mỗi sản phẩm xuất xưởng đều trải qua quy trình kiểm soát chất lượng
+              nghiêm ngặt 5 bước trước khi đến tay người tiêu dùng.
+            </p>
+          </div>
+
+          <div class="pillars-grid">
+            <!-- Trụ cột 1 -->
+            <div class="pillar-card">
+              <div class="pillar-icon-box">🛡️</div>
+              <h3 class="pillar-title">An Toàn Sức Khỏe Tuyệt Đối</h3>
+              <p class="pillar-desc">
+                Ruột bình Inox 304 không chứa BPA, không thôi nhiễm kim loại nặng
+                dù đựng nước nóng sôi 100°C hay đá lạnh sâu -10°C.
+              </p>
+            </div>
+
+            <!-- Trụ cột 2 -->
+            <div class="pillar-card">
+              <div class="pillar-icon-box">❄️</div>
+              <h3 class="pillar-title">Giữ Nhiệt Đỉnh Cao</h3>
+              <p class="pillar-desc">
+                Cấu trúc chân không 2 lớp kép giữ lạnh đến 12 giờ và giữ ấm lên
+                đến 8 giờ, thành bình không bị đọng sương hay nóng tay.
+              </p>
+            </div>
+
+            <!-- Trụ cột 3 -->
+            <div class="pillar-card">
+              <div class="pillar-icon-box">🔒</div>
+              <h3 class="pillar-title">Chống Tràn 360° Linh Hoạt</h3>
+              <p class="pillar-desc">
+                Nắp bật thông minh tích hợp gioăng silicone thực phẩm kín khít,
+                tự tin mang theo trong balo, túi xách hay trên xe hơi.
+              </p>
+            </div>
+
+            <!-- Trụ cột 4 -->
+            <div class="pillar-card">
+              <div class="pillar-icon-box">💎</div>
+              <h3 class="pillar-title">Bảo Hành 12 Tháng 1 Đổi 1</h3>
+              <p class="pillar-desc">
+                Cam kết đổi mới tận nhà trong 7 ngày nếu lỗi cách nhiệt hoặc nắp
+                hỏng, bảo hành điện tử nhanh gọn qua số điện thoại mua hàng.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 5. KHÁCH HÀNG DOANH NGHIỆP & B2B ========== -->
+      <section
+        class="about-section about-section--tint"
+        id="doanh-nghiep"
+        style="padding-bottom: 80px"
+      >
+        <div class="container">
+          <div class="b2b-card">
+            <span class="b2b-badge">QUÀ TẶNG DOANH NGHIỆP & KHẮC TÊN</span>
+            <h2 class="b2b-title">Đồng Hành Cùng Doanh Nghiệp Vì Lối Sống Xanh</h2>
+            <p class="b2b-desc">
+              TT Bottly cung cấp giải pháp quà tặng cao cấp cho cán bộ nhân viên,
+              đối tác và sự kiện. Nhận khắc tên, in logo laser theo yêu cầu với
+              chiết khấu hấp dẫn cho đơn hàng số lượng lớn.
+            </p>
+
+            <div class="b2b-contact-pills">
+              <a href="tel:0363409513" class="b2b-pill">
+                📞 Hotline: 0363 409 513 (Miễn phí)
+              </a>
+              <a href="mailto:tranganh213206@gmail.com" class="b2b-pill">
+                ✉️ Email: tranganh213206@gmail.com
+              </a>
+              <a href="support.html" class="b2b-pill">
+                💬 Tư Vấn Trực Tuyến 24/7
+              </a>
+            </div>
+
+            <div>
+              <a href="order.html" class="b2b-cta-btn">
+                Đặt Hàng Khắc Tên Quà Tặng Ngay →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- ========== FOOTER ========== -->
@@ -452,20 +327,19 @@
           </p>
         </div>
         <ul>
-          <li>Hotline: <a href="tel:19006868">1900 6868</a> (8h00 - 21h00)</li>
-          <li>Email: <a href="mailto:cskh@ttbottly.vn">cskh@ttbottly.vn</a></li>
+          <li>Hotline: <a href="tel:0363409513">0363 409 513</a> (8h00 - 21h00)</li>
+          <li>Email: <a href="mailto:tranganh213206@gmail.com">tranganh213206@gmail.com</a></li>
           <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
           <li>
-            <a href="#" rel="noopener">Facebook Official</a> ·
+            <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook Official</a> ·
             <a href="#" rel="noopener">TikTok Shop</a>
           </li>
         </ul>
         <ul>
           <li>
-            <a href="about.html">Về chúng tôi & Câu chuyện thương hiệu</a>
+            <a href="about.html">Về chúng tôi &amp; Câu chuyện thương hiệu</a>
           </li>
           <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
-          <li><a href="warranty.html">Chính sách đổi trả trong 7 ngày</a></li>
           <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
         </ul>
       </div>

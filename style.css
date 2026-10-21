@@ -797,9 +797,10 @@ body.sidebar-open {
   .nav {
     display: flex !important;
     flex-direction: row !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
-    justify-content: center !important;
-    gap: 24px !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
@@ -821,7 +822,7 @@ body.sidebar-open {
     align-items: center !important;
     justify-content: center !important;
     padding: 6px 0 !important;
-    font-size: 15.5px !important;
+    font-size: 13.5px !important;
     font-weight: 700 !important;
     color: #121e19 !important;
     background: transparent !important;
@@ -859,10 +860,10 @@ body.sidebar-open {
     gap: 7px;
   }
   .nav {
-    gap: 18px !important;
+    gap: 10px !important;
   }
   .nav a:not(.btn) {
-    font-size: 14.5px !important;
+    font-size: 12px !important;
   }
 }
 
@@ -2118,8 +2119,9 @@ body.sidebar-open {
     position: static;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 36px;
+    gap: 28px;
     padding: 0;
     background: none;
     box-shadow: none;
@@ -2132,13 +2134,14 @@ body.sidebar-open {
     align-items: center;
     padding: 6px 0;
     border: 0;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     color: #121e19;
     text-decoration: none;
     position: relative;
     letter-spacing: -0.01em;
-    line-height: 1.2;
+    line-height: 1;
+    white-space: nowrap;
     transition: color 0.2s ease;
   }
   .nav a:not(.btn):hover {
@@ -2187,10 +2190,11 @@ body.sidebar-open {
   gap: 6px;
   color: #121e19;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   list-style: none;
   white-space: nowrap;
+  line-height: 1;
 }
 .product-nav-item > summary::-webkit-details-marker {
   display: none;
