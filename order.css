@@ -3,7 +3,7 @@
    ========================================================= */
 
 .order-page {
-  background-color: #f7f9f8;
+  background-color: #f5f0e6;
   min-height: 100vh;
 }
 
@@ -128,7 +128,9 @@
   padding: 24px;
   margin-bottom: 24px;
   box-shadow: 0 4px 16px rgba(23, 33, 30, 0.04);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 .checkout-card:hover {
   border-color: #d1ded7;
@@ -296,10 +298,18 @@
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
-.color-dot--green { background-color: #2d5a4c; }
-.color-dot--gray { background-color: #8c979a; }
-.color-dot--black { background-color: #2b2b2b; }
-.color-dot--white { background-color: #f3f0e8; }
+.color-dot--green {
+  background-color: #2d5a4c;
+}
+.color-dot--gray {
+  background-color: #8c979a;
+}
+.color-dot--black {
+  background-color: #2b2b2b;
+}
+.color-dot--white {
+  background-color: #f3f0e8;
+}
 
 .capacity-options {
   display: flex;
@@ -355,7 +365,9 @@
   background: var(--white);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
   overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 .qty:focus-within {
   border-color: var(--primary);
@@ -373,7 +385,9 @@
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    transform 0.1s;
   user-select: none;
 }
 .qty__btn:hover {
@@ -470,7 +484,9 @@
   background: var(--white);
   color: var(--text);
   box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 .laser-input-box input:focus {
   outline: none;
@@ -515,7 +531,9 @@
   color: var(--text);
   background: var(--white);
   box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .field select {
@@ -1165,7 +1183,8 @@
   body * {
     visibility: hidden;
   }
-  .order-success-card, .order-success-card * {
+  .order-success-card,
+  .order-success-card * {
     visibility: visible;
   }
   .order-success-card {
@@ -1199,8 +1218,14 @@
 }
 
 @keyframes slideDownBanner {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-banner-left {
@@ -1355,7 +1380,9 @@
   padding: 10px 16px;
   padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   z-index: 95;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
 }
 
 .mobile-sticky-bar.is-hidden {
@@ -1722,7 +1749,8 @@
     flex-direction: column;
     gap: 10px;
   }
-  .btn-action-invoice, .btn-action-home {
+  .btn-action-invoice,
+  .btn-action-home {
     min-height: 46px;
     width: 100%;
     font-size: 13.5px;
@@ -1764,5 +1792,3 @@
     font-size: 13px;
   }
 }
-
-

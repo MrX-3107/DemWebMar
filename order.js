@@ -2,127 +2,134 @@
    TT Bottly – Order & Checkout Page Logic
    ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Utility helpers
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
-  const formatVND = (num) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(num).replace('₫', '₫');
-
-  // Product configurations
-  const PRODUCTS = {
-    'single': {
-      name: 'Cốc giữ nhiệt TT Bottly (1 Cốc)',
-      badge: 'Phổ biến',
-      badgeClass: '',
-      prices: {
-        '500ml': 349000,
-        '750ml': 399000
-      },
-      originalPrices: {
-        '500ml': 499000,
-        '750ml': 550000
-      }
+  const PRODUCT_CATALOG = {
+    "1": {
+      name: "Bình Giữ Nhiệt Daily 500ml",
+      img: "trang.jpg",
+      variant: "single",
+      capacity: "500ml",
     },
-    'combo': {
-      name: 'Combo 2 Cốc TT Bottly (Tiết kiệm)',
-      badge: 'Bán chạy nhất 🔥',
-      badgeClass: 'variant-badge--hot',
-      prices: {
-        '500ml': 649000,
-        '750ml': 729000
-      },
-      originalPrices: {
-        '500ml': 998000,
-        '750ml': 1100000
-      }
+    "2": {
+      name: "Combo 2 Bình Everyday Daily Duo 500ml",
+      img: "combo2.png",
+      variant: "combo",
+      capacity: "500ml",
     },
-    'trio': {
-      name: 'Combo 3 Cốc TT Bottly Gia Đình',
-      badge: 'Giảm 35%',
-      badgeClass: '',
-      prices: {
-        '500ml': 929000,
-        '750ml': 1049000
-      },
-      originalPrices: {
-        '500ml': 1497000,
-        '750ml': 1650000
-      }
-    }
+    "3": {
+      name: "Bộ 3 Bình Everyday Daily Family",
+      img: "combo3.png",
+      variant: "trio",
+      capacity: "500ml",
+    },
+    "4": {
+      name: "Bình Giữ Nhiệt Sport 700ml",
+      img: "binh700ml.png",
+      variant: "single",
+      capacity: "700ml",
+    },
+    "5": {
+      name: "Premium Gift Set",
+      img: "khacten.png",
+      variant: "single",
+      capacity: "500ml",
+    },
+    "6": {
+      name: "Bình Giữ Nhiệt TT Bottly Pastel Hồng (500ml)",
+      img: "hong.jpg",
+      variant: "single",
+      capacity: "500ml",
+    },
+    "7": {
+      name: "Bình Giữ Nhiệt TT Bottly Xanh Lá Pastel (500ml)",
+      img: "xanhla.jpg",
+      variant: "single",
+      capacity: "500ml",
+    },
+    "8": {
+      name: "Bình Giữ Nhiệt TT Bottly Xanh Dương Pastel (500ml)",
+      img: "xanhduong.jpg",
+      variant: "single",
+      capacity: "500ml",
+    },
   };
 
-  const COLOR_DATA = {
-    'green': { name: 'Xanh Rêu Forest', img: 'images/product-main.jpg' },
-    'gray': { name: 'Xám Slate Metal', img: 'images/product-2.jpg' },
-    'black': { name: 'Đen Nhám Matte', img: 'images/product-3.jpg' },
-    'white': { name: 'Trắng Ngà Classic', img: 'images/product-colors.jpg' }
+  const COLOR_IMAGES = {
+    "Trắng kem": "trang.jpg",
+    "Hồng pastel": "hong.jpg",
+    "Xanh dương": "xanhduong.jpg",
+    "Xanh lá": "xanhla.jpg",
   };
 
-  const COUPONS = {
-    'FREESHIP': { type: 'shipping', value: 0, text: 'Miễn phí vận chuyển toàn quốc' },
-    'GIAM20K': { type: 'fixed', value: 20000, text: 'Giảm trực tiếp 20.000₫' },
-    'TTBOTTLY10': { type: 'percent', value: 0.1, text: 'Giảm 10% giá trị sản phẩm' }
-  };
+  const orderParams = new URLSearchParams(window.location.search);
+  const selectedProductId = orderParams.get("productId");
+  const hasSelectedProduct = Object.prototype.hasOwnProperty.call(
+    PRODUCT_CATALOG,
+    selectedProductId,
+  );
+  const initialProduct = hasSelectedProduct
+    ? PRODUCT_CATALOG[selectedProductId]
+    : PRODUCT_CATALOG["2"];
+  const initialQuantity = Number.parseInt(orderParams.get("quantity"), 10);
+  const initialCapacity = orderParams.get("capacity");
+  const initialColor = orderParams.get("color");
+  const initialEngraving = orderParams.get("engraving") === "true";
+  const initialEngravingName = orderParams.get("engravingName") || "";
 
   // State
   const state = {
-    variant: 'combo',
-    capacity: '500ml',
-    color: 'green',
-    qty: 1,
+    variant: initialProduct.variant,
+    productId: hasSelectedProduct ? selectedProductId : "2",
+    capacity:
+      initialCapacity === "500ml" || initialCapacity === "700ml"
+        ? initialCapacity
+        : initialProduct.capacity,
+    qty: Number.isFinite(initialQuantity)
+      ? Math.min(99, Math.max(1, initialQuantity))
+      : 1,
+    color: initialColor,
     addons: {
       bag: false,
       straw: false,
-      laser: false,
-      laserText: ''
+      laser: initialEngraving,
+      laserText: initialEngravingName,
     },
-    appliedCoupon: null,
-    paymentMethod: 'cod'
+    paymentMethod: "cod",
   };
 
   // DOM Elements
   const variantRadios = $$('input[name="variant"]');
-  const colorBtns = $$('.color-btn');
-  const capBtns = $$('.cap-btn');
-  const qtyInput = $('#qtyInput');
-  const qtyBtns = $$('.qty__btn');
+  const capBtns = $$(".cap-btn");
+  const qtyInput = $("#qtyInput");
+  const qtyBtns = $$(".qty__btn");
   const addonChecks = $$('input[name="addons"]');
-  const laserInputWrap = $('#laserInputWrap');
-  const laserTextInput = $('#laserTextInput');
-  const paymentCards = $$('.payment-method-card');
-  const bankInfoBox = $('#bankInfoBox');
+  const laserInputWrap = $("#laserInputWrap");
+  const laserTextInput = $("#laserTextInput");
+  const laserCheckbox = $('input[name="addons"][value="laser"]');
+  const paymentCards = $$(".payment-method-card");
+  const bankInfoBox = $("#bankInfoBox");
 
-  // Summary Elements
-  const summaryImg = $('#summaryImg');
-  const summaryProdName = $('#summaryProdName');
-  const summaryProdVariant = $('#summaryProdVariant');
-  const summaryProdPrice = $('#summaryProdPrice');
-  const subtotalCostEl = $('#subtotalCost');
-  const addonsCostRow = $('#addonsCostRow');
-  const addonsCostEl = $('#addonsCost');
-  const shippingCostEl = $('#shippingCost');
-  const discountRow = $('#discountRow');
-  const discountAmountEl = $('#discountAmount');
-  const totalCostEl = $('#totalCost');
-  const chosenColorText = $('#chosenColorText');
-
-  // Coupon Elements
-  const couponInput = $('#couponInput');
-  const btnApplyCoupon = $('#btnApplyCoupon');
-  const couponMsg = $('#couponMsg');
-  const couponTags = $$('.coupon-tag-btn');
+  const addonsCostRow = $("#addonsCostRow");
+  const totalCostEl = $("#totalCost");
+  const summaryImg = $("#summaryImg");
+  const summaryProdName = $("#summaryProdName");
+  const summaryProdVariant = $("#summaryProdVariant");
+  const summaryProdPrice = $("#summaryProdPrice");
 
   // Checkout Form & Success Card
-  const checkoutForm = $('#checkoutForm');
-  const orderSuccessCard = $('#orderSuccessCard');
-  const btnCloseConfirm = $('#btnCloseConfirm');
-  const btnPrintOrder = $('#btnPrintOrder');
-  const btnSubmitOrder = $('#btnSubmitOrder');
+  const checkoutForm = $("#checkoutForm");
+  const orderSuccessCard = $("#orderSuccessCard");
+  const btnCloseConfirm = $("#btnCloseConfirm");
+  const btnPrintOrder = $("#btnPrintOrder");
+  const btnSubmitOrder = $("#btnSubmitOrder");
 
   function getLoggedInUser() {
     try {
-      return JSON.parse(localStorage.getItem('tt_bottly_current_user'));
+      return JSON.parse(localStorage.getItem("tt_bottly_current_user"));
     } catch {
       return null;
     }
@@ -130,12 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function syncAuthState() {
     const user = getLoggedInUser();
-    const notice = $('#authUserNotice');
+    const notice = $("#authUserNotice");
 
     if (user) {
       if (notice) notice.hidden = false;
-      if ($('#loggedInUserName')) $('#loggedInUserName').textContent = user.fullname;
-      if ($('#loggedInUserEmail')) $('#loggedInUserEmail').textContent = user.email;
+      if ($("#loggedInUserName"))
+        $("#loggedInUserName").textContent = user.fullname;
+      if ($("#loggedInUserEmail"))
+        $("#loggedInUserEmail").textContent = user.email;
     } else {
       if (notice) notice.hidden = true;
     }
@@ -143,131 +152,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize
   function updateStateAndUI() {
-    const prod = PRODUCTS[state.variant];
-    const unitPrice = prod.prices[state.capacity];
-    const unitOriginalPrice = prod.originalPrices[state.capacity];
-    const prodTotal = unitPrice * state.qty;
-
-    // Calculate Add-ons
-    let addonsTotal = 0;
+    const prod = PRODUCT_CATALOG[state.productId];
+    qtyInput.value = state.qty;
     const activeAddonsList = [];
     if (state.addons.bag) {
-      addonsTotal += 49000;
-      activeAddonsList.push('Túi canvas quai da (+49.000₫)');
+      activeAddonsList.push("Túi canvas quai da");
     }
     if (state.addons.straw) {
-      addonsTotal += 29000;
-      activeAddonsList.push('Set ống hút inox 304 (+29.000₫)');
+      activeAddonsList.push("Set ống hút inox 304");
     }
     if (state.addons.laser) {
-      addonsTotal += 39000;
-      const note = state.addons.laserText ? ` (${state.addons.laserText})` : '';
-      activeAddonsList.push(`Khắc laser tên riêng${note} (+39.000₫)`);
+      const note = state.addons.laserText ? ` (${state.addons.laserText})` : "";
+      activeAddonsList.push(`Khắc laser tên riêng${note}`);
     }
 
-    // Calculate Shipping (Free if prodTotal >= 500.000₫ or FREESHIP coupon)
-    let shipping = 30000;
-    if (prodTotal >= 500000 || (state.appliedCoupon && state.appliedCoupon.type === 'shipping')) {
-      shipping = 0;
-    }
-
-    // Calculate Discount
-    let discount = 0;
-    if (state.appliedCoupon) {
-      if (state.appliedCoupon.type === 'fixed') {
-        discount = state.appliedCoupon.value;
-      } else if (state.appliedCoupon.type === 'percent') {
-        discount = Math.round(prodTotal * state.appliedCoupon.value);
-      }
-    }
-
-    // Grand Total
-    const grandTotal = Math.max(0, prodTotal + addonsTotal + shipping - discount);
-
-    // Update Summary Sidebar
-    const colorInfo = COLOR_DATA[state.color];
-    summaryImg.src = colorInfo.img;
-    summaryImg.alt = `${prod.name} – ${colorInfo.name}`;
+    const isEverydayBottle = ["1", "6", "7", "8"].includes(state.productId);
+    summaryImg.src =
+      (isEverydayBottle && COLOR_IMAGES[state.color]) || prod.img;
+    summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
-    
-    let variantDesc = `Dung tích: ${state.capacity} | Màu sắc: ${colorInfo.name} | SL: ${state.qty}`;
-    if (activeAddonsList.length > 0) {
-      variantDesc += `<br><span style="color: #0f766e; font-size: 12px; margin-top: 4px; display: inline-block;">+ Kèm: ${activeAddonsList.join(', ')}</span>`;
-    }
-    summaryProdVariant.innerHTML = variantDesc;
-    summaryProdPrice.textContent = formatVND(prodTotal);
+    summaryProdVariant.textContent =
+      `Dung tích: ${state.capacity}` +
+      (state.color ? ` | Màu: ${state.color}` : "") +
+      ` | SL: ${state.qty}` +
+      (activeAddonsList.length
+        ? ` | Kèm: ${activeAddonsList.join(", ")}`
+        : "");
+    summaryProdPrice.textContent = "Liên hệ";
 
-    subtotalCostEl.textContent = formatVND(prodTotal);
+    $("#subtotalCost").textContent = "Liên hệ";
+    $("#shippingCost").textContent = "Liên hệ";
+    totalCostEl.textContent = "Liên hệ";
+    addonsCostRow.style.display = activeAddonsList.length > 0 ? "flex" : "none";
+    $("#addonsCost").textContent = "Liên hệ";
 
-    if (addonsTotal > 0) {
-      addonsCostRow.style.display = 'flex';
-      addonsCostEl.textContent = `+${formatVND(addonsTotal)}`;
-    } else {
-      addonsCostRow.style.display = 'none';
-    }
+    const mobileStickyTotalEl = $("#mobileStickyTotal");
+    if (mobileStickyTotalEl) mobileStickyTotalEl.textContent = "Liên hệ";
 
-    if (shipping === 0) {
-      shippingCostEl.innerHTML = '<span style="color: #0f766e; font-weight: 700;">MIỄN PHÍ</span>';
-    } else {
-      shippingCostEl.textContent = formatVND(shipping);
-    }
-
-    if (discount > 0) {
-      discountRow.style.display = 'flex';
-      discountAmountEl.textContent = `-${formatVND(discount)}`;
-    } else {
-      discountRow.style.display = 'none';
-    }
-
-    totalCostEl.textContent = formatVND(grandTotal);
-
-    const mobileStickyTotalEl = $('#mobileStickyTotal');
-    if (mobileStickyTotalEl) mobileStickyTotalEl.textContent = formatVND(grandTotal);
-
-    // Update Color label
-    chosenColorText.textContent = colorInfo.name;
-
-    // Update radio variant card active styles and price tags
-    $$('.variant-card').forEach(card => {
+    // Update radio variant card active styles and contact labels
+    $$(".variant-card").forEach((card) => {
       const vKey = card.dataset.variant;
       const isSelected = vKey === state.variant;
-      card.classList.toggle('is-selected', isSelected);
+      card.classList.toggle("is-selected", isSelected);
       const radio = $('input[type="radio"]', card);
       if (radio) radio.checked = isSelected;
 
-      // Update card price according to chosen capacity
-      const cardPriceEl = $('.variant-price', card);
-      const cardOldPriceEl = $('.variant-old-price', card);
-      if (cardPriceEl && PRODUCTS[vKey]) {
-        cardPriceEl.textContent = formatVND(PRODUCTS[vKey].prices[state.capacity]);
-      }
-      if (cardOldPriceEl && PRODUCTS[vKey]) {
-        cardOldPriceEl.textContent = formatVND(PRODUCTS[vKey].originalPrices[state.capacity]);
-      }
+      const cardPriceEl = $(".variant-price", card);
+      if (cardPriceEl) cardPriceEl.textContent = "Liên hệ";
     });
+    capBtns.forEach((button) => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.capacity === state.capacity,
+      );
+    });
+    if (laserCheckbox) {
+      laserCheckbox.checked = state.addons.laser;
+      laserCheckbox.closest(".addon-item").classList.toggle(
+        "is-checked",
+        state.addons.laser,
+      );
+    }
+    laserTextInput.value = state.addons.laserText;
+    laserInputWrap.classList.toggle("is-visible", state.addons.laser);
 
     // Update bank transfer QR if visible
-    if (state.paymentMethod === 'bank') {
-      const qrDesc = $('#bankTransferDesc');
+    if (state.paymentMethod === "bank") {
+      const qrDesc = $("#bankTransferDesc");
       if (qrDesc) {
-        qrDesc.innerHTML = `Nội dung CK: <strong>TTB ${$('#phone') ? $('#phone').value.trim() || 'SĐT' : 'DONHANG'}</strong><br>Số tiền chính xác: <strong>${formatVND(grandTotal)}</strong>`;
+        qrDesc.textContent =
+          "Vui lòng liên hệ hotline 1900 6868 để được báo giá và hướng dẫn thanh toán.";
       }
     }
   }
 
   // Variant change event
-  variantRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
+  variantRadios.forEach((radio) => {
+    radio.addEventListener("change", () => {
       state.variant = radio.value;
+      state.productId =
+        radio.value === "single" ? "1" : radio.value === "trio" ? "3" : "2";
+      state.color = "";
       updateStateAndUI();
     });
   });
 
   // Clicking anywhere on variant card
-  $$('.variant-card').forEach(card => {
-    card.addEventListener('click', () => {
+  $$(".variant-card").forEach((card) => {
+    card.addEventListener("click", () => {
       const v = card.dataset.variant;
-      state.variant = v;
+      if (v !== state.variant) {
+        state.variant = v;
+        state.productId = v === "single" ? "1" : v === "trio" ? "3" : "2";
+        state.color = "";
+      }
       const radio = $(`input[value="${v}"]`);
       if (radio) radio.checked = true;
       updateStateAndUI();
@@ -275,28 +253,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Capacity selection
-  capBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      capBtns.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
+  capBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      capBtns.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
       state.capacity = btn.dataset.capacity;
       updateStateAndUI();
     });
   });
 
-  // Color selection
-  colorBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      colorBtns.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      state.color = btn.dataset.color;
-      updateStateAndUI();
-    });
-  });
-
   // Quantity controls
-  qtyBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+  qtyBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
       const step = Number(btn.dataset.step);
       state.qty = Math.max(1, state.qty + step);
       qtyInput.value = state.qty;
@@ -304,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  qtyInput.addEventListener('change', () => {
+  qtyInput.addEventListener("change", () => {
     const val = parseInt(qtyInput.value, 10);
     state.qty = val > 0 ? val : 1;
     qtyInput.value = state.qty;
@@ -312,81 +280,42 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Addons checkboxes
-  addonChecks.forEach(chk => {
-    chk.addEventListener('change', () => {
-      const itemCard = chk.closest('.addon-item');
-      itemCard.classList.toggle('is-checked', chk.checked);
+  addonChecks.forEach((chk) => {
+    chk.addEventListener("change", () => {
+      const itemCard = chk.closest(".addon-item");
+      itemCard.classList.toggle("is-checked", chk.checked);
 
-      if (chk.value === 'bag') state.addons.bag = chk.checked;
-      if (chk.value === 'straw') state.addons.straw = chk.checked;
-      if (chk.value === 'laser') {
+      if (chk.value === "bag") state.addons.bag = chk.checked;
+      if (chk.value === "straw") state.addons.straw = chk.checked;
+      if (chk.value === "laser") {
         state.addons.laser = chk.checked;
-        laserInputWrap.classList.toggle('is-visible', chk.checked);
+        laserInputWrap.classList.toggle("is-visible", chk.checked);
         if (chk.checked) laserTextInput.focus();
       }
       updateStateAndUI();
     });
   });
 
-  laserTextInput.addEventListener('input', (e) => {
+  laserTextInput.addEventListener("input", (e) => {
     state.addons.laserText = e.target.value.trim();
     updateStateAndUI();
   });
 
   // Payment methods
-  paymentCards.forEach(card => {
-    card.addEventListener('click', () => {
-      paymentCards.forEach(c => c.classList.remove('is-selected'));
-      card.classList.add('is-selected');
+  paymentCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      paymentCards.forEach((c) => c.classList.remove("is-selected"));
+      card.classList.add("is-selected");
       const radio = $('input[type="radio"]', card);
       if (radio) {
         radio.checked = true;
         state.paymentMethod = radio.value;
       }
-      bankInfoBox.classList.toggle('is-visible', state.paymentMethod === 'bank');
+      bankInfoBox.classList.toggle(
+        "is-visible",
+        state.paymentMethod === "bank",
+      );
       updateStateAndUI();
-    });
-  });
-
-  // Coupon handling
-  function applyCoupon(code) {
-    const cleanCode = code.trim().toUpperCase();
-    if (!cleanCode) {
-      showCouponMessage('Vui lòng nhập mã giảm giá', false);
-      return;
-    }
-    const coupon = COUPONS[cleanCode];
-    if (coupon) {
-      state.appliedCoupon = coupon;
-      showCouponMessage(`Áp dụng thành công: ${coupon.text}`, true);
-      updateStateAndUI();
-    } else {
-      showCouponMessage('Mã giảm giá không tồn tại hoặc đã hết hạn', false);
-    }
-  }
-
-  function showCouponMessage(msg, isSuccess) {
-    couponMsg.textContent = msg;
-    couponMsg.className = `coupon-msg ${isSuccess ? 'is-success' : 'is-error'}`;
-    couponMsg.style.display = 'block';
-  }
-
-  btnApplyCoupon.addEventListener('click', () => {
-    applyCoupon(couponInput.value);
-  });
-
-  couponInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      applyCoupon(couponInput.value);
-    }
-  });
-
-  couponTags.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const code = btn.dataset.code;
-      couponInput.value = code;
-      applyCoupon(code);
     });
   });
 
@@ -396,149 +325,172 @@ document.addEventListener('DOMContentLoaded', () => {
   function setFieldError(fieldId, errorMsg) {
     const input = $(`#${fieldId}`);
     if (!input) return true;
-    const container = input.closest('.field');
-    const errEl = $('.error', container);
+    const container = input.closest(".field");
+    const errEl = $(".error", container);
     if (errorMsg) {
-      container.classList.add('has-error');
+      container.classList.add("has-error");
       if (errEl) errEl.textContent = errorMsg;
-      input.setAttribute('aria-invalid', 'true');
+      input.setAttribute("aria-invalid", "true");
       return false;
     } else {
-      container.classList.remove('has-error');
-      if (errEl) errEl.textContent = '';
-      input.setAttribute('aria-invalid', 'false');
+      container.classList.remove("has-error");
+      if (errEl) errEl.textContent = "";
+      input.setAttribute("aria-invalid", "false");
       return true;
     }
   }
 
   function validateCheckoutForm() {
-    const name = $('#fullname').value.trim();
-    const phone = $('#phone').value.replace(/[\s.-]/g, '');
-    const province = $('#province').value;
-    const address = $('#address').value.trim();
+    const name = $("#fullname").value.trim();
+    const phone = $("#phone").value.replace(/[\s.-]/g, "");
+    const province = $("#province").value;
+    const address = $("#address").value.trim();
 
-    const ok1 = setFieldError('fullname', name ? '' : 'Vui lòng nhập họ và tên.');
-    const ok2 = setFieldError('phone', PHONE_RE.test(phone) ? '' : 'Vui lòng nhập số điện thoại hợp lệ (10 chữ số).');
-    const ok3 = setFieldError('province', province ? '' : 'Vui lòng chọn Tỉnh / Thành phố.');
-    const ok4 = setFieldError('address', address ? '' : 'Vui lòng nhập địa chỉ giao hàng cụ thể.');
+    const ok1 = setFieldError(
+      "fullname",
+      name ? "" : "Vui lòng nhập họ và tên.",
+    );
+    const ok2 = setFieldError(
+      "phone",
+      PHONE_RE.test(phone)
+        ? ""
+        : "Vui lòng nhập số điện thoại hợp lệ (10 chữ số).",
+    );
+    const ok3 = setFieldError(
+      "province",
+      province ? "" : "Vui lòng chọn Tỉnh / Thành phố.",
+    );
+    const ok4 = setFieldError(
+      "address",
+      address ? "" : "Vui lòng nhập địa chỉ giao hàng cụ thể.",
+    );
 
     return ok1 && ok2 && ok3 && ok4;
   }
 
   // Clear errors on input
-  ['fullname', 'phone', 'province', 'address'].forEach(id => {
+  ["fullname", "phone", "province", "address"].forEach((id) => {
     const el = $(`#${id}`);
     if (el) {
-      el.addEventListener('input', () => setFieldError(id, ''));
-      el.addEventListener('change', () => setFieldError(id, ''));
+      el.addEventListener("input", () => setFieldError(id, ""));
+      el.addEventListener("change", () => setFieldError(id, ""));
     }
   });
 
   // Form submission
-  checkoutForm.addEventListener('submit', (e) => {
+  checkoutForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // 1. Kiểm tra tài khoản: Nếu chưa đăng nhập thì tự động chuyển sang trang tài khoản kèm thông báo
     const currentUser = getLoggedInUser();
     if (!currentUser) {
-      window.location.href = 'auth.html?redirect=order.html&msg=login_required#login';
+      window.location.href =
+        "auth.html?redirect=order.html&msg=login_required#login";
       return;
     }
 
     if (!validateCheckoutForm()) {
       const firstInvalid = $('[aria-invalid="true"]', checkoutForm);
       if (firstInvalid) {
-        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
         firstInvalid.focus();
       }
       return;
     }
 
     // Generate random order code
-    const orderId = 'TTB-' + Math.floor(100000 + Math.random() * 900000);
-    const prod = PRODUCTS[state.variant];
-    const colorInfo = COLOR_DATA[state.color];
-    const totalText = totalCostEl.textContent;
+    const orderId = "TTB-" + Math.floor(100000 + Math.random() * 900000);
+    const prod = PRODUCT_CATALOG[state.productId];
+    const totalText = "Liên hệ";
 
     // Fill in Confirmation Modal Details
-    $('#modalOrderId').textContent = orderId;
-    $('#modalCustomerName').textContent = $('#fullname').value.trim();
-    $('#modalCustomerPhone').textContent = $('#phone').value.trim();
-    $('#modalCustomerAddress').textContent = `${$('#address').value.trim()}, ${$('#province').options[$('#province').selectedIndex].text}`;
-    $('#modalProductInfo').textContent = `${prod.name} (${colorInfo.name} - ${state.capacity}) x ${state.qty}`;
-    
-    let paymentName = 'Thanh toán khi nhận hàng (COD)';
-    if (state.paymentMethod === 'bank') paymentName = 'Chuyển khoản VietQR 24/7';
-    if (state.paymentMethod === 'momo') paymentName = 'Ví điện tử MoMo';
-    $('#modalPaymentMethod').textContent = paymentName;
-    $('#modalGrandTotal').textContent = totalText;
+    $("#modalOrderId").textContent = orderId;
+    $("#modalCustomerName").textContent = $("#fullname").value.trim();
+    $("#modalCustomerPhone").textContent = $("#phone").value.trim();
+    $("#modalCustomerAddress").textContent =
+      `${$("#address").value.trim()}, ${$("#province").options[$("#province").selectedIndex].text}`;
+    $("#modalProductInfo").textContent =
+      `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+
+    let paymentName = "Thanh toán khi nhận hàng (COD)";
+    if (state.paymentMethod === "bank")
+      paymentName = "Chuyển khoản VietQR 24/7";
+    if (state.paymentMethod === "momo") paymentName = "Ví điện tử MoMo";
+    $("#modalPaymentMethod").textContent = paymentName;
+    $("#modalGrandTotal").textContent = totalText;
 
     // Save order to localStorage for Profile history
     try {
-      const orders = JSON.parse(localStorage.getItem('tt_bottly_orders')) || [];
+      const orders = JSON.parse(localStorage.getItem("tt_bottly_orders")) || [];
       const newOrder = {
         id: orderId,
-        date: new Date().toLocaleDateString('vi-VN'),
-        product: `${prod.name} (${colorInfo.name} - ${state.capacity}) x ${state.qty}`,
+        date: new Date().toLocaleDateString("vi-VN"),
+        product: `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
         total: totalText,
-        status: 'Đã xác nhận',
-        payment: state.paymentMethod.toUpperCase()
+        status: "Đã xác nhận",
+        payment: state.paymentMethod.toUpperCase(),
       };
       orders.unshift(newOrder);
-      localStorage.setItem('tt_bottly_orders', JSON.stringify(orders.slice(0, 20)));
+      localStorage.setItem(
+        "tt_bottly_orders",
+        JSON.stringify(orders.slice(0, 20)),
+      );
     } catch (err) {
-      console.warn('Cannot save order to localStorage', err);
+      console.warn("Cannot save order to localStorage", err);
     }
 
     // Display Success Notification directly under order summary
     if (orderSuccessCard) {
       orderSuccessCard.hidden = false;
       setTimeout(() => {
-        orderSuccessCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        orderSuccessCard.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
       }, 100);
     }
 
     // Update submit button to success state
     if (btnSubmitOrder) {
-      btnSubmitOrder.innerHTML = '✓ Đã đặt hàng thành công!';
-      btnSubmitOrder.classList.add('btn--success-placed');
+      btnSubmitOrder.innerHTML = "✓ Đã đặt hàng thành công!";
+      btnSubmitOrder.classList.add("btn--success-placed");
       btnSubmitOrder.disabled = true;
     }
 
     // Hide mobile sticky bar on successful order placement
-    const mobileStickyBarEl = $('#mobileStickyBar');
+    const mobileStickyBarEl = $("#mobileStickyBar");
     if (mobileStickyBarEl) {
-      mobileStickyBarEl.classList.add('is-hidden');
+      mobileStickyBarEl.classList.add("is-hidden");
     }
   });
 
   // Print invoice interaction
   if (btnPrintOrder) {
-    btnPrintOrder.addEventListener('click', () => {
+    btnPrintOrder.addEventListener("click", () => {
       window.print();
     });
   }
 
   // Copy Bank Account Number
-  const copyBankAccBtn = $('#copyBankAccBtn');
-  const copyAccBadge = $('#copyAccBadge');
+  const copyBankAccBtn = $("#copyBankAccBtn");
+  const copyAccBadge = $("#copyAccBadge");
   if (copyBankAccBtn && copyAccBadge) {
     const handleCopy = async () => {
       try {
-        await navigator.clipboard.writeText('999988886868');
-        copyAccBadge.textContent = '✓ Đã chép!';
-        copyAccBadge.classList.add('is-copied');
+        await navigator.clipboard.writeText("999988886868");
+        copyAccBadge.textContent = "✓ Đã chép!";
+        copyAccBadge.classList.add("is-copied");
         setTimeout(() => {
-          copyAccBadge.textContent = '📋 Sao chép';
-          copyAccBadge.classList.remove('is-copied');
+          copyAccBadge.textContent = "📋 Sao chép";
+          copyAccBadge.classList.remove("is-copied");
         }, 2200);
       } catch (err) {
-        copyAccBadge.textContent = '9999 8888 6868';
+        copyAccBadge.textContent = "9999 8888 6868";
       }
     };
-    copyBankAccBtn.addEventListener('click', handleCopy);
-    copyBankAccBtn.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    copyBankAccBtn.addEventListener("click", handleCopy);
+    copyBankAccBtn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         handleCopy();
       }
@@ -546,11 +498,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Mobile Sticky Checkout Bar handler & intersection observer
-  const mobileStickyBar = $('#mobileStickyBar');
-  const mobileStickyBtn = $('#mobileStickyBtn');
+  const mobileStickyBar = $("#mobileStickyBar");
+  const mobileStickyBtn = $("#mobileStickyBtn");
 
   if (mobileStickyBtn && checkoutForm) {
-    mobileStickyBtn.addEventListener('click', () => {
+    mobileStickyBtn.addEventListener("click", () => {
       if (btnSubmitOrder && !btnSubmitOrder.disabled) {
         btnSubmitOrder.click();
       }
@@ -558,49 +510,47 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Hide sticky bar when user scrolls near the main submit button
-  if (mobileStickyBar && btnSubmitOrder && 'IntersectionObserver' in window) {
-    const stickyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting || btnSubmitOrder.disabled) {
-          mobileStickyBar.classList.add('is-hidden');
-        } else {
-          mobileStickyBar.classList.remove('is-hidden');
-        }
-      });
-    }, { threshold: 0.15 });
+  if (mobileStickyBar && btnSubmitOrder && "IntersectionObserver" in window) {
+    const stickyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting || btnSubmitOrder.disabled) {
+            mobileStickyBar.classList.add("is-hidden");
+          } else {
+            mobileStickyBar.classList.remove("is-hidden");
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
     stickyObserver.observe(btnSubmitOrder);
   }
 
   // Sticky header and Mobile nav
-  const header = $('#header');
-  const burger = $('#burger');
-  const nav = $('#nav');
-
-  if (header) {
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 10);
-    }, { passive: true });
-  }
+  const burger = $("#burger");
+  const nav = $("#nav");
 
   if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('is-open');
-      burger.classList.toggle('is-open', isOpen);
-      burger.setAttribute('aria-expanded', String(isOpen));
+    burger.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("is-open");
+      burger.classList.toggle("is-open", isOpen);
+      burger.setAttribute("aria-expanded", String(isOpen));
     });
   }
-
-
 
   // Sync auth state & Pre-fill user information if logged in
   syncAuthState();
   try {
     const currentUser = getLoggedInUser();
     if (currentUser) {
-      if (currentUser.fullname && $('#fullname')) $('#fullname').value = currentUser.fullname;
-      if (currentUser.phone && $('#phone')) $('#phone').value = currentUser.phone;
-      if (currentUser.email && $('#email')) $('#email').value = currentUser.email;
-      if (currentUser.address && $('#address')) $('#address').value = currentUser.address;
+      if (currentUser.fullname && $("#fullname"))
+        $("#fullname").value = currentUser.fullname;
+      if (currentUser.phone && $("#phone"))
+        $("#phone").value = currentUser.phone;
+      if (currentUser.email && $("#email"))
+        $("#email").value = currentUser.email;
+      if (currentUser.address && $("#address"))
+        $("#address").value = currentUser.address;
     }
   } catch (err) {
     // Ignore error

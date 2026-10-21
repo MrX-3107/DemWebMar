@@ -3,13 +3,19 @@
    ========================================================= */
 
 .warranty-page {
-  background-color: #f7faf9;
+  background-color: #f5f0e6;
   min-height: 100vh;
 }
 
 /* Warranty Hero */
 .warranty-hero {
-  background: linear-gradient(135deg, rgba(9, 26, 20, 0.95) 0%, rgba(14, 41, 32, 0.88) 100%), url('images/hero-banner.jpg') center/cover no-repeat;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(9, 26, 20, 0.95) 0%,
+      rgba(14, 41, 32, 0.88) 100%
+    ),
+    url("images/hero-banner.jpg") center/cover no-repeat;
   color: var(--white);
   padding: 64px 0 54px;
   text-align: center;
@@ -143,7 +149,7 @@
   overflow: hidden;
 }
 .commit-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -406,19 +412,21 @@
   font-family: inherit;
 }
 .faq-btn::after {
-  content: '+';
+  content: "+";
   font-size: 20px;
   font-weight: 400;
   color: var(--cta);
   transition: transform 0.2s;
 }
 .faq-item.is-open .faq-btn::after {
-  content: '−';
+  content: "−";
 }
 .faq-ans {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s ease;
   padding: 0 20px;
   font-size: 14px;
   color: var(--text);

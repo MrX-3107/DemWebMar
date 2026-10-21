@@ -3,7 +3,7 @@
    ========================================================= */
 
 .auth-page {
-  background-color: #f7f9f8;
+  background-color: #f5f0e6;
   min-height: 100vh;
 }
 
@@ -59,7 +59,9 @@
   border: 1px solid rgba(27, 59, 50, 0.09);
   padding: 36px 32px;
   box-shadow: 0 16px 40px rgba(19, 37, 31, 0.06);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 @media (max-width: 540px) {
@@ -222,8 +224,14 @@
 }
 
 @keyframes fadeInAuth {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Password Input with Toggle Button */
@@ -335,7 +343,9 @@
   height: 100%;
   width: 0;
   border-radius: 999px;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .pwd-strength-text {
@@ -467,7 +477,11 @@
   right: -40px;
   width: 240px;
   height: 240px;
-  background: radial-gradient(circle, rgba(226, 98, 59, 0.22) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(226, 98, 59, 0.22) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
   pointer-events: none;
 }
