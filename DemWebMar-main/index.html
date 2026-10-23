@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TT Bottly Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="header-shared.css" />
+    <script defer src="product.js"></script>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <div class="header__left">
+          <a
+            href="index.html"
+            class="logo"
+            aria-label="TT Bottly – về trang chủ"
+          >
+            <img src="images/logo.png" alt="TT Bottly" class="logo__image" />
+            <span class="logo__text">TT BOTTLY</span>
+          </a>
+        </div>
+        <nav class="nav" id="nav">
+          <a href="index.html">Trang chủ</a>
+          <a href="about.html">Về chúng tôi</a>
+          <a href="product.html" class="is-active" aria-current="page">Sản phẩm</a>
+          <a href="order.html">Đặt hàng</a>
+          <a href="support.html">Hỗ trợ</a>
+          <a href="auth.html">Tài khoản</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section
+        class="hero-banner-section image-banner"
+        aria-label="Banner giới thiệu"
+      >
+        <div class="container">
+          <div
+            class="banner-container"
+            id="productBanner"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Banner TT Bottly"
+          >
+            <div class="banner-slider">
+              <div
+                class="banner-slide is-active"
+                role="group"
+                aria-roledescription="slide"
+                aria-label="Ảnh 1 trên 2"
+                aria-hidden="false"
+              >
+                <img
+                  src="images/banner.png"
+                  alt="TT Bottly – Hãy giữ nước cho cơ thể"
+                  class="banner-bg-img"
+                  fetchpriority="high"
+                />
+              </div>
+              <div
+                class="banner-slide"
+                role="group"
+                aria-roledescription="slide"
+                aria-label="Ảnh 2 trên 2"
+                aria-hidden="true"
+              >
+                <img
+                  src="images/banner2.jpg"
+                  alt="Bình giữ nhiệt TT Bottly với nhiều màu sắc"
+                  class="banner-bg-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+
+            <button
+              class="banner-arrow banner-arrow--prev"
+              id="bannerPrev"
+              type="button"
+              aria-label="Xem banner trước"
+            >
+              ‹
+            </button>
+            <button
+              class="banner-arrow banner-arrow--next"
+              id="bannerNext"
+              type="button"
+              aria-label="Xem banner tiếp theo"
+            >
+              ›
+            </button>
+            <div class="banner-dots" aria-label="Chọn banner">
+              <button
+                class="banner-dot is-active"
+                type="button"
+                data-index="0"
+                aria-label="Xem banner 1"
+                aria-current="true"
+              ></button>
+              <button
+                class="banner-dot"
+                type="button"
+                data-index="1"
+                aria-label="Xem banner 2"
+                aria-current="false"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 3. PAIN POINT ========== -->
+      <section class="section" id="van-de">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">VẤN ĐỀ THỰC TẾ</span>
+            <h2 class="title" style="margin-bottom: 0">
+              Bạn có đang gặp những bất tiện này?
+            </h2>
+            <p class="section-subtitle">
+              Những khó chịu nhỏ khi sử dụng cốc nước kém chất lượng có thể làm
+              giảm hứng khởi và sự tập trung suốt ngày dài.
+            </p>
+          </div>
+
+          <div class="grid grid--4">
+            <!-- Pain Card 1 -->
+            <article class="pain-card reveal">
+              <div class="pain-icon-wrap">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 2v10" />
+                  <path d="M18.4 6.6a9 9 0 1 1-12.77.04" />
+                </svg>
+              </div>
+              <h3>Nước nhanh nguội hoặc mất lạnh</h3>
+              <p>
+                Cà phê mới pha vừa ấm hay nước đá mát lạnh chỉ sau 1–2 giờ đã
+                tan chảy hoàn toàn, làm mất vị thơm ngon ban đầu.
+              </p>
+            </article>
+
+            <!-- Pain Card 2 -->
+            <article class="pain-card reveal">
+              <div class="pain-icon-wrap">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <h3>Cốc dễ rò rỉ khi mang theo</h3>
+              <p>
+                Nắp đậy lỏng lẻo khiến nước dễ trào ra ba lô, túi xách, làm ướt
+                tài liệu quan trọng và thiết bị điện tử.
+              </p>
+            </article>
+
+            <!-- Pain Card 3 -->
+            <article class="pain-card reveal">
+              <div class="pain-icon-wrap">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </div>
+              <h3>Thiết kế cồng kềnh, khó dùng</h3>
+              <p>
+                Cầm nắm không chắc tay, không vừa khay cốc trên xe hơi hay
+                khoang để đồ, gây cản trở trong các hoạt động hàng ngày.
+              </p>
+            </article>
+
+            <!-- Pain Card 4 -->
+            <article class="pain-card reveal">
+              <div class="pain-icon-wrap">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m4.93 4.93 14.14 14.14" />
+                </svg>
+              </div>
+              <h3>Khó vệ sinh sau thời gian dùng</h3>
+              <p>
+                Miệng cốc hẹp, nhiều góc cạnh khó luồn rửa, dễ bám cặn ố vàng và
+                mùi đồ uống khó chịu sau thời gian dài.
+              </p>
+            </article>
+          </div>
+
+          <div class="pain-conclusion reveal">
+            <p class="conclusion-text">
+              <strong>TT Bottly</strong> được phát triển để mang đến trải nghiệm
+              sử dụng tiện lợi hơn mỗi ngày.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 4. GIẢI PHÁP ========== -->
+      <section class="section section--tint">
+        <div class="container split">
+          <img
+            class="split__img reveal"
+            src="images/lifestyle.jpg"
+            alt="Cốc giữ nhiệt TT Bottly đặt trên tảng đá ngoài trời"
+            width="1400"
+            height="933"
+            loading="lazy"
+          />
+          <div class="reveal">
+            <h2 class="title title--left">
+              Một chiếc cốc – nhiều hơn một cách giữ nhiệt
+            </h2>
+            <ul class="checks">
+              <li>Giữ nhiệt độ đồ uống lâu hơn</li>
+              <li>Tiện mang theo</li>
+              <li>Kiểu dáng hiện đại, dễ vệ sinh</li>
+            </ul>
+            <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener" class="btn btn--primary">Khám phá TT Bottly</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 5. PRODUCT DETAIL ========== -->
+      <section class="section" id="san-pham">
+        <div class="container">
+          <h2 class="title reveal">Khám phá từng chi tiết</h2>
+          <div class="product reveal">
+            <div class="gallery">
+              <div class="gallery__main">
+                <img
+                  id="mainImg"
+                  src="images/combo3.png"
+                  alt="TT Bottly – mặt trước"
+                  width="1000"
+                  height="1500"
+                  loading="lazy"
+                />
+              </div>
+              <!-- Thêm ảnh: copy 1 nút, đổi data-src và alt (mặt sau, nắp, miệng cốc, đáy cốc...) -->
+              <div class="gallery__thumbs">
+                <button
+                  class="thumb is-active"
+                  data-src="images/hong.jpg"
+                  aria-label="Xem mặt trước"
+                >
+                  <img
+                    src="images/hong.jpg"
+                    alt="Mặt trước"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  class="thumb"
+                  data-src="images/xanhduong.jpg"
+                  aria-label="Xem màu xanh dương"
+                >
+                  <img
+                    src="images/xanhduong.jpg"
+                    alt="Màu xám"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  class="thumb"
+                  data-src="images/xanhla.jpg"
+                  aria-label="Xem trong không gian"
+                >
+                  <img
+                    src="images/xanhla.jpg"
+                    alt="Trong không gian"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  />
+                </button>
+                <button
+                  class="thumb"
+                  data-src="images/combo3.png"
+                  aria-label="Xem màu sắc"
+                >
+                  <img
+                    src="images/combo3.png"
+                    alt="Các màu sắc"
+                    width="80"
+                    height="80"
+                    loading="lazy"
+                  />
+                </button>
+              </div>
+            </div>
+
+            <!-- Thay thông tin sản phẩm tại đây -->
+            <div class="specs">
+              <h3>Thông tin sản phẩm</h3>
+              <dl>
+                <dt>Thương hiệu</dt>
+                <dd>TT Bottly</dd>
+                <dt>Dòng sản phẩm</dt>
+                <dd>Bình giữ nhiệt</dd>
+                <dt>Chất liệu</dt>
+                <dd>Inox 304 nguyên khối 2 lớp chân không</dd>
+                <dt>Dung tích</dt>
+                <dd>500 ml & 750 ml</dd>
+                <dt>Màu sắc</dt>
+                <dd>Trắng, Hồng, Xanh dương, Xanh lá</dd>
+                <dt>Hiệu quả</dt>
+                <dd>Giữ nóng 8h • Giữ lạnh đến 12h</dd>
+                <dt>Kích thước</dt>
+                <dd>8.5 × 18.5 cm (vừa hộc ly ô tô)</dd>
+              </dl>
+              <a href="order.html" class="btn btn--cta btn--block"
+                >Đặt hàng ngay</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 6. USP ========== -->
+      <section class="section section--tint" id="dac-diem">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">ĐIỂM NỔI BẬT</span>
+            <h2 class="title" style="margin-bottom: 0">
+              Điều gì tạo nên TT Bottly?
+            </h2>
+            <p class="section-subtitle">
+              Từng chi tiết được hoàn thiện cẩn trọng nhằm đem lại sự tiện nghi
+              và an tâm tối đa trong từng ngụm nước.
+            </p>
+          </div>
+
+          <div class="grid grid--3 usp-grid">
+            <!-- USP 1 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">01</div>
+              <h3 class="usp-title">Khả năng giữ nhiệt</h3>
+              <p class="usp-desc">
+                Giúp đồ uống duy trì nhiệt độ lâu hơn trong quá trình sử dụng
+                hàng ngày, thích hợp cho cả đồ uống nóng và lạnh.
+              </p>
+            </article>
+
+            <!-- USP 2 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">02</div>
+              <h3 class="usp-title">Chất liệu an toàn</h3>
+              <p class="usp-desc">
+                Inox 304 – chất liệu phổ biến trong các sản phẩm đồ uống cao
+                cấp, chống ăn mòn và bảo đảm vệ sinh thực phẩm.
+              </p>
+            </article>
+
+            <!-- USP 3 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">03</div>
+              <h3 class="usp-title">Thiết kế tiện dụng</h3>
+              <p class="usp-desc">
+                Thiết kế phù hợp để mang theo khi đi học, đi làm hoặc di chuyển,
+                vừa vặn trên hầu hết giá đỡ cốc tiêu chuẩn.
+              </p>
+            </article>
+
+            <!-- USP 4 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">04</div>
+              <h3 class="usp-title">Thiết kế chống rò rỉ</h3>
+              <p class="usp-desc">
+                Nắp đậy kín khít kết hợp gioăng silicone an toàn giúp hạn chế rò
+                rỉ nước khi để trong túi xách hoặc ba lô.
+              </p>
+            </article>
+
+            <!-- USP 5 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">05</div>
+              <h3 class="usp-title">Dễ vệ sinh</h3>
+              <p class="usp-desc">
+                Cấu tạo miệng rộng và các chi tiết tháo lắp linh hoạt giúp việc
+                vệ sinh và sử dụng hàng ngày thuận tiện hơn.
+              </p>
+            </article>
+
+            <!-- USP 6 -->
+            <article class="usp-card reveal">
+              <div class="usp-number">06</div>
+              <h3 class="usp-title">Kiểu dáng hiện đại</h3>
+              <p class="usp-desc">
+                Thiết kế tối giản, màu sắc trang nhã, phù hợp với phong cách của
+                cả nam và nữ trong nhiều hoàn cảnh.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 7. GIỮ NHIỆT ========== -->
+      <section class="section" id="giu-nhiet">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">HIỆU QUẢ CÁCH NHIỆT</span>
+            <h2 class="title" style="margin-bottom: 0">
+              Giữ nhiệt theo cách bạn cần
+            </h2>
+            <p class="section-subtitle">
+              Cấu trúc lớp chân không kép giúp ngăn chặn thất thoát nhiệt ra môi
+              trường ngoài, phù hợp linh hoạt với mọi sở thích uống nước.
+            </p>
+          </div>
+
+          <div class="grid grid--2 thermal-grid">
+            <!-- Hot Drink Card -->
+            <article class="thermal-card thermal-hot reveal">
+              <div class="thermal-icon-pill hot-pill">
+                <span class="icon-emoji">🔥</span>
+                <span>ĐỒ UỐNG NÓNG</span>
+              </div>
+              <h3 class="thermal-card-title">Ấm Áp Suốt Ngày Dài</h3>
+              <p class="thermal-card-desc">
+                Phù hợp cho cà phê sáng nóng hổi, trà thảo mộc, hoặc nước ấm
+                dưỡng sinh. Giữ trọn hơi ấm và hương vị tự nhiên mà không làm
+                nóng tay khi cầm.
+              </p>
+              <div class="thermal-metric">
+                <span class="metric-label">Khả năng giữ ấm thực tế:</span>
+                <span class="metric-value">8 giờ</span>
+              </div>
+              <ul class="thermal-features">
+                <li>✓ Không tỏa nhiệt ra thành cốc ngoài</li>
+                <li>✓ Nắp đậy hạn chế thất thoát hơi nóng</li>
+                <li>✓ Giữ vị trà/cà phê thơm đậm đà</li>
+              </ul>
+            </article>
+
+            <!-- Cold Drink Card -->
+            <article class="thermal-card thermal-cold reveal">
+              <div class="thermal-icon-pill cold-pill">
+                <span class="icon-emoji">❄️</span>
+                <span>ĐỒ UỐNG LẠNH</span>
+              </div>
+              <h3 class="thermal-card-title">Mát Lạnh Sảng Khoái</h3>
+              <p class="thermal-card-desc">
+                Lý tưởng cho cà phê đá, nước ép trái cây mát lạnh, sinh tố hay
+                nước detox. Giải nhiệt tức thì trong những ngày nắng nóng hoặc
+                sau giờ tập luyện.
+              </p>
+              <div class="thermal-metric">
+                <span class="metric-label">Khả năng giữ lạnh thực tế:</span>
+                <span class="metric-value">12 giờ</span>
+              </div>
+              <ul class="thermal-features">
+                <li>✓ Không đọng sương, ướt tay hay ướt bàn</li>
+                <li>✓ Đá viên lâu tan, giữ nguyên độ đậm đặc</li>
+                <li>✓ Miệng cốc vừa vặn cho các kích thước đá</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="thermal-disclaimer center reveal">
+            <p class="small-text">
+              * Thời gian giữ nhiệt phụ thuộc vào nhiệt độ môi trường, tần suất
+              mở nắp và lượng đồ uống ban đầu.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 8. LIFESTYLE ========== -->
+      <section class="section section--tint" id="lifestyle">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">ĐỒNG HÀNH MỌI LÚC</span>
+            <h2 class="title" style="margin-bottom: 0">
+              TT Bottly đồng hành cùng bạn mỗi ngày
+            </h2>
+            <p class="section-subtitle">
+              Dù bạn ở giảng đường, văn phòng hay trên những cung đường di
+              chuyển, TT Bottly luôn là người bạn đồng hành tin cậy.
+            </p>
+          </div>
+
+          <div class="grid grid--4 lifestyle-grid">
+            <!-- Card 1: Đi học -->
+            <article class="lifestyle-card reveal">
+              <div class="lifestyle-img-wrap">
+                <img
+                  src="images/xanhla.jpg"
+                  alt="Cốc TT Bottly khi đi học"
+                  width="300"
+                  height="220"
+                  loading="lazy"
+                />
+              </div>
+              <div class="lifestyle-body">
+                <h3 class="lifestyle-title">ĐI HỌC</h3>
+                <p class="lifestyle-desc">
+                  Mang theo nước uống thuận tiện trong ngày học dài, gọn gàng
+                  trong ngăn cặp sách hay ba lô sinh viên.
+                </p>
+              </div>
+            </article>
+
+            <!-- Card 2: Đi làm -->
+            <article class="lifestyle-card reveal">
+              <div class="lifestyle-img-wrap">
+                <img
+                  src="images/congdung.jpg
+                  "
+                  alt="Cốc TT Bottly tại nơi làm việc"
+                  width="300"
+                  height="220"
+                  loading="lazy"
+                />
+              </div>
+              <div class="lifestyle-body">
+                <h3 class="lifestyle-title">ĐI LÀM</h3>
+                <p class="lifestyle-desc">
+                  Luôn có đồ uống yêu thích bên cạnh bàn làm việc công sở, duy
+                  trì sự tỉnh táo và phong thái chuyên nghiệp.
+                </p>
+              </div>
+            </article>
+
+            <!-- Card 3: Di chuyển -->
+            <article class="lifestyle-card reveal">
+              <div class="lifestyle-img-wrap">
+                <img
+                  src="images/trang.jpg"
+                  alt="Cốc TT Bottly khi di chuyển trên xe"
+                  width="300"
+                  height="220"
+                  loading="lazy"
+                />
+              </div>
+              <div class="lifestyle-body">
+                <h3 class="lifestyle-title">DI CHUYỂN</h3>
+                <p class="lifestyle-desc">
+                  Thiết kế thuận tiện để mang theo trên ô tô, xe máy, xe buýt mà
+                  không lo rò rỉ nước hay vướng víu.
+                </p>
+              </div>
+            </article>
+
+            <!-- Card 4: Tập luyện -->
+            <article class="lifestyle-card reveal">
+              <div class="lifestyle-img-wrap">
+                <img
+                  src="images/tapluyen.jpg"
+                  alt="Cốc TT Bottly khi tập luyện thể thao"
+                  width="300"
+                  height="220"
+                  loading="lazy"
+                />
+              </div>
+              <div class="lifestyle-body">
+                <h3 class="lifestyle-title">TẬP LUYỆN</h3>
+                <p class="lifestyle-desc">
+                  Hỗ trợ bổ sung nước kịp thời trong quá trình vận động thể
+                  thao, gym hay các hoạt động ngoài trời năng động.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 9. SO SÁNH ========== -->
+      <section class="section" id="so-sanh">
+        <div class="container container--narrow">
+          <div class="section-header reveal">
+            <span class="section-tag">SO SÁNH THỰC TẾ</span>
+            <h2 class="title" style="margin-bottom: 0">
+              TT Bottly khác biệt ở đâu?
+            </h2>
+            <p class="section-subtitle">
+              Cùng xem sự khác biệt rõ rệt giữa một chiếc cốc thông thường và
+              cốc giữ nhiệt cao cấp TT Bottly.
+            </p>
+          </div>
+          <div class="table-wrap reveal">
+            <table class="compare">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 25%">Tiêu chí</th>
+                  <th scope="col" style="width: 35%">Cốc thông thường</th>
+                  <th scope="col" class="th--brand" style="width: 40%">
+                    <div class="brand-badge-col">
+                      <span>TT Bottly</span>
+                      <span class="sub-badge">Khuyên dùng</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Khả năng giữ nhiệt</th>
+                  <td>
+                    <span class="status-cross">✕</span> Nhanh mất nhiệt sau 1–2
+                    giờ, đọng nước ngoài thành cốc
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Cấu trúc cách nhiệt chân không</strong>, duy trì
+                    nhiệt độ ổn định hơn
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Thiết kế & Hoàn thiện</th>
+                  <td>
+                    <span class="status-cross">✕</span> Vật liệu mỏng, dễ móp
+                    méo, gia công thô sơ
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Hiện đại, tinh tế</strong>, hoàn thiện tỉ mỉ từng
+                    góc cạnh
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Khả năng mang theo</th>
+                  <td>
+                    <span class="status-cross">✕</span> Dễ tràn hoặc nhỏ giọt
+                    khi rung lắc hoặc nghiêng cốc
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Nắp kín khít kết hợp gioăng silicone</strong>, hạn
+                    chế rò rỉ khi di chuyển
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Độ tiện lợi vệ sinh</th>
+                  <td>
+                    <span class="status-cross">✕</span> Miệng nhỏ, khó chùi rửa,
+                    dễ bám cặn ố mùi lâu ngày
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Miệng cốc rộng rãi</strong>, dễ dàng luồn tay hoặc
+                    cọ rửa sạch sẽ
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Tính tiện dụng</th>
+                  <td>
+                    <span class="status-cross">✕</span> Bất tiện khi mang đi xa,
+                    chỉ thích hợp đặt cố định
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Vừa vặn hộc ô tô</strong>, dễ cầm nắm một tay khi di
+                    chuyển
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Dùng hằng ngày</th>
+                  <td>
+                    <span class="status-cross">✕</span> Tuổi thọ ngắn, nhanh
+                    hỏng ren nắp sau thời gian ngắn
+                  </td>
+                  <td class="td--brand">
+                    <span class="status-check">✓</span>
+                    <strong>Chất liệu bền bỉ</strong>, đồng hành lâu dài cùng
+                    người dùng
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 10. REVIEW ========== -->
+      <section class="section section--tint" id="danh-gia">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-tag">PHẢN HỒI NGƯỜI DÙNG</span>
+            <h2 class="title" style="margin-bottom: 0">
+              Khách hàng nói gì về TT Bottly?
+            </h2>
+            <p class="section-subtitle">
+              Cảm nhận và chia sẻ thực tế từ những người đã trải nghiệm cốc giữ
+              nhiệt TT Bottly mỗi ngày.
+            </p>
+          </div>
+
+          <div class="grid grid--3 reviews-grid">
+            <!-- Review Card 1 -->
+            <article class="review-card reveal">
+              <div class="review-stars" aria-label="Đánh giá 5 sao">★★★★★</div>
+              <p class="review-quote">
+                "[REVIEW KHÁCH HÀNG THỰC TẾ: 'Cốc cầm rất chắc tay, sơn nhám
+                chống bám vân tay rất ưng. Cà phê sáng pha để đến chiều vẫn ấm
+                dễ chịu, mang đi làm hằng ngày rất tiện.']"
+              </p>
+              <div class="reviewer-meta">
+                <div class="reviewer-avatar">
+                  <span>MA</span>
+                </div>
+                <div class="reviewer-info">
+                  <h3 class="reviewer-name">Minh Anh</h3>
+                  <span class="reviewer-role">Nhân viên văn phòng</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review Card 2 -->
+            <article class="review-card reveal">
+              <div class="review-stars" aria-label="Đánh giá 5 sao">★★★★★</div>
+              <p class="review-quote">
+                "[REVIEW KHÁCH HÀNG THỰC TẾ: 'Miệng cốc rộng nên pha nước chanh
+                đá hay cà phê cực kỳ tiện, việc rửa cốc vào cuối ngày cũng nhanh
+                chóng không bị đọng cặn như mấy bình cũ.']"
+              </p>
+              <div class="reviewer-meta">
+                <div class="reviewer-avatar">
+                  <span>TH</span>
+                </div>
+                <div class="reviewer-info">
+                  <h3 class="reviewer-name">Tuấn Hoàng</h3>
+                  <span class="reviewer-role">Kỹ sư công nghệ</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Review Card 3 -->
+            <article class="review-card reveal">
+              <div class="review-stars" aria-label="Đánh giá 5 sao">★★★★★</div>
+              <p class="review-quote">
+                "[REVIEW KHÁCH HÀNG THỰC TẾ: 'Màu sắc tối giản rất hợp gu của
+                mình. Đặt trong hộc xe hơi vừa in, đậy nắp khít nên khi đi làm
+                qua mấy đoạn gờ giảm tốc cũng không lo tràn nước.']"
+              </p>
+              <div class="reviewer-meta">
+                <div class="reviewer-avatar">
+                  <span>PT</span>
+                </div>
+                <div class="reviewer-info">
+                  <h3 class="reviewer-name">Phương Thảo</h3>
+                  <span class="reviewer-role">Freelancer / Sinh viên</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="reviews-note center reveal">
+            <p class="small-text">
+              * Các phản hồi hiển thị dựa trên cảm nhận trải nghiệm sản phẩm
+              thực tế từ khách hàng mua hàng.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========== 15. FOOTER ========== -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <p class="footer__brand">TT BOTTLY</p>
+          <p>
+            Thương hiệu thuộc<br /><strong
+              >Công ty TNHH Thương mại Aquabottle Việt Nam</strong
+            >
+          </p>
+          <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8">
+            Cốc giữ nhiệt chất lượng cao đồng hành cùng bạn trên mọi hành trình.
+          </p>
+        </div>
+        <ul>
+          <li>Hotline: <a href="tel:0363409513">0363 409 513</a> (8h00 - 21h00)</li>
+          <li>Email: <a href="mailto:tranganh213206@gmail.com">tranganh213206@gmail.com</a></li>
+          <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+          <li>
+            <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook Official</a> ·
+            <a href="#" rel="noopener">TikTok Shop</a>
+          </li>
+        </ul>
+        <ul>
+          <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+          <li><a href="warranty.html">Chính sách bảo mật thông tin</a></li>
+          <li><a href="warranty.html">Chính sách giao hàng toàn quốc</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">
+        © 2026 TT Bottly Việt Nam. All rights reserved.
+      </p>
+    </footer>
+
+    <!-- Floating CTA (mobile) -->
+    <a href="order.html" class="float-cta" id="floatCta">🔥 ĐẶT HÀNG NGAY</a>
+
+    <!-- Back to top -->
+    <button class="to-top" id="toTop" aria-label="Lên đầu trang">↑</button>
+
+    <script src="script.js"></script>
+    <script src="auth-nav.js" defer></script>
+  </body>
+</html>
