@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TT Bottly Website</title>
+    <meta
+      name="description"
+      content="Đăng ký, đăng nhập tài khoản thành viên TT Bottly để quản lý đơn hàng, lưu địa chỉ giao hàng và nhận mã voucher ưu đãi độc quyền."
+    />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="auth.css" />
+  </head>
+
+  <body class="auth-page">
+    <!-- ========== 1. HEADER ========== -->
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <div class="header__left">
+          <a
+            href="index.html"
+            class="logo"
+            aria-label="TT Bottly – về trang chủ"
+          >
+            <img src="logo.png" alt="TT Bottly" class="logo__image" />
+            <span class="logo__text">TT BOTTLY</span>
+          </a>
+        </div>
+
+        <nav class="nav" id="nav" aria-label="Menu chính">
+          <a href="index.html">Trang chủ</a>
+          <a href="about.html">Về chúng tôi</a>
+          <a href="product.html">Sản phẩm</a>
+          <a href="order.html">Đặt hàng</a>
+          <a href="support.html">Hỗ trợ</a>
+          <a href="auth.html" class="is-active" aria-current="page" id="navAccountLink">Tài khoản</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container auth-container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Đường dẫn trang">
+          <a href="index.html">Trang chủ</a>
+          <span>›</span>
+          <span class="current" id="breadcrumbCurrent"
+            >Tài khoản & Đăng nhập</span
+          >
+        </nav>
+
+        <!-- ==========================================
+           SECTION A: AUTH BOX (Khi chưa đăng nhập)
+           ========================================== -->
+        <div class="auth-box-wrapper" id="authBox">
+          <div class="auth-card">
+            <div class="auth-card__header">
+              <span class="auth-badge">TT BOTTLY MEMBERSHIP</span>
+              <h1 class="auth-card__title" id="authTitle">
+                Chào mừng bạn quay lại
+              </h1>
+              <p class="auth-card__subtitle" id="authSubtitle">
+                Đăng nhập tài khoản để quản lý đơn hàng và tích lũy điểm thưởng
+              </p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="auth-tabs" role="tablist">
+              <button
+                type="button"
+                class="auth-tab-btn is-active"
+                id="tabLoginBtn"
+                role="tab"
+                aria-selected="true"
+                aria-controls="loginFormPanel"
+              >
+                Đăng nhập
+              </button>
+              <button
+                type="button"
+                class="auth-tab-btn"
+                id="tabRegisterBtn"
+                role="tab"
+                aria-selected="false"
+                aria-controls="registerFormPanel"
+              >
+                Đăng ký mới
+              </button>
+            </div>
+
+            <!-- Alert / Demo Account Banner -->
+            <div class="demo-account-banner" id="demoBanner">
+              <div class="demo-banner__text">
+                <strong>Tài khoản thử nghiệm:</strong>
+                <code>demo@bottly.vn</code> / <code>123456</code>
+              </div>
+              <button
+                type="button"
+                class="btn-demo-fill"
+                id="btnFillDemo"
+                title="Điền thông tin demo tự động"
+              >
+                Điền nhanh
+              </button>
+            </div>
+
+            <!-- Status Message / Alert Box -->
+            <div class="auth-alert" id="authAlert" role="alert" hidden></div>
+
+            <!-- PANEL 1: LOGIN FORM -->
+            <div
+              class="auth-panel is-active"
+              id="loginFormPanel"
+              role="tabpanel"
+              aria-labelledby="tabLoginBtn"
+            >
+              <form id="loginForm" novalidate>
+                <div class="field">
+                  <label for="loginIdentifier"
+                    >Email hoặc Số điện thoại *</label
+                  >
+                  <input
+                    type="text"
+                    id="loginIdentifier"
+                    name="loginIdentifier"
+                    placeholder="name@example.com hoặc 0912345678"
+                    autocomplete="username"
+                    required
+                  />
+                  <small
+                    class="error"
+                    id="loginIdError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <div class="field">
+                  <div class="field-label-row">
+                    <label for="loginPassword">Mật khẩu *</label>
+                    <a href="#forgot" class="forgot-link" id="btnForgotPwd"
+                      >Quên mật khẩu?</a
+                    >
+                  </div>
+                  <div class="pwd-input-wrap">
+                    <input
+                      type="password"
+                      id="loginPassword"
+                      name="loginPassword"
+                      placeholder="••••••••"
+                      autocomplete="current-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      class="btn-toggle-pwd"
+                      data-target="loginPassword"
+                      aria-label="Hiện/ẩn mật khẩu"
+                    >
+                      Hiện
+                    </button>
+                  </div>
+                  <small
+                    class="error"
+                    id="loginPwdError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <div class="auth-row-options">
+                  <label class="remember-checkbox">
+                    <input type="checkbox" id="rememberMe" checked />
+                    <span>Ghi nhớ đăng nhập</span>
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn--cta btn-auth-submit"
+                  id="btnLoginSubmit"
+                >
+                  <span>Đăng nhập ngay</span>
+                </button>
+
+                <div class="auth-divider">
+                  <span>Hoặc đăng nhập nhanh bằng</span>
+                </div>
+
+                <div class="social-login-grid">
+                  <button
+                    type="button"
+                    class="social-btn social-btn--google"
+                    id="btnGoogleLogin"
+                  >
+                    Google
+                  </button>
+                  <button
+                    type="button"
+                    class="social-btn social-btn--facebook"
+                    id="btnFacebookLogin"
+                  >
+                    Facebook
+                  </button>
+                </div>
+
+                <div class="auth-switch-prompt">
+                  Chưa có tài khoản TT Bottly?
+                  <button type="button" class="switch-link" id="linkToRegister">
+                    Đăng ký ngay
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- PANEL 2: REGISTER FORM -->
+            <div
+              class="auth-panel"
+              id="registerFormPanel"
+              role="tabpanel"
+              aria-labelledby="tabRegisterBtn"
+            >
+              <form id="registerForm" novalidate>
+                <div class="field">
+                  <label for="regFullname">Họ và tên của bạn *</label>
+                  <input
+                    type="text"
+                    id="regFullname"
+                    name="regFullname"
+                    placeholder="Nguyễn Văn A"
+                    autocomplete="name"
+                    required
+                  />
+                  <small
+                    class="error"
+                    id="regNameError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="regEmail">Địa chỉ Email *</label>
+                    <input
+                      type="email"
+                      id="regEmail"
+                      name="regEmail"
+                      placeholder="example@email.com"
+                      autocomplete="email"
+                      required
+                    />
+                    <small
+                      class="error"
+                      id="regEmailError"
+                      aria-live="polite"
+                    ></small>
+                  </div>
+
+                  <div class="field">
+                    <label for="regPhone">Số điện thoại *</label>
+                    <input
+                      type="tel"
+                      id="regPhone"
+                      name="regPhone"
+                      placeholder="0912345678"
+                      inputmode="tel"
+                      autocomplete="tel"
+                      required
+                    />
+                    <small
+                      class="error"
+                      id="regPhoneError"
+                      aria-live="polite"
+                    ></small>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="regPassword">Mật khẩu mới *</label>
+                  <div class="pwd-input-wrap">
+                    <input
+                      type="password"
+                      id="regPassword"
+                      name="regPassword"
+                      placeholder="Ít nhất 6 ký tự"
+                      autocomplete="new-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      class="btn-toggle-pwd"
+                      data-target="regPassword"
+                      aria-label="Hiện/ẩn mật khẩu"
+                    >
+                      Hiện
+                    </button>
+                  </div>
+                  <!-- Password Strength Meter -->
+                  <div class="pwd-strength" id="pwdStrengthBar">
+                    <div class="pwd-strength-track">
+                      <div class="pwd-strength-bar" id="pwdStrengthFill"></div>
+                    </div>
+                    <span class="pwd-strength-text" id="pwdStrengthText"
+                      >Độ mạnh mật khẩu</span
+                    >
+                  </div>
+                  <small
+                    class="error"
+                    id="regPwdError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <div class="field">
+                  <label for="regConfirmPassword">Xác nhận mật khẩu *</label>
+                  <div class="pwd-input-wrap">
+                    <input
+                      type="password"
+                      id="regConfirmPassword"
+                      name="regConfirmPassword"
+                      placeholder="Nhập lại mật khẩu"
+                      autocomplete="new-password"
+                      required
+                    />
+                    <button
+                      type="button"
+                      class="btn-toggle-pwd"
+                      data-target="regConfirmPassword"
+                      aria-label="Hiện/ẩn mật khẩu"
+                    >
+                      Hiện
+                    </button>
+                  </div>
+                  <small
+                    class="error"
+                    id="regConfirmError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <div class="field">
+                  <label for="regAddress"
+                    >Địa chỉ nhận hàng (Không bắt buộc)</label
+                  >
+                  <input
+                    type="text"
+                    id="regAddress"
+                    name="regAddress"
+                    placeholder="Số nhà, tên đường, quận/huyện..."
+                  />
+                  <span
+                    class="field-hint"
+                    style="
+                      font-size: 12px;
+                      color: var(--muted);
+                      margin-top: 4px;
+                      display: block;
+                    "
+                    >Địa chỉ này sẽ tự động điền khi bạn đặt hàng trên trang
+                    web</span
+                  >
+                </div>
+
+                <div class="auth-row-options">
+                  <label class="remember-checkbox terms-checkbox">
+                    <input type="checkbox" id="regTerms" required checked />
+                    <span
+                      >Tôi đồng ý với
+                      <a href="support.html" target="_blank"
+                        >Điều khoản sử dụng</a
+                      >
+                      &
+                      <a href="support.html" target="_blank"
+                        >Chính sách bảo mật</a
+                      ></span
+                    >
+                  </label>
+                  <small
+                    class="error"
+                    id="regTermsError"
+                    aria-live="polite"
+                  ></small>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn--cta btn-auth-submit"
+                  id="btnRegisterSubmit"
+                >
+                  <span>Tạo tài khoản mới</span>
+                </button>
+
+                <div class="auth-switch-prompt">
+                  Bạn đã có tài khoản?
+                  <button type="button" class="switch-link" id="linkToLogin">
+                    Đăng nhập ngay
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==========================================
+           SECTION B: USER PROFILE DASHBOARD (Khi đã đăng nhập)
+           ========================================== -->
+        <div class="profile-dashboard-wrapper" id="profileBox" hidden>
+          <!-- Profile Hero Header -->
+          <div class="profile-hero">
+            <div class="profile-hero__inner">
+              <div class="profile-avatar" id="profileAvatar">TB</div>
+              <div class="profile-info">
+                <div class="profile-badges">
+                  <span class="badge-vip">Thành viên Thân Thiết</span>
+                  <span class="badge-status">Đang hoạt động</span>
+                </div>
+                <h2 class="profile-name" id="profileNameDisplay">
+                  Nguyễn Văn A
+                </h2>
+                <div class="profile-meta">
+                  <span id="profileEmailDisplay">email@example.com</span>
+                  <span id="profilePhoneDisplay">0912345678</span>
+                </div>
+              </div>
+              <div class="profile-actions">
+                <a href="order.html" class="btn btn--cta btn-profile-order">
+                  <span>Đặt hàng mới</span>
+                </a>
+                <button
+                  type="button"
+                  class="btn btn--ghost btn-logout"
+                  id="btnLogout"
+                >
+                  <span>Đăng xuất</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Stats Counters -->
+          <div class="profile-stats-grid">
+            <div class="stat-card">
+              <div class="stat-card__content">
+                <div class="stat-card__num" id="statOrdersCount">0</div>
+                <div class="stat-card__label">Đơn hàng đã đặt</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__content">
+                <div class="stat-card__num" id="statPoints">150</div>
+                <div class="stat-card__label">Điểm tích lũy</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__content">
+                <div class="stat-card__num">3</div>
+                <div class="stat-card__label">Mã ưu đãi khả dụng</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__content">
+                <div class="stat-card__num">12T</div>
+                <div class="stat-card__label">Bảo hành chính hãng</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two Columns Layout: Profile Edit + Orders History -->
+          <div class="profile-content-grid">
+            <!-- Column 1: Thông tin cá nhân & Địa chỉ -->
+            <div class="profile-card">
+              <div class="profile-card__header">
+                <h3>Thông tin cá nhân & Địa chỉ nhận hàng</h3>
+                <p>
+                  Thông tin này được lưu trên trình duyệt và tự động điền vào
+                  form khi bạn đặt hàng.
+                </p>
+              </div>
+
+              <form id="updateProfileForm" novalidate>
+                <div class="field">
+                  <label for="editFullname">Họ và tên *</label>
+                  <input
+                    type="text"
+                    id="editFullname"
+                    name="editFullname"
+                    required
+                  />
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="editEmail">Email (Dùng đăng nhập) *</label>
+                    <input
+                      type="email"
+                      id="editEmail"
+                      name="editEmail"
+                      required
+                      readonly
+                      style="background: #f1f5f3; cursor: not-allowed"
+                    />
+                  </div>
+                  <div class="field">
+                    <label for="editPhone">Số điện thoại *</label>
+                    <input
+                      type="tel"
+                      id="editPhone"
+                      name="editPhone"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="editAddress">Địa chỉ nhận hàng mặc định</label>
+                  <input
+                    type="text"
+                    id="editAddress"
+                    name="editAddress"
+                    placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
+                  />
+                </div>
+
+                <div class="profile-card__footer">
+                  <button
+                    type="submit"
+                    class="btn btn--primary"
+                    id="btnSaveProfile"
+                  >
+                    <span>Lưu thay đổi</span>
+                  </button>
+                  <span
+                    class="save-feedback"
+                    id="saveFeedback"
+                    aria-live="polite"
+                  ></span>
+                </div>
+              </form>
+            </div>
+
+            <!-- Column 2: Đơn hàng gần đây & Voucher của tôi -->
+            <div class="profile-card">
+              <div class="profile-card__header">
+                <h3>Lịch sử đơn hàng gần đây</h3>
+                <p>Danh sách các đơn hàng bạn đã đặt trên TT Bottly.</p>
+              </div>
+
+              <!-- Orders Container -->
+              <div class="order-history-list" id="orderHistoryList">
+                <!-- Rendered via JavaScript from localStorage -->
+              </div>
+
+              <!-- Exclusive Vouchers Section -->
+              <div class="vouchers-section">
+                <h4 class="vouchers-title">Ưu đãi dành riêng cho bạn</h4>
+                <div class="voucher-cards">
+                  <div class="voucher-item">
+                    <div class="voucher-left">
+                      <span class="voucher-discount">GIẢM 10%</span>
+                      <span class="voucher-code">GIAM10</span>
+                    </div>
+                    <div class="voucher-right">
+                      <div class="voucher-desc">
+                        Giảm ngay 10% tổng đơn hàng đầu tiên
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-copy-code"
+                        data-code="GIAM10"
+                      >
+                        Sao chép
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="voucher-item">
+                    <div class="voucher-left">
+                      <span class="voucher-discount">FREESHIP</span>
+                      <span class="voucher-code">FREESHIP</span>
+                    </div>
+                    <div class="voucher-right">
+                      <div class="voucher-desc">
+                        Miễn phí ship toàn quốc cho đơn từ 200k
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-copy-code"
+                        data-code="FREESHIP"
+                      >
+                        Sao chép
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="voucher-item">
+                    <div class="voucher-left">
+                      <span class="voucher-discount">-20.000₫</span>
+                      <span class="voucher-code">BOTTLY20</span>
+                    </div>
+                    <div class="voucher-right">
+                      <div class="voucher-desc">
+                        Trừ trực tiếp 20k khi mua combo bình kèm túi
+                      </div>
+                      <button
+                        type="button"
+                        class="btn-copy-code"
+                        data-code="BOTTLY20"
+                      >
+                        Sao chép
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ==========================================
+       FORGOT PASSWORD MODAL
+       ========================================== -->
+    <div
+      class="modal"
+      id="forgotModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalForgotTitle"
+      hidden
+    >
+      <div class="modal__box auth-modal-box">
+        <button
+          type="button"
+          class="modal-close-corner"
+          id="btnCloseForgotCorner"
+          aria-label="Đóng popup"
+        >
+          ×
+        </button>
+        <h3 id="modalForgotTitle">Khôi phục mật khẩu</h3>
+        <p>
+          Nhập email đăng ký của bạn, hệ thống sẽ hỗ trợ lấy lại quyền truy cập
+          tài khoản.
+        </p>
+
+        <form id="forgotForm" novalidate style="margin-top: 16px">
+          <div class="field" style="text-align: left">
+            <label for="forgotEmail">Email đã đăng ký *</label>
+            <input
+              type="email"
+              id="forgotEmail"
+              placeholder="name@example.com"
+              required
+            />
+            <small class="error" id="forgotError"></small>
+          </div>
+
+          <div id="forgotResult" class="forgot-result-box" hidden></div>
+
+          <div style="display: flex; gap: 10px; margin-top: 20px">
+            <button
+              type="button"
+              class="btn btn--ghost"
+              id="btnCloseForgot"
+              style="flex: 1"
+            >
+              Đóng
+            </button>
+            <button
+              type="submit"
+              class="btn btn--cta"
+              id="btnSubmitForgot"
+              style="flex: 1"
+            >
+              Khôi phục
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ==========================================
+       LOGOUT CONFIRMATION MODAL (Popup xác nhận đăng xuất)
+       ========================================== -->
+    <div
+      class="modal auth-logout-modal"
+      id="logoutModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalLogoutTitle"
+      aria-describedby="modalLogoutDesc"
+      hidden
+    >
+      <div class="modal__box auth-logout-box">
+        <button
+          type="button"
+          class="modal-close-corner"
+          id="btnCloseLogoutModal"
+          aria-label="Đóng popup"
+        >
+          ×
+        </button>
+        <div class="logout-modal-icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="30"
+            height="30"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </div>
+        <h3 id="modalLogoutTitle">Xác nhận đăng xuất</h3>
+        <p id="modalLogoutDesc">
+          Bạn có chắc chắn muốn đăng xuất khỏi tài khoản TT Bottly trên thiết bị
+          này không?
+        </p>
+
+        <div class="logout-modal-actions">
+          <button type="button" class="btn btn--ghost" id="btnCancelLogout">
+            Ở lại
+          </button>
+          <button
+            type="button"
+            class="btn btn-confirm-logout"
+            id="btnConfirmLogout"
+          >
+            Đăng xuất
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="auth-toast-wrap" id="toastContainer" aria-live="polite"></div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <p class="footer__brand">TT BOTTLY</p>
+          <p>
+            Thương hiệu thuộc<br /><strong
+              >Công ty TNHH Thương mại Aquabottle Việt Nam</strong
+            >
+          </p>
+          <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8">
+            Cốc giữ nhiệt chất lượng cao đồng hành cùng bạn trên mọi hành trình.
+          </p>
+        </div>
+        <ul>
+          <li>Hotline: <a href="tel:0363409513">0363 409 513</a> (8h00 - 21h00)</li>
+          <li>Email: <a href="mailto:tranganh213206@gmail.com">tranganh213206@gmail.com</a></li>
+          <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+          <li>
+            <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook Official</a> ·
+            <a href="#" rel="noopener">TikTok Shop</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="about.html">Về chúng tôi & Câu chuyện thương hiệu</a>
+          </li>
+          <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+          <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">
+        © 2026 TT Bottly Việt Nam. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="auth-nav.js" defer></script>
+  </body>
+</html>

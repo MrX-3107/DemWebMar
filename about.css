@@ -1,0 +1,442 @@
+/* =========================================================
+   TT Bottly – About Us (Về Chúng Tôi) Page Styles
+   Đồng bộ phong cách thiết kế sang trọng & hiện đại của gg site
+   ========================================================= */
+
+.about-page {
+  background-color: #f5f0e6;
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* =========================================
+   1. HERO SECTION
+   ========================================= */
+.about-hero {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(14, 41, 32, 0.94) 0%,
+      rgba(22, 62, 49, 0.88) 100%
+    ),
+    url("banner2.jpg") center/cover no-repeat;
+  color: var(--white);
+  padding: 68px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 100, 51, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.about-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  background: rgba(255, 100, 51, 0.2);
+  border: 1px solid rgba(255, 100, 51, 0.5);
+  color: #ff9d76;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.about-hero h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  margin-bottom: 18px;
+  letter-spacing: -0.02em;
+}
+
+.about-hero h1 span {
+  color: var(--cta);
+  text-shadow: 0 4px 20px rgba(255, 100, 51, 0.4);
+}
+
+.about-hero p {
+  max-width: 720px;
+  margin: 0 auto 36px;
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 4 Thống kê ấn tượng */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .about-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.about-stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.about-stat-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-4px);
+  border-color: rgba(255, 100, 51, 0.5);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.about-stat-num {
+  font-size: clamp(26px, 3.5vw, 34px);
+  font-weight: 800;
+  color: var(--cta);
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.about-stat-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+/* =========================================
+   2. COMMON SECTION & GRID
+   ========================================= */
+.about-section {
+  padding: 68px 0;
+}
+
+.about-section--tint {
+  background: #edf4f0;
+}
+
+.about-story-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 880px) {
+  .about-story-grid {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 56px;
+  }
+  .about-story-grid--reverse .about-story-media {
+    order: 2;
+  }
+  .about-story-grid--reverse .about-story-content {
+    order: 1;
+  }
+}
+
+.about-story-media {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 18px 46px rgba(14, 41, 32, 0.12);
+  background: var(--white);
+  border: 1px solid rgba(14, 41, 32, 0.08);
+}
+
+.about-story-img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.about-story-media:hover .about-story-img {
+  transform: scale(1.03);
+}
+
+.about-story-media__badge {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  background: rgba(14, 41, 32, 0.88);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.about-story-content h2 {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.about-story-content p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.about-highlight-box {
+  background: #e6f3ec;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 14px 14px 0;
+  padding: 18px 22px;
+  font-size: 15.5px;
+  color: var(--primary);
+  font-weight: 600;
+  font-style: italic;
+  margin: 24px 0;
+  line-height: 1.65;
+  box-shadow: 0 4px 16px rgba(14, 41, 32, 0.04);
+}
+
+.about-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+}
+
+.about-checklist li {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 14px;
+  line-height: 1.6;
+  font-size: 15.5px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.about-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #d8f1e5;
+  color: #0f766e;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================================
+   3. QUALITY PILLARS SECTION
+   ========================================= */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin-top: 40px;
+}
+
+@media (min-width: 640px) {
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pillars-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pillar-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 30px 24px;
+  box-shadow: 0 6px 20px rgba(14, 41, 32, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(14, 41, 32, 0.1);
+  border-color: #a7cfbe;
+}
+
+.pillar-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #edf6f2;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.pillar-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+.pillar-desc {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* =========================================
+   4. B2B & CORPORATE GIFT SECTION
+   ========================================= */
+.b2b-card {
+  background: linear-gradient(135deg, #13362a 0%, #0e2920 100%);
+  color: var(--white);
+  border-radius: 26px;
+  padding: 48px 30px;
+  text-align: center;
+  box-shadow: 0 18px 48px rgba(14, 41, 32, 0.22);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+@media (min-width: 768px) {
+  .b2b-card {
+    padding: 60px 54px;
+  }
+}
+
+.b2b-card::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255, 100, 51, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.b2b-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ff9d76;
+  margin-bottom: 16px;
+}
+
+.b2b-title {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  margin-bottom: 14px;
+  color: #ffffff;
+}
+
+.b2b-desc {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 680px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.b2b-contact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.b2b-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+}
+
+.b2b-pill:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.b2b-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--cta);
+  color: #ffffff;
+  padding: 14px 34px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 15.5px;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(255, 100, 51, 0.4);
+  transition: all 0.25s ease;
+}
+
+.b2b-cta-btn:hover {
+  background: var(--cta-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(255, 100, 51, 0.55);
+}
