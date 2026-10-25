@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       capacity: "500ml",
     },
     "2": {
-      name: "Combo 2 Bình Everyday Daily Duo 500ml",
+      name: "Combo 2 Bình Everyday Daily Duo",
       img: "images/combo2.png",
       variant: "combo",
       capacity: "500ml",
@@ -63,6 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Hồng pastel": "images/hong.jpg",
     "Xanh dương": "images/xanhduong.jpg",
     "Xanh lá": "images/xanhla.jpg",
+    Kem: "images/trang.jpg",
+    "Xanh dương pastel": "images/xanhduong.jpg",
+    "Xanh rêu pastel": "images/xanhla.jpg",
   };
 
   const orderParams = new URLSearchParams(window.location.search);
@@ -76,6 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
     : PRODUCT_CATALOG["2"];
   const initialQuantity = Number.parseInt(orderParams.get("quantity"), 10);
   const initialCapacity = orderParams.get("capacity");
+  const initialCapacity1 = orderParams.get("capacity1");
+  const initialCapacity2 = orderParams.get("capacity2");
   const initialColor = orderParams.get("color");
   const initialEngraving = orderParams.get("engraving") === "true";
   const initialEngravingName = orderParams.get("engravingName") || "";
@@ -88,6 +93,14 @@ document.addEventListener("DOMContentLoaded", () => {
       initialCapacity === "500ml" || initialCapacity === "700ml"
         ? initialCapacity
         : initialProduct.capacity,
+    capacities: [
+      initialCapacity1 === "500ml" || initialCapacity1 === "700ml"
+        ? initialCapacity1
+        : "500ml",
+      initialCapacity2 === "500ml" || initialCapacity2 === "700ml"
+        ? initialCapacity2
+        : "500ml",
+    ],
     qty: Number.isFinite(initialQuantity)
       ? Math.min(99, Math.max(1, initialQuantity))
       : 1,
@@ -172,7 +185,9 @@ document.addEventListener("DOMContentLoaded", () => {
     summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
     summaryProdVariant.textContent =
-      `Dung tích: ${state.capacity}` +
+      (state.productId === "2"
+        ? `Dung tích bình 1: ${state.capacities[0]} | Bình 2: ${state.capacities[1]}`
+        : `Dung tích: ${state.capacity}`) +
       (state.color ? ` | Màu: ${state.color}` : "") +
       ` | SL: ${state.qty}` +
       (activeAddonsList.length
@@ -417,7 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#modalCustomerAddress").textContent =
       `${$("#address").value.trim()}, ${$("#province").options[$("#province").selectedIndex].text}`;
     $("#modalProductInfo").textContent =
-      `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+      `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
 
     let paymentName = "Thanh toán khi nhận hàng (COD)";
     if (state.paymentMethod === "bank")
@@ -432,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const newOrder = {
         id: orderId,
         date: new Date().toLocaleDateString("vi-VN"),
-        product: `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
+        product: `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
         total: totalText,
         status: "Đã xác nhận",
         payment: state.paymentMethod.toUpperCase(),

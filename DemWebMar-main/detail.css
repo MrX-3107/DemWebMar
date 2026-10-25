@@ -175,6 +175,27 @@ a {
 .color-selection .options {
   margin-bottom: 12px;
 }
+.capacity-selection {
+  flex-basis: 100%;
+}
+.capacity-selection__label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.capacity-option {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px 14px;
+  min-height: 42px;
+  cursor: pointer;
+}
+.capacity-option:hover,
+.capacity-option.selected {
+  border-color: var(--orange);
+  color: var(--orange);
+}
 .color-option {
   display: flex;
   align-items: center;
@@ -211,6 +232,12 @@ a {
 }
 .black {
   background: #333;
+}
+.cream {
+  background: #e8ddc9;
+}
+.sage {
+  background: #89917b;
 }
 .yellow {
   background: #f1dc83;
