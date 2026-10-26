@@ -19,12 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
       img: "combo2.png",
       variant: "combo",
       capacity: "500ml",
+      capacitySlots: 2,
     },
     "3": {
       name: "Bộ 3 Bình Everyday Daily Family",
       img: "combo3.png",
       variant: "trio",
       capacity: "500ml",
+      capacitySlots: 3,
     },
     "4": {
       name: "Bình Giữ Nhiệt Sport 700ml",
@@ -76,6 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
     : PRODUCT_CATALOG["2"];
   const initialQuantity = Number.parseInt(orderParams.get("quantity"), 10);
   const initialCapacity = orderParams.get("capacity");
+  const initialCapacities = Array.from(
+    { length: initialProduct.capacitySlots || 0 },
+    (_, index) => {
+      const capacity = orderParams.get(`capacity${index + 1}`);
+      return capacity === "500ml" || capacity === "700ml"
+        ? capacity
+        : initialCapacity === "700ml"
+          ? "700ml"
+          : initialProduct.capacity;
+    },
+  );
   const initialColor = orderParams.get("color");
   const initialEngraving = orderParams.get("engraving") === "true";
   const initialEngravingName = orderParams.get("engravingName") || "";
@@ -88,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
       initialCapacity === "500ml" || initialCapacity === "700ml"
         ? initialCapacity
         : initialProduct.capacity,
+    capacities: initialCapacities,
     qty: Number.isFinite(initialQuantity)
       ? Math.min(99, Math.max(1, initialQuantity))
       : 1,
@@ -112,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const laserCheckbox = $('input[name="addons"][value="laser"]');
   const paymentCards = $$(".payment-method-card");
   const bankInfoBox = $("#bankInfoBox");
+  const capacitySelectorGroup = $("#capacitySelectorGroup");
 
   const addonsCostRow = $("#addonsCostRow");
   const totalCostEl = $("#totalCost");
@@ -126,6 +141,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCloseConfirm = $("#btnCloseConfirm");
   const btnPrintOrder = $("#btnPrintOrder");
   const btnSubmitOrder = $("#btnSubmitOrder");
+
+  function getCapacityLabel() {
+    if (state.capacities.length) {
+      return state.capacities
+        .map((capacity, index) => `Bình ${index + 1}: ${capacity}`)
+        .join(" | ");
+    }
+    return state.capacity;
+  }
 
   function getLoggedInUser() {
     try {
@@ -172,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
     summaryProdVariant.textContent =
-      `Dung tích: ${state.capacity}` +
+      `Dung tích: ${getCapacityLabel()}` +
       (state.color ? ` | Màu: ${state.color}` : "") +
       ` | SL: ${state.qty}` +
       (activeAddonsList.length
@@ -206,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.dataset.capacity === state.capacity,
       );
     });
+    capacitySelectorGroup.hidden = state.productId === "3";
     if (laserCheckbox) {
       laserCheckbox.checked = state.addons.laser;
       laserCheckbox.closest(".addon-item").classList.toggle(
@@ -233,6 +258,11 @@ document.addEventListener("DOMContentLoaded", () => {
       state.productId =
         radio.value === "single" ? "1" : radio.value === "trio" ? "3" : "2";
       state.color = "";
+      state.capacity = PRODUCT_CATALOG[state.productId].capacity;
+      state.capacities = Array.from(
+        { length: PRODUCT_CATALOG[state.productId].capacitySlots || 0 },
+        () => state.capacity,
+      );
       updateStateAndUI();
     });
   });
@@ -245,6 +275,11 @@ document.addEventListener("DOMContentLoaded", () => {
         state.variant = v;
         state.productId = v === "single" ? "1" : v === "trio" ? "3" : "2";
         state.color = "";
+        state.capacity = PRODUCT_CATALOG[state.productId].capacity;
+        state.capacities = Array.from(
+          { length: PRODUCT_CATALOG[state.productId].capacitySlots || 0 },
+          () => state.capacity,
+        );
       }
       const radio = $(`input[value="${v}"]`);
       if (radio) radio.checked = true;
@@ -258,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
       capBtns.forEach((b) => b.classList.remove("is-active"));
       btn.classList.add("is-active");
       state.capacity = btn.dataset.capacity;
+      state.capacities = state.capacities.map(() => state.capacity);
       updateStateAndUI();
     });
   });
@@ -410,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#modalCustomerAddress").textContent =
       `${$("#address").value.trim()}, ${$("#province").options[$("#province").selectedIndex].text}`;
     $("#modalProductInfo").textContent =
-      `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+      `${prod.name} (${getCapacityLabel()}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
 
     let paymentName = "Thanh toán khi nhận hàng (COD)";
     if (state.paymentMethod === "bank")
@@ -425,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const newOrder = {
         id: orderId,
         date: new Date().toLocaleDateString("vi-VN"),
-        product: `${prod.name} (${state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
+        product: `${prod.name} (${getCapacityLabel()}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
         total: totalText,
         status: "Đã xác nhận",
         payment: state.paymentMethod.toUpperCase(),

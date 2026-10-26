@@ -76,6 +76,7 @@ const PRODUCTS = {
     line: "Everyday Daily Family",
     accessory: "Tặng charm",
     colorSlots: 3,
+    capacitySlots: 3,
     serviceLabel: "Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultImage: "images/combo3.png",
@@ -336,7 +337,9 @@ function renderProduct(item) {
   const updateCapacitySummary = () => {
     if (item.capacitySlots) {
       document.getElementById("productCapacity").textContent =
-        `Bình 1: ${selectedCapacities[0]} | Bình 2: ${selectedCapacities[1]}`;
+        selectedCapacities
+          .map((capacity, index) => `Bình ${index + 1}: ${capacity}`)
+          .join(" | ");
     }
   };
   updateCapacitySummary();
@@ -480,8 +483,10 @@ function buyNow() {
     const capacities = Array.from(capacityButtons, (selection) =>
       selection.querySelector(".capacity-option.selected").textContent,
     );
-    params.set("capacity1", capacities[0]);
-    params.set("capacity2", capacities[1]);
+    capacities.forEach((capacity, index) => {
+      params.set(`capacity${index + 1}`, capacity);
+    });
+    params.set("capacity", capacities[0]);
   } else {
     params.set(
       "capacity",

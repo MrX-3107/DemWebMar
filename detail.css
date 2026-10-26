@@ -154,6 +154,9 @@ a {
   margin: 27px 0;
   align-items: start;
 }
+.option-row[hidden] {
+  display: none;
+}
 .option-label {
   color: #777;
   padding-top: 9px;
