@@ -59,13 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const COLOR_IMAGES = {
-    "Trắng kem": "images/trang.jpg",
-    "Hồng pastel": "images/hong.jpg",
-    "Xanh dương": "images/xanhduong.jpg",
-    "Xanh lá": "images/xanhla.jpg",
     Kem: "images/trang.jpg",
+    "Hồng pastel": "images/hong.jpg",
     "Xanh dương pastel": "images/xanhduong.jpg",
     "Xanh rêu pastel": "images/xanhla.jpg",
+    "Đỏ burgundy": "images/bình đỏ.png",
+    Nâu: "images/bình nâu.png",
+    Đen: "images/bình đen.png",
   };
 
   const orderParams = new URLSearchParams(window.location.search);
@@ -179,9 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
       activeAddonsList.push(`Khắc laser tên riêng${note}`);
     }
 
-    const isEverydayBottle = ["1", "6", "7", "8"].includes(state.productId);
-    summaryImg.src =
-      (isEverydayBottle && COLOR_IMAGES[state.color]) || prod.img;
+    const firstSelectedColor = (state.color || "").split(",")[0].trim();
+    summaryImg.src = COLOR_IMAGES[firstSelectedColor] || prod.img;
     summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
     summaryProdVariant.textContent =
