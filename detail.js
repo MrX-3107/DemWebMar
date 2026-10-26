@@ -1,3 +1,5 @@
+const PRODUCT_COLORS = ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"];
+
 const PRODUCTS = {
   "1": {
     title:
@@ -11,7 +13,6 @@ const PRODUCTS = {
     accessory: "Tặng charm",
     colorSlots: 1,
     serviceLabel: "Bình trơn / Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     images: ["images/hong.jpg", "images/xanhduong.jpg", "images/xanhla.jpg"],
     description:
       "Bình giữ nhiệt Everyday Daily 500ml chất liệu inox 304 an toàn, thiết kế nhỏ gọn thích hợp mang đi học, đi làm, tập gym. Giữ nóng 12h, giữ lạnh 24h.",
@@ -34,15 +35,6 @@ const PRODUCTS = {
     accessory: "Tặng charm",
     colorSlots: 2,
     serviceLabel: "Khắc tên theo yêu cầu",
-    colors: [
-      "Kem",
-      "Hồng pastel",
-      "Xanh dương pastel",
-      "Xanh rêu pastel",
-      "Đỏ burgundy",
-      "Nâu",
-      "Đen",
-    ],
     defaultImage: "images/combo2.png",
     capacitySlots: 2,
     images: [
@@ -59,7 +51,7 @@ const PRODUCTS = {
       "Bộ đôi bình giữ nhiệt Everyday dành cho cặp đôi hoặc dùng thay đổi. Mỗi bình có thể chọn dung tích 500ml hoặc 700ml. Giá ưu đãi tiết kiệm hơn mua lẻ.",
     features: [
       "Mỗi bình có thể chọn dung tích 500ml hoặc 700ml.",
-      "Tự chọn 2 màu trong 7 màu sắc của dòng Everyday Daily.",
+      "Tự chọn 2 màu trong 4 màu sắc của dòng Everyday Daily.",
       "Giữ nóng đến 12 giờ, giữ lạnh đến 24 giờ vượt trội.",
       "Phù hợp cho cặp đôi hoặc chuẩn bị bình thay đổi hằng ngày.",
       "Tặng charm và có thể chọn dịch vụ khắc tên theo yêu cầu.",
@@ -78,7 +70,6 @@ const PRODUCTS = {
     colorSlots: 3,
     capacitySlots: 3,
     serviceLabel: "Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultImage: "images/combo3.png",
     images: [
       "images/chitietbinh.PNG",
@@ -113,7 +104,6 @@ const PRODUCTS = {
     accessory: "Tặng charm, quai xách",
     colorSlots: 1,
     serviceLabel: "Bình trơn / Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultImage: "images/binh700ml.png",
     images: [
       "images/chitietbinh.PNG",
@@ -147,7 +137,6 @@ const PRODUCTS = {
     accessory: "Bình giữ nhiệt, hộp quà và túi đựng quà",
     colorSlots: 1,
     serviceLabel: "Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     includeColorImages: false,
     defaultImage: "images/khacten.png",
     images: [
@@ -176,7 +165,6 @@ const PRODUCTS = {
     accessory: "Không nêu trong thông tin sản phẩm",
     colorSlots: 1,
     serviceLabel: "Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultColor: "Hồng pastel",
     defaultImage: "images/hong.jpg",
     images: [
@@ -202,11 +190,15 @@ const PRODUCTS = {
     material: "Vui lòng xác nhận theo thông tin phiên bản",
     line: "Bình giữ nhiệt",
     accessory: "Không nêu trong thông tin sản phẩm",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
+    colorSlots: 1,
     defaultColor: "Xanh lá",
     images: ["images/trang.jpg"],
     description:
       "Bình giữ nhiệt TT Bottly màu xanh lá pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
+    features: [
+      "Dung tích 500ml, phù hợp sử dụng hằng ngày.",
+      "Có thể chọn màu trắng kem, hồng pastel, xanh dương hoặc xanh lá.",
+    ],
   },
   "8": {
     title: "Bình Giữ Nhiệt TT Bottly Màu Xanh Dương Pastel (500ml)",
@@ -215,11 +207,15 @@ const PRODUCTS = {
     material: "Vui lòng xác nhận theo thông tin phiên bản",
     line: "Bình giữ nhiệt",
     accessory: "Không nêu trong thông tin sản phẩm",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
+    colorSlots: 1,
     defaultColor: "Xanh dương",
     images: ["images/xanhduong.jpg"],
     description:
       "Bình giữ nhiệt TT Bottly màu xanh dương pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
+    features: [
+      "Dung tích 500ml, phù hợp sử dụng hằng ngày.",
+      "Có thể chọn màu trắng kem, hồng pastel, xanh dương hoặc xanh lá.",
+    ],
   },
 };
 
@@ -228,21 +224,12 @@ const COLOR_SWATCHES = {
   "Hồng pastel": "pink",
   "Xanh dương": "blue",
   "Xanh lá": "green",
-  Kem: "cream",
-  "Xanh dương pastel": "blue",
-  "Xanh rêu pastel": "sage",
-  "Đỏ burgundy": "burgundy",
-  Nâu: "brown",
-  Đen: "black",
 };
 const COLOR_IMAGES = {
   "Trắng kem": "images/trang.jpg",
   "Hồng pastel": "images/hong.jpg",
   "Xanh dương": "images/xanhduong.jpg",
   "Xanh lá": "images/xanhla.jpg",
-  Kem: "images/trang.jpg",
-  "Xanh dương pastel": "images/xanhduong.jpg",
-  "Xanh rêu pastel": "images/xanhla.jpg",
 };
 
 const requestedProductId =
@@ -320,7 +307,7 @@ function renderProduct(item) {
   document.getElementById("productCapacity").textContent = item.capacity;
   document.getElementById("productMaterial").textContent = item.material;
   document.getElementById("productColors").textContent =
-    item.colors.join(", ") +
+    PRODUCT_COLORS.join(", ") +
     (item.colorSlots > 1 ? ` (chọn ${item.colorSlots} màu)` : "");
   document.getElementById("productAccessory").textContent = item.accessory;
   document.getElementById("serviceLabel").textContent =
@@ -390,7 +377,7 @@ function renderProduct(item) {
     (_, slot) =>
       slot === 0 && item.defaultColor
         ? item.defaultColor
-        : item.colors[slot % item.colors.length],
+        : PRODUCT_COLORS[slot % PRODUCT_COLORS.length],
   );
   const selectedImage = item.defaultImage || COLOR_IMAGES[selectedColors[0]];
   const gallery = document.querySelector(".thumbs");
@@ -437,7 +424,7 @@ function renderProduct(item) {
 
     const options = document.createElement("div");
     options.className = "options";
-    item.colors.forEach((color, index) => {
+    PRODUCT_COLORS.forEach((color) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className =
