@@ -12,7 +12,7 @@ const PRODUCTS = {
     colorSlots: 1,
     serviceLabel: "Bình trơn / Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
-    images: ["hong.jpg", "xanhduong.jpg", "xanhla.jpg"],
+    images: ["images/hong.jpg", "images/xanhduong.jpg", "images/xanhla.jpg"],
     description:
       "Bình giữ nhiệt Everyday Daily 500ml chất liệu inox 304 an toàn, thiết kế nhỏ gọn thích hợp mang đi học, đi làm, tập gym. Giữ nóng 12h, giữ lạnh 24h.",
     features: [
@@ -24,23 +24,43 @@ const PRODUCTS = {
   },
   "2": {
     title:
-      "Combo 2 Bình Giữ Nhiệt Everyday Daily Duo 500ml Tặng Charm & Khắc Tên Theo Yêu Cầu – Tiết Kiệm Tối Đa",
+      "Combo 2 Bình Giữ Nhiệt Everyday Daily Duo Tặng Charm & Khắc Tên Theo Yêu Cầu – Tiết Kiệm Tối Đa",
     cardTitle: "Combo 2 Bình Everyday Daily Duo 500ml",
     sku: "ED-CB-DUO500",
     category: "Bình giữ nhiệt",
-    capacity: "500 ml mỗi bình",
+    capacity: "500 ml hoặc 700 ml mỗi bình",
     material: "Inox 304",
     line: "Everyday Daily Duo",
     accessory: "Tặng charm",
     colorSlots: 2,
     serviceLabel: "Khắc tên theo yêu cầu",
-    colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
-    images: ["cacloaibinh.jpg", "anhbabinh.jpg", "hong.jpg", "xanhduong.jpg"],
+    colors: [
+      "Kem",
+      "Hồng pastel",
+      "Xanh dương pastel",
+      "Xanh rêu pastel",
+      "Đỏ burgundy",
+      "Nâu",
+      "Đen",
+    ],
+    defaultImage: "images/combo2.png",
+    capacitySlots: 2,
+    images: [
+      "images/chitietbinh.PNG",
+      "images/combo2.png",
+      "images/trang.jpg",
+      "images/hong.jpg",
+      "images/xanhduong.jpg",
+      "images/xanhla.jpg",
+      "images/cacloaibinh.jpg",
+      "images/anhbabinh.jpg",
+    ],
     description:
-      "Bộ đôi bình giữ nhiệt Everyday 500ml dành cho cặp đôi hoặc dùng thay đổi. Giá ưu đãi tiết kiệm hơn mua lẻ.",
+      "Bộ đôi bình giữ nhiệt Everyday dành cho cặp đôi hoặc dùng thay đổi. Mỗi bình có thể chọn dung tích 500ml hoặc 700ml. Giá ưu đãi tiết kiệm hơn mua lẻ.",
     features: [
-      "Combo gồm 2 bình Everyday Daily dung tích 500ml mỗi bình.",
-      "Tự chọn 2 màu trong 4 màu sắc của dòng Everyday Daily.",
+      "Mỗi bình có thể chọn dung tích 500ml hoặc 700ml.",
+      "Tự chọn 2 màu trong 7 màu sắc của dòng Everyday Daily.",
+      "Giữ nóng đến 12 giờ, giữ lạnh đến 24 giờ vượt trội.",
       "Phù hợp cho cặp đôi hoặc chuẩn bị bình thay đổi hằng ngày.",
       "Tặng charm và có thể chọn dịch vụ khắc tên theo yêu cầu.",
     ],
@@ -51,20 +71,32 @@ const PRODUCTS = {
     cardTitle: "Combo 3 Bình Everyday Daily Family",
     sku: "ED-CB-FAM3",
     category: "Bình giữ nhiệt",
-    capacity: "Đa dung tích",
+    capacity: "500 ml & 700 ml",
     material: "Inox 304",
     line: "Everyday Daily Family",
     accessory: "Tặng charm",
     colorSlots: 3,
     serviceLabel: "Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
-    images: ["anhbabinh.jpg", "cacloaibinh.jpg", "tranghongxanh.jpg"],
+    defaultImage: "images/combo3.png",
+    images: [
+      "images/chitietbinh.PNG",
+      "images/combo3.png",
+      "images/trang.jpg",
+      "images/hong.jpg",
+      "images/xanhduong.jpg",
+      "images/xanhla.jpg",
+      "images/cacloaibinh.jpg",
+      "images/tranghongxanh.jpg",
+      "images/anhbabinh.jpg",
+    ],
     description:
       "Giải pháp chăm sóc sức khỏe cho cả gia đình. Combo 3 bình giữ nhiệt chất lượng cao, thiết kế trang nhã, màu sắc sang trọng.",
     features: [
       "Combo gia đình gồm 3 bình Everyday Daily.",
       "Tự chọn 3 màu trong 4 màu sắc của dòng Everyday Daily.",
-      "Nhiều dung tích tiện lợi cho nhu cầu sử dụng của gia đình.",
+      "Dung tích 500ml & 700ml tiện lợi cho nhu cầu sử dụng của gia đình.",
+      "Công nghệ chân không 2 lớp giữ nóng đến 12 giờ, giữ lạnh đến 24 giờ.",
       "Tặng charm và có thể chọn dịch vụ khắc tên theo yêu cầu.",
     ],
   },
@@ -81,11 +113,21 @@ const PRODUCTS = {
     colorSlots: 1,
     serviceLabel: "Bình trơn / Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
-    images: ["tapluyen.jpg", "xanhduong.jpg", "xanhla.jpg", "hong.jpg"],
+    defaultImage: "images/binh700ml.png",
+    images: [
+      "images/chitietbinh.PNG",
+      "images/binh700ml.png",
+      "images/trang.jpg",
+      "images/hong.jpg",
+      "images/xanhduong.jpg",
+      "images/xanhla.jpg",
+      "images/tapluyen.jpg",
+    ],
     description:
-      "Kiểu dáng thể thao khỏe khoắn, tích hợp quai xách tiện lợi. Bình giữ nhiệt 700ml lý tưởng cho dân tập gym, chạy bộ, leo núi.",
+      "Kiểu dáng thể thao khỏe khoắn, tích hợp quai xách tiện lợi. Bình giữ nhiệt 700ml lý tưởng cho dân tập gym, chạy bộ, leo núi. Giữ nóng đến 12 giờ, giữ lạnh đến 24 giờ.",
     features: [
       "Dung tích 700ml, phù hợp tập gym, chạy bộ và leo núi.",
+      "Khả năng giữ nóng đến 12 giờ, giữ lạnh sâu đến 24 giờ.",
       "Thiết kế thể thao khỏe khoắn, tích hợp quai xách tiện lợi.",
       "Thân bình inox 304; thiết kế chống tụ nước theo thông tin sản phẩm.",
       "Có bốn lựa chọn màu: trắng kem, hồng pastel, xanh dương và xanh lá.",
@@ -98,14 +140,24 @@ const PRODUCTS = {
     cardTitle: "Premium Gift Set",
     sku: "PR-GS-SET",
     category: "Bình giữ nhiệt",
-    capacity: "Theo phiên bản bình trong set",
+    capacity: "500 ml",
     material: "Inox 304 (bình giữ nhiệt)",
     line: "Premium Gift Set",
     accessory: "Bình giữ nhiệt, hộp quà và túi đựng quà",
     colorSlots: 1,
     serviceLabel: "Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
-    images: ["thietkenap.jpg", "cacmau.jpg"],
+    includeColorImages: false,
+    defaultImage: "images/khacten.png",
+    images: [
+      "images/khacten.png",
+      "images/Charm.png",
+      "images/Charm (1).png",
+      "images/Charm (2).png",
+      "images/binh1.png",
+      "images/binh2.png",
+      "images/binh3.png",
+    ],
     description:
       "Bộ quà tặng doanh nghiệp hoặc người thân hoàn hảo gồm bình giữ nhiệt Premium, hộp quà thiết kế tinh tế và phụ kiện đi kèm.",
     features: [
@@ -115,17 +167,32 @@ const PRODUCTS = {
     ],
   },
   "6": {
-    title: "Bình Giữ Nhiệt TT Bottly Pastel Hồng (500ml)",
+    title: "Bình Giữ Nhiệt TT Bottly Pastel (500ml)",
     category: "Bình giữ nhiệt",
     capacity: "500 ml",
     material: "Vui lòng xác nhận theo thông tin phiên bản",
     line: "Bình giữ nhiệt Pastel",
     accessory: "Không nêu trong thông tin sản phẩm",
+    colorSlots: 1,
+    serviceLabel: "Khắc tên theo yêu cầu",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultColor: "Hồng pastel",
-    images: ["hong.jpg", "tranghongxanh.jpg"],
+    defaultImage: "images/hong.jpg",
+    images: [
+      "images/chitietbinh.PNG",
+      "images/hong.jpg",
+      "images/trang.jpg",
+      "images/xanhduong.jpg",
+      "images/xanhla.jpg",
+      "images/tranghongxanh.jpg",
+    ],
     description:
       "Phiên bản bình giữ nhiệt TT Bottly màu hồng pastel dung tích 500ml, thiết kế trẻ trung và dễ mang theo.",
+    features: [
+      "Bình giữ nhiệt màu hồng pastel, dung tích 500ml.",
+      "Thiết kế gọn nhẹ, phù hợp mang theo hằng ngày.",
+      "Có thể chọn dịch vụ khắc tên theo yêu cầu.",
+    ],
   },
   "7": {
     title: "Bình Giữ Nhiệt TT Bottly Màu Xanh Lá Pastel (500ml)",
@@ -136,7 +203,7 @@ const PRODUCTS = {
     accessory: "Không nêu trong thông tin sản phẩm",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultColor: "Xanh lá",
-    images: ["trang.jpg"],
+    images: ["images/trang.jpg"],
     description:
       "Bình giữ nhiệt TT Bottly màu xanh lá pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
   },
@@ -149,7 +216,7 @@ const PRODUCTS = {
     accessory: "Không nêu trong thông tin sản phẩm",
     colors: ["Trắng kem", "Hồng pastel", "Xanh dương", "Xanh lá"],
     defaultColor: "Xanh dương",
-    images: ["xanhduong.jpg"],
+    images: ["images/xanhduong.jpg"],
     description:
       "Bình giữ nhiệt TT Bottly màu xanh dương pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
   },
@@ -160,13 +227,21 @@ const COLOR_SWATCHES = {
   "Hồng pastel": "pink",
   "Xanh dương": "blue",
   "Xanh lá": "green",
+  Kem: "cream",
+  "Xanh dương pastel": "blue",
+  "Xanh rêu pastel": "sage",
+  "Đỏ burgundy": "burgundy",
+  Nâu: "brown",
+  Đen: "black",
 };
-
 const COLOR_IMAGES = {
-  "Trắng kem": "trang.jpg",
-  "Hồng pastel": "hong.jpg",
-  "Xanh dương": "xanhduong.jpg",
-  "Xanh lá": "xanhla.jpg",
+  "Trắng kem": "images/trang.jpg",
+  "Hồng pastel": "images/hong.jpg",
+  "Xanh dương": "images/xanhduong.jpg",
+  "Xanh lá": "images/xanhla.jpg",
+  Kem: "images/trang.jpg",
+  "Xanh dương pastel": "images/xanhduong.jpg",
+  "Xanh rêu pastel": "images/xanhla.jpg",
 };
 
 const requestedProductId =
@@ -250,6 +325,55 @@ function renderProduct(item) {
   document.getElementById("serviceLabel").textContent =
     item.serviceLabel || "Khắc tên theo yêu cầu";
 
+  const capacityOptions = document.getElementById("capacityOptions");
+  const capacityRow = document.getElementById("capacityRow");
+  capacityOptions.replaceChildren();
+  capacityRow.hidden = !item.capacitySlots;
+  let selectedCapacities = Array.from(
+    { length: item.capacitySlots || 0 },
+    () => "500ml",
+  );
+  const updateCapacitySummary = () => {
+    if (item.capacitySlots) {
+      document.getElementById("productCapacity").textContent =
+        `Bình 1: ${selectedCapacities[0]} | Bình 2: ${selectedCapacities[1]}`;
+    }
+  };
+  updateCapacitySummary();
+  for (let slot = 0; slot < (item.capacitySlots || 0); slot += 1) {
+    const selection = document.createElement("div");
+    selection.className = "capacity-selection";
+    const label = document.createElement("span");
+    label.className = "capacity-selection__label";
+    label.textContent = `Dung tích bình ${slot + 1}`;
+    const options = document.createElement("div");
+    options.className = "options";
+    ["500ml", "700ml"].forEach((capacity) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className =
+        "capacity-option" +
+        (capacity === selectedCapacities[slot] ? " selected" : "");
+      button.textContent = capacity;
+      button.setAttribute(
+        "aria-pressed",
+        String(capacity === selectedCapacities[slot]),
+      );
+      button.addEventListener("click", () => {
+        selectedCapacities[slot] = capacity;
+        updateCapacitySummary();
+        options.querySelectorAll(".capacity-option").forEach((option) => {
+          const isSelected = option === button;
+          option.classList.toggle("selected", isSelected);
+          option.setAttribute("aria-pressed", String(isSelected));
+        });
+      });
+      options.append(button);
+    });
+    selection.append(label, options);
+    capacityOptions.append(selection);
+  }
+
   const featureList = document.getElementById("productFeatures");
   featureList.replaceChildren();
   item.features.forEach((feature) => {
@@ -265,14 +389,22 @@ function renderProduct(item) {
         ? item.defaultColor
         : item.colors[slot % item.colors.length],
   );
-  const selectedImage = COLOR_IMAGES[selectedColors[0]];
+  const selectedImage = item.defaultImage || COLOR_IMAGES[selectedColors[0]];
   const gallery = document.querySelector(".thumbs");
   gallery.replaceChildren();
-  const galleryImages = [...new Set([...item.images, ...Object.values(COLOR_IMAGES)])];
+  const galleryImages = [
+    ...new Set(
+      item.includeColorImages === false
+        ? item.images
+        : [...item.images, ...Object.values(COLOR_IMAGES)],
+    ),
+  ];
   galleryImages.forEach((src, index) => {
     const thumb = document.createElement("img");
     thumb.className = "thumb" + (src === selectedImage ? " active" : "");
     thumb.src = src;
+    thumb.loading = "lazy";
+    thumb.decoding = "async";
     const colorName = Object.entries(COLOR_IMAGES).find(
       ([, colorSrc]) => colorSrc === src,
     )?.[0];
@@ -337,11 +469,25 @@ function buyNow() {
   const params = new URLSearchParams({
     productId: PRODUCT_ID,
     quantity: String(quantity),
-    capacity: currentProduct.capacity.includes("700") ? "700ml" : "500ml",
     color: chosenColors.join(", "),
     engraving: String(engraving),
     engravingName: engravingName,
   });
+  if (currentProduct.capacitySlots) {
+    const capacityButtons = document.querySelectorAll(
+      "#capacityOptions .capacity-selection",
+    );
+    const capacities = Array.from(capacityButtons, (selection) =>
+      selection.querySelector(".capacity-option.selected").textContent,
+    );
+    params.set("capacity1", capacities[0]);
+    params.set("capacity2", capacities[1]);
+  } else {
+    params.set(
+      "capacity",
+      currentProduct.capacity.includes("700") ? "700ml" : "500ml",
+    );
+  }
   window.location.href = `order.html?${params.toString()}`;
 }
 

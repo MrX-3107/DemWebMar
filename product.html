@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="vi">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J42WGWEJYH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J42WGWEJYH');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TT Bottly Website</title>
@@ -24,7 +32,7 @@
             class="logo"
             aria-label="TT Bottly – về trang chủ"
           >
-            <img src="logo.png" alt="TT Bottly" class="logo__image" />
+            <img src="images/logo.png" alt="TT Bottly" class="logo__image" />
             <span class="logo__text">TT BOTTLY</span>
           </a>
         </div>
@@ -45,7 +53,6 @@
               </button>
             </div>
           </details>
-          <a href="order.html">Đặt hàng</a>
           <a href="support.html">Hỗ trợ</a>
           <a href="auth.html">Tài khoản</a>
         </nav>
@@ -68,42 +75,26 @@
         >
       </nav>
       <div class="product-grid">
-        <!-- Sản phẩm 1 -->
-        <a
-          href="detail.html?id=1"
-          class="product-card"
-          data-category="500ml engraved"
-        >
-          <div class="product-card__img-wrap">
-            <img
-              src="trang.jpg"
-              alt="Bình giữ nhiệt Everyday Daily 500ml"
-              class="product-card__img"
-            />
-          </div>
-          <div class="product-card__body">
-            <div class="product-card-tag">Tặng charm</div>
-            <h3 class="product-card__title">Bình Giữ Nhiệt Daily 500ml</h3>
-          </div>
-        </a>
-
         <!-- Sản phẩm 2 -->
         <a
           href="detail.html?id=2"
           class="product-card"
-          data-category="combo 500ml engraved"
+          data-category="combo engraved"
         >
           <div class="product-card__img-wrap">
+            <span class="product-badge-discount">Giảm 30%</span>
             <img
-              src="combo2.png"
+              src="images/combo2.png"
               alt="Combo 2 bình Everyday Daily Duo"
               class="product-card__img"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="product-card__body">
             <div class="product-card-tag">Combo tiết kiệm</div>
             <h3 class="product-card__title">
-              Combo 2 Bình Everyday Daily Duo 500ml
+              Combo 2 Bình Everyday Daily Duo
             </h3>
           </div>
         </a>
@@ -115,10 +106,13 @@
           data-category="combo engraved"
         >
           <div class="product-card__img-wrap">
+            <span class="product-badge-discount">Giảm 30%</span>
             <img
-              src="combo3.png"
+              src="images/combo3.png"
               alt="Combo 3 bình Everyday Daily Family"
               class="product-card__img"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="product-card__body">
@@ -134,34 +128,18 @@
           data-category="700ml engraved"
         >
           <div class="product-card__img-wrap">
+            <span class="product-badge-discount">Giảm 30%</span>
             <img
-              src="binh700ml.png"
+              src="images/binh700ml.png"
               alt="Bình giữ nhiệt thể thao Sport 700ml"
               class="product-card__img"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="product-card__body">
             <div class="product-card-tag">Sport 700ml</div>
             <h3 class="product-card__title">Bình Giữ Nhiệt Sport 700ml</h3>
-          </div>
-        </a>
-
-        <!-- Sản phẩm 5 -->
-        <a
-          href="detail.html?id=5"
-          class="product-card"
-          data-category="engraved"
-        >
-          <div class="product-card__img-wrap">
-            <img
-              src="khacten.png"
-              alt="Premium Gift Set bình giữ nhiệt kèm hộp quà"
-              class="product-card__img"
-            />
-          </div>
-          <div class="product-card__body">
-            <div class="product-card-tag">Quà tặng cao cấp</div>
-            <h3 class="product-card__title">Premium Gift Set</h3>
           </div>
         </a>
 
@@ -172,11 +150,13 @@
           data-category="500ml engraved"
         >
           <div class="product-card__img-wrap">
+            <span class="product-badge-discount">Giảm 30%</span>
             <img
-              src="hong.jpg"
+              src="images/hong.jpg"
               alt="Bình giữ nhiệt màu hồng TT Bottly"
               class="product-card__img"
               loading="lazy"
+              decoding="async"
             />
           </div>
           <div class="product-card__body">
@@ -187,49 +167,6 @@
           </div>
         </a>
 
-        <!-- Sản phẩm 7 -->
-        <a
-          href="detail.html?id=7"
-          class="product-card"
-          data-category="500ml engraved"
-        >
-          <div class="product-card__img-wrap">
-            <img
-              src="xanhla.jpg"
-              alt="Bình giữ nhiệt màu xanh lá pastel TT Bottly"
-              class="product-card__img"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-card__body">
-            <div class="product-card-tag">Bán chạy</div>
-            <h3 class="product-card__title">
-              Bình Giữ Nhiệt TT Bottly Màu Xanh Lá pastel (500ml)
-            </h3>
-          </div>
-        </a>
-
-        <!-- Sản phẩm 8 -->
-        <a
-          href="detail.html?id=8"
-          class="product-card"
-          data-category="500ml engraved"
-        >
-          <div class="product-card__img-wrap">
-            <img
-              src="xanhduong.jpg"
-              alt="Bình giữ nhiệt xanh pastel TT Bottly"
-              class="product-card__img"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-card__body">
-            <div class="product-card-tag">Thiết kế mới</div>
-            <h3 class="product-card__title">
-              Bình Giữ Nhiệt TT Bottly Màu Xanh Dương pastel(500ml)
-            </h3>
-          </div>
-        </a>
       </div>
     </div>
 
@@ -265,6 +202,9 @@
       </div>
       <p class="footer__copy">
         © 2026 TT Bottly Việt Nam. All rights reserved.
+      </p>
+      <p class="footer__note">
+        Lưu ý: Đề tài phục vụ học phần Marketing số của sinh viên, TT Bottly và Công ty TNHH Aquabottle Việt Nam là sản phẩm và doanh nghiệp giả lập, không có xung đột hay tranh chấp với các thương hiệu hiện có, không nhằm mục tiêu lợi nhuận.
       </p>
     </footer>
   </body>

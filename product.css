@@ -240,6 +240,7 @@ textarea {
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 1;
   padding: 3px 6px;
   border-radius: 4px;
   background: #ff4d4f;
