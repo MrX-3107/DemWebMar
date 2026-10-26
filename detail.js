@@ -241,6 +241,7 @@ const product = Object.prototype.hasOwnProperty.call(
   ? PRODUCTS[requestedProductId]
   : null;
 const PRODUCT_ID = product ? requestedProductId : "1";
+const requestedColor = new URLSearchParams(window.location.search).get("color");
 const notice = document.getElementById("notice");
 let selectedColors = [];
 
@@ -375,9 +376,11 @@ function renderProduct(item) {
   selectedColors = Array.from(
     { length: item.colorSlots },
     (_, slot) =>
-      slot === 0 && item.defaultColor
-        ? item.defaultColor
-        : PRODUCT_COLORS[slot % PRODUCT_COLORS.length],
+      slot === 0 && PRODUCT_COLORS.includes(requestedColor)
+        ? requestedColor
+        : slot === 0 && item.defaultColor
+          ? item.defaultColor
+          : PRODUCT_COLORS[slot % PRODUCT_COLORS.length],
   );
   const selectedImage = item.defaultImage || COLOR_IMAGES[selectedColors[0]];
   const gallery = document.querySelector(".thumbs");
