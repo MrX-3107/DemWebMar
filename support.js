@@ -1,5 +1,5 @@
 /* =========================================================
-   TT Bottly – Support & Chatbot Logic
+   Aquabottle Việt Nam – Support & Chatbot Logic
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,17 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
         "nhiệt độ",
       ],
       answer:
-        "Cốc giữ nhiệt TT Bottly sử dụng công nghệ chân không 2 lớp cao cấp: có khả năng <strong>giữ nóng lên đến 12 tiếng</strong> (rất thích hợp cho cà phê, trà thảo mộc) và <strong>giữ lạnh lên đến 24 tiếng</strong> mà không hề đọng nước ra thành ngoài cốc.",
+        "Cốc giữ nhiệt Aquabottle Việt Nam sử dụng công nghệ chân không 2 lớp cao cấp: có khả năng <strong>giữ nóng lên đến 12 tiếng</strong> (rất thích hợp cho cà phê, trà thảo mộc) và <strong>giữ lạnh lên đến 24 tiếng</strong> mà không hề đọng nước ra thành ngoài cốc.",
     },
     {
       keywords: ["chất liệu", "inox", "304", "an toàn", "sức khỏe", "thép"],
       answer:
-        "Toàn bộ ruột cốc và thân cốc TT Bottly được chế tác từ <strong>Inox 304 nguyên khối</strong> (thép không gỉ thực phẩm cao cấp), đạt chuẩn kiểm nghiệm an toàn cho sức khỏe, chống ăn mòn, không gỉ sét và không ám mùi đồ uống.",
+        "Toàn bộ ruột cốc và thân cốc Aquabottle Việt Nam được chế tác từ <strong>Inox 304 nguyên khối</strong> (thép không gỉ thực phẩm cao cấp), đạt chuẩn kiểm nghiệm an toàn cho sức khỏe, chống ăn mòn, không gỉ sét và không ám mùi đồ uống.",
     },
     {
       keywords: ["rò rỉ", "chống tràn", "balo", "túi", "nghiêng", "tràn"],
       answer:
-        "Nắp cốc TT Bottly được thiết kế ren vặn xoáy kín khít kết hợp <strong>gioăng silicone 360 độ</strong>, cam kết <strong>chống rò rỉ nước 100%</strong> khi bạn bỏ vào balo, túi xách hoặc đặt trên hộc để ly ô tô khi di chuyển.",
+        "Nắp cốc Aquabottle Việt Nam được thiết kế ren vặn xoáy kín khít kết hợp <strong>gioăng silicone 360 độ</strong>, cam kết <strong>chống rò rỉ nước 100%</strong> khi bạn bỏ vào balo, túi xách hoặc đặt trên hộc để ly ô tô khi di chuyển.",
     },
     {
       keywords: [
@@ -49,12 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "pastel",
       ],
       answer:
-        "TT Bottly hiện có 2 phiên bản: <strong>500ml</strong> (kích thước 7.5 × 21.5 cm, vừa mọi hộc ô tô) và <strong>700ml</strong> (kích thước 7.5 × 25.5 cm). Với 7 gam màu thời thượng: <strong>Kem</strong>, <strong>Hồng Pastel</strong>, <strong>Xanh dương pastel</strong>, <strong>Xanh rêu pastel</strong>, <strong>Đỏ burgundy</strong>, <strong>Nâu</strong> và <strong>Đen</strong>.",
+        "Aquabottle Việt Nam hiện có 2 phiên bản: <strong>500ml</strong> (kích thước 7.5 × 21.5 cm, vừa mọi hộc ô tô) và <strong>700ml</strong> (kích thước 7.5 × 25.5 cm). Với 7 gam màu thời thượng: <strong>Kem</strong>, <strong>Hồng Pastel</strong>, <strong>Xanh dương pastel</strong>, <strong>Xanh rêu pastel</strong>, <strong>Đỏ burgundy</strong>, <strong>Nâu</strong> và <strong>Đen</strong>.",
     },
     {
       keywords: ["bảo hành", "đổi trả", "lỗi", "hỏng", "chính sách"],
       answer:
-        "TT Bottly cam kết chính sách bảo hành chính hãng: <strong>Bảo hành 12 tháng</strong> đối với khả năng giữ nhiệt và <strong>1 đổi 1 trong vòng 7 ngày</strong> nếu phát hiện bất kỳ lỗi nào từ nhà sản xuất.",
+        "Aquabottle Việt Nam cam kết chính sách bảo hành chính hãng: <strong>Bảo hành 12 tháng</strong> đối với khả năng giữ nhiệt và <strong>1 đổi 1 trong vòng 7 ngày</strong> nếu phát hiện bất kỳ lỗi nào từ nhà sản xuất.",
     },
     {
       keywords: [
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div style="color: #065f46; font-size: 13.5px; line-height: 1.5;">
           <strong>✓ Tiếp nhận thành công!</strong><br>
           Mã hỗ trợ của bạn: <span style="font-weight: 700; color: #0f766e;">#${randomTicket}</span>.<br>
-          Chuyên viên CSKH TT Bottly sẽ gọi lại theo số <strong>${phone}</strong> trong vòng 15-30 phút tới. Cảm ơn bạn!
+          Chuyên viên CSKH Aquabottle Việt Nam sẽ gọi lại theo số <strong>${phone}</strong> trong vòng 15-30 phút tới. Cảm ơn bạn!
         </div>
       `;
       chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
         appendMessage(matchedFAQ.answer);
       } else {
         appendMessage(
-          "Dạ câu hỏi của anh/chị nằm ngoài danh mục tự động. Anh/chị vui lòng để lại thông tin số điện thoại hoặc email kèm ghi chú, chuyên viên hỗ trợ của TT Bottly sẽ liên hệ giải đáp chi tiết ngay ạ!",
+          "Dạ câu hỏi của anh/chị nằm ngoài danh mục tự động. Anh/chị vui lòng để lại thông tin số điện thoại hoặc email kèm ghi chú, chuyên viên hỗ trợ của Aquabottle Việt Nam sẽ liên hệ giải đáp chi tiết ngay ạ!",
         );
         renderInlineContactForm();
       }
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chatRefreshBtn.addEventListener("click", () => {
       chatMessages.innerHTML = "";
       appendMessage(
-        "Xin chào! Em là Trợ lý ảo TT Bottly 🌿. Em có thể giải đáp nhanh các thắc mắc về chất liệu, dung tích, khả năng giữ nhiệt, phí ship và bảo hành. Anh/chị đang quan tâm đến vấn đề gì ạ?",
+        "Xin chào! Em là Trợ lý ảo Aquabottle Việt Nam 🌿. Em có thể giải đáp nhanh các thắc mắc về chất liệu, dung tích, khả năng giữ nhiệt, phí ship và bảo hành. Anh/chị đang quan tâm đến vấn đề gì ạ?",
       );
     });
   }

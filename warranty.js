@@ -1,5 +1,5 @@
 /**
- * TT Bottly – Warranty & Return Policy Interactive Scripts
+ * Aquabottle Việt Nam – Warranty & Return Policy Interactive Scripts
  */
 document.addEventListener("DOMContentLoaded", () => {
   // 1. FAQ Accordion Toggle
@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Check localStorage for actual order or generate mock warranty card
-      let customerName = "Khách hàng TT Bottly";
+      let customerName = "Khách hàng Aquabottle Việt Nam";
       let orderCode = "TTB-" + Math.floor(100000 + Math.random() * 900000);
       let purchaseDate = "15/01/2026";
-      let productName = "Cốc giữ nhiệt TT Bottly 500ml Inox 304";
+      let productName = "Cốc giữ nhiệt Aquabottle Việt Nam 500ml Inox 304";
 
       try {
         const localOrders = JSON.parse(

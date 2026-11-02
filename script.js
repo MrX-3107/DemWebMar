@@ -1,5 +1,5 @@
 /* =========================================================
-   TT Bottly – Landing page scripts
+   Aquabottle Việt Nam – Landing page scripts
    ========================================================= */
 document.documentElement.classList.add("js");
 
@@ -128,7 +128,7 @@ $$(".thumb").forEach((btn) => {
     setTimeout(() => {
       mainImg.src = btn.dataset.src;
       const sub = $("img", btn);
-      mainImg.alt = "TT Bottly – " + (sub ? sub.alt.toLowerCase() : "sản phẩm");
+      mainImg.alt = "Aquabottle Việt Nam – " + (sub ? sub.alt.toLowerCase() : "sản phẩm");
       mainImg.classList.remove("is-fading");
     }, 200);
   });

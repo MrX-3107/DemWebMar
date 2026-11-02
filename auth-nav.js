@@ -1,5 +1,5 @@
 /**
- * TT Bottly – Global Navigation & Left Sidebar Menu Helper
+ * Aquabottle Việt Nam – Global Navigation & Left Sidebar Menu Helper
  * Handles global navigation auth state and Left Offcanvas Sidebar Menu interactions
  */
 (function () {

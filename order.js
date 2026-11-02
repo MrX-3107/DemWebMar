@@ -1,5 +1,5 @@
 /* =========================================================
-   TT Bottly – Order & Checkout Page Logic
+   Aquabottle Việt Nam – Order & Checkout Page Logic
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,19 +39,19 @@ document.addEventListener("DOMContentLoaded", () => {
       capacity: "500ml",
     },
     "6": {
-      name: "Bình Giữ Nhiệt TT Bottly Pastel Hồng (500ml)",
+      name: "Bình Giữ Nhiệt Aquabottle Việt Nam Pastel Hồng (500ml)",
       img: "images/hong.jpg",
       variant: "single",
       capacity: "500ml",
     },
     "7": {
-      name: "Bình Giữ Nhiệt TT Bottly Xanh Lá Pastel (500ml)",
+      name: "Bình Giữ Nhiệt Aquabottle Việt Nam Xanh Lá Pastel (500ml)",
       img: "images/xanhla.jpg",
       variant: "single",
       capacity: "500ml",
     },
     "8": {
-      name: "Bình Giữ Nhiệt TT Bottly Xanh Dương Pastel (500ml)",
+      name: "Bình Giữ Nhiệt Aquabottle Việt Nam Xanh Dương Pastel (500ml)",
       img: "images/xanhduong.jpg",
       variant: "single",
       capacity: "500ml",
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const initialCapacity = orderParams.get("capacity");
   const initialCapacity1 = orderParams.get("capacity1");
   const initialCapacity2 = orderParams.get("capacity2");
+  const initialCapacity3 = orderParams.get("capacity3");
   const initialColor = orderParams.get("color");
   const initialEngraving = orderParams.get("engraving") === "true";
   const initialEngravingName = orderParams.get("engravingName") || "";
@@ -99,6 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
         : "500ml",
       initialCapacity2 === "500ml" || initialCapacity2 === "700ml"
         ? initialCapacity2
+        : "500ml",
+      initialCapacity3 === "500ml" || initialCapacity3 === "700ml"
+        ? initialCapacity3
         : "500ml",
     ],
     qty: Number.isFinite(initialQuantity)
@@ -184,8 +188,11 @@ document.addEventListener("DOMContentLoaded", () => {
     summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
     summaryProdVariant.textContent =
-      (state.productId === "2"
-        ? `Dung tích bình 1: ${state.capacities[0]} | Bình 2: ${state.capacities[1]}`
+      (["2", "3"].includes(state.productId)
+        ? state.capacities
+            .slice(0, state.productId === "2" ? 2 : 3)
+            .map((capacity, index) => `Bình ${index + 1}: ${capacity}`)
+            .join(" | ")
         : `Dung tích: ${state.capacity}`) +
       (state.color ? ` | Màu: ${state.color}` : "") +
       ` | SL: ${state.qty}` +
@@ -431,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#modalCustomerAddress").textContent =
       `${$("#address").value.trim()}, ${$("#province").options[$("#province").selectedIndex].text}`;
     $("#modalProductInfo").textContent =
-      `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+      `${prod.name} (${["2", "3"].includes(state.productId) ? state.capacities.slice(0, state.productId === "2" ? 2 : 3).map((capacity, index) => `Bình ${index + 1}: ${capacity}`).join(", ") : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
 
     let paymentName = "Thanh toán khi nhận hàng (COD)";
     if (state.paymentMethod === "bank")
@@ -446,7 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const newOrder = {
         id: orderId,
         date: new Date().toLocaleDateString("vi-VN"),
-        product: `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
+        product: `${prod.name} (${["2", "3"].includes(state.productId) ? state.capacities.slice(0, state.productId === "2" ? 2 : 3).map((capacity, index) => `Bình ${index + 1}: ${capacity}`).join(", ") : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
         total: totalText,
         status: "Đã xác nhận",
         payment: state.paymentMethod.toUpperCase(),

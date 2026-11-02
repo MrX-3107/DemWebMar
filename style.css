@@ -1,5 +1,5 @@
 /* =========================================================
-   TT Bottly – Modern Luxury Redesign
+   Aquabottle Việt Nam – Modern Luxury Redesign
    Màu thương hiệu & Thiết kế cao cấp 2026
    ========================================================= */
 
@@ -242,11 +242,23 @@ ul {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 21px;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 19px;
   color: var(--primary);
   text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+}
+.logo:hover {
+  opacity: 0.9;
+}
+.logo__text {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
   white-space: nowrap;
 }
 .logo__mark {
@@ -844,10 +856,22 @@ body.sidebar-open {
 }
 
 @media (min-width: 1024px) {
+  .header__inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 24px !important;
+  }
+  .header__left {
+    flex-shrink: 0 !important;
+  }
   .header__inner > .nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static !important;
+    transform: none !important;
+    margin-left: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(16px, 2.2vw, 28px) !important;
   }
 }
 
@@ -879,9 +903,10 @@ body.sidebar-open {
 
 .logo__image {
   display: block;
-  width: 68px;
-  height: 68px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .header--logo-large {

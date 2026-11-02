@@ -1,5 +1,5 @@
 /**
- * TT Bottly – Authentication & User Account System (Local Storage)
+ * Aquabottle Việt Nam – Authentication & User Account System (Local Storage)
  * Supports Register, Login, Profile Dashboard, Orders Sync, and Password Reset
  */
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           id: 'TTB-883921',
           date: '25/09/2026',
-          product: 'TT Bottly Classic (Xanh Rêu - 700ml) x 1',
+          product: 'Aquabottle Việt Nam Classic (Xanh Rêu - 700ml) x 1',
           total: '389.000₫',
           status: 'Đã xác nhận',
           payment: 'COD'
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auto login
     setCurrentUser(newUser);
-    showToast('Tạo tài khoản thành công! Chào mừng bạn gia nhập TT Bottly.', 'success');
+    showToast('Tạo tài khoản thành công! Chào mừng bạn gia nhập Aquabottle Việt Nam.', 'success');
 
     // Check redirect parameter
     const searchParams = new URLSearchParams(window.location.search || (window.location.hash.includes('?') ? window.location.hash.split('?')[1] : ''));
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Display order requirement alert if redirected from order
       if (isLoginRequired) {
-        showAlert('Vui lòng đăng nhập hoặc tạo tài khoản mới để tiếp tục đặt mua sản phẩm TT Bottly.');
+        showAlert('Vui lòng đăng nhập hoặc tạo tài khoản mới để tiếp tục đặt mua sản phẩm Aquabottle Việt Nam.');
         showToast('Vui lòng đăng nhập tài khoản để đặt hàng!', 'info');
       }
     }
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
       listEl.innerHTML = `
         <div class="order-empty-state">
           <h4>Chưa có đơn hàng nào</h4>
-          <p>Bạn chưa đặt hàng nào trên TT Bottly. Hãy trải nghiệm bình giữ nhiệt cao cấp ngay!</p>
+          <p>Bạn chưa đặt hàng nào trên Aquabottle Việt Nam. Hãy trải nghiệm bình giữ nhiệt cao cấp ngay!</p>
           <a href="order.html" class="btn btn--cta" style="font-size: 13.5px; padding: 0 18px; min-height: 40px; display: inline-flex;">Mua sắm ngay</a>
         </div>
       `;
@@ -584,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="order-item-badge">${ord.status || 'Đang chuẩn bị'}</span>
         </div>
         <div class="order-item-body">
-          ${ord.product || 'TT Bottly Vacuum Flask'}
+          ${ord.product || 'Aquabottle Việt Nam Vacuum Flask'}
         </div>
         <div class="order-item-footer">
           <span style="font-size: 13px; color: var(--muted);">Thanh toán: ${ord.payment || 'COD'}</span>

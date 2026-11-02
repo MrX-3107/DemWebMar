@@ -71,11 +71,12 @@ const PRODUCTS = {
     cardTitle: "Combo 3 Bình Everyday Daily Family",
     sku: "ED-CB-FAM3",
     category: "Bình giữ nhiệt",
-    capacity: "500 ml & 700 ml",
+    capacity: "Chọn riêng 500 ml hoặc 700 ml cho từng bình",
     material: "Inox 304",
     line: "Everyday Daily Family",
     accessory: "Tặng charm",
     colorSlots: 3,
+    capacitySlots: 3,
     serviceLabel: "Khắc tên theo yêu cầu",
     defaultImage: "images/combo3.png",
     images: [
@@ -90,11 +91,11 @@ const PRODUCTS = {
       "images/anhbabinh.jpg",
     ],
     description:
-      "Giải pháp chăm sóc sức khỏe cho cả gia đình. Combo 3 bình giữ nhiệt chất lượng cao, thiết kế trang nhã, màu sắc sang trọng.",
+      "Giải pháp chăm sóc sức khỏe cho cả gia đình. Combo 3 bình giữ nhiệt Everyday Daily; chọn riêng dung tích 500ml hoặc 700ml và màu sắc cho từng bình.",
     features: [
       "Combo gia đình gồm 3 bình Everyday Daily.",
       "Tự chọn 3 màu trong 7 màu sắc của dòng Everyday Daily.",
-      "Dung tích 500ml & 700ml tiện lợi cho nhu cầu sử dụng của gia đình.",
+      "Chọn riêng dung tích 500ml hoặc 700ml cho từng bình.",
       "Công nghệ chân không 2 lớp giữ nóng đến 12 giờ, giữ lạnh đến 24 giờ.",
       "Tặng charm và có thể chọn dịch vụ khắc tên theo yêu cầu.",
     ],
@@ -128,7 +129,7 @@ const PRODUCTS = {
       "Khả năng giữ nóng đến 12 giờ, giữ lạnh sâu đến 24 giờ.",
       "Thiết kế thể thao khỏe khoắn, tích hợp quai xách tiện lợi.",
       "Thân bình inox 304; thiết kế chống tụ nước theo thông tin sản phẩm.",
-      "Có bảy lựa chọn màu sắc của dòng Everyday Daily.",
+      "Có bảy lựa chọn màu: kem, hồng pastel, xanh dương pastel, xanh rêu pastel, đỏ burgundy, nâu và đen.",
       "Tặng charm và có thể chọn dịch vụ khắc tên theo yêu cầu.",
     ],
   },
@@ -163,7 +164,7 @@ const PRODUCTS = {
     ],
   },
   "6": {
-    title: "Bình Giữ Nhiệt TT Bottly Pastel (500ml)",
+    title: "Bình Giữ Nhiệt Aquabottle Việt Nam Pastel (500ml)",
     category: "Bình giữ nhiệt",
     capacity: "500 ml",
     material: "Vui lòng xác nhận theo thông tin phiên bản",
@@ -182,15 +183,15 @@ const PRODUCTS = {
       "images/tranghongxanh.jpg",
     ],
     description:
-      "Phiên bản bình giữ nhiệt TT Bottly màu hồng pastel dung tích 500ml, thiết kế trẻ trung và dễ mang theo.",
+      "Bình giữ nhiệt Aquabottle Việt Nam dung tích 500ml với 7 màu sắc để lựa chọn, thiết kế trẻ trung và dễ mang theo.",
     features: [
-      "Bình giữ nhiệt màu hồng pastel, dung tích 500ml.",
+      "Bình giữ nhiệt dung tích 500ml, có 7 màu sắc để lựa chọn.",
       "Thiết kế gọn nhẹ, phù hợp mang theo hằng ngày.",
       "Có thể chọn dịch vụ khắc tên theo yêu cầu.",
     ],
   },
   "7": {
-    title: "Bình Giữ Nhiệt TT Bottly Màu Xanh Lá Pastel (500ml)",
+    title: "Bình Giữ Nhiệt Aquabottle Việt Nam Màu Xanh Lá Pastel (500ml)",
     category: "Bình giữ nhiệt",
     capacity: "500 ml",
     material: "Vui lòng xác nhận theo thông tin phiên bản",
@@ -200,10 +201,10 @@ const PRODUCTS = {
     defaultColor: "Xanh rêu pastel",
     images: ["images/trang.jpg"],
     description:
-      "Bình giữ nhiệt TT Bottly màu xanh lá pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
+      "Bình giữ nhiệt Aquabottle Việt Nam màu xanh lá pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
   },
   "8": {
-    title: "Bình Giữ Nhiệt TT Bottly Màu Xanh Dương Pastel (500ml)",
+    title: "Bình Giữ Nhiệt Aquabottle Việt Nam Màu Xanh Dương Pastel (500ml)",
     category: "Bình giữ nhiệt",
     capacity: "500 ml",
     material: "Vui lòng xác nhận theo thông tin phiên bản",
@@ -213,13 +214,16 @@ const PRODUCTS = {
     defaultColor: "Xanh dương pastel",
     images: ["images/xanhduong.jpg"],
     description:
-      "Bình giữ nhiệt TT Bottly màu xanh dương pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
+      "Bình giữ nhiệt Aquabottle Việt Nam màu xanh dương pastel dung tích 500ml, phù hợp sử dụng hằng ngày.",
   },
 };
 
 const COLOR_SWATCHES = {
-  Kem: "cream",
+  "Trắng kem": "white",
   "Hồng pastel": "pink",
+  "Xanh dương": "blue",
+  "Xanh lá": "green",
+  Kem: "cream",
   "Xanh dương pastel": "blue",
   "Xanh rêu pastel": "sage",
   "Đỏ burgundy": "burgundy",
@@ -227,8 +231,11 @@ const COLOR_SWATCHES = {
   Đen: "black",
 };
 const COLOR_IMAGES = {
-  Kem: "images/trang.jpg",
+  "Trắng kem": "images/trang.jpg",
   "Hồng pastel": "images/hong.jpg",
+  "Xanh dương": "images/xanhduong.jpg",
+  "Xanh lá": "images/xanhla.jpg",
+  Kem: "images/trang.jpg",
   "Xanh dương pastel": "images/xanhduong.jpg",
   "Xanh rêu pastel": "images/xanhla.jpg",
   "Đỏ burgundy": "images/bình đỏ.png",
@@ -247,6 +254,7 @@ const product = Object.prototype.hasOwnProperty.call(
 const PRODUCT_ID = product ? requestedProductId : "1";
 const notice = document.getElementById("notice");
 let selectedColors = [];
+let selectedCapacities = [];
 
 function changeImage(image) {
   const mainImage = document.getElementById("mainImage");
@@ -298,7 +306,7 @@ function updateEngraving() {
 }
 
 function renderProduct(item) {
-  document.title = item.title + " | TT Bottly";
+  document.title = item.title + " | Aquabottle Việt Nam";
   document.getElementById("seoDescription").content = item.description;
   document.getElementById("productTitle").textContent = item.title;
   document.getElementById("breadcrumbProduct").textContent = item.title;
@@ -321,14 +329,16 @@ function renderProduct(item) {
   const capacityRow = document.getElementById("capacityRow");
   capacityOptions.replaceChildren();
   capacityRow.hidden = !item.capacitySlots;
-  let selectedCapacities = Array.from(
+  selectedCapacities = Array.from(
     { length: item.capacitySlots || 0 },
     () => "500ml",
   );
   const updateCapacitySummary = () => {
     if (item.capacitySlots) {
       document.getElementById("productCapacity").textContent =
-        `Bình 1: ${selectedCapacities[0]} | Bình 2: ${selectedCapacities[1]}`;
+        selectedCapacities
+          .map((capacity, index) => `Bình ${index + 1}: ${capacity}`)
+          .join(" | ");
     }
   };
   updateCapacitySummary();
@@ -464,14 +474,9 @@ function buyNow() {
     engravingName: engravingName,
   });
   if (currentProduct.capacitySlots) {
-    const capacityButtons = document.querySelectorAll(
-      "#capacityOptions .capacity-selection",
-    );
-    const capacities = Array.from(capacityButtons, (selection) =>
-      selection.querySelector(".capacity-option.selected").textContent,
-    );
-    params.set("capacity1", capacities[0]);
-    params.set("capacity2", capacities[1]);
+    selectedCapacities.forEach((capacity, index) => {
+      params.set(`capacity${index + 1}`, capacity);
+    });
   } else {
     params.set(
       "capacity",
