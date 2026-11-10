@@ -52,34 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
      1. STORAGE HELPERS
      --------------------------------------------------------- */
   function initStorageSeed() {
-    if (!localStorage.getItem(USERS_KEY)) {
-      const demoUsers = [
-        {
-          id: 'usr_demo_1',
-          fullname: 'Nguyễn Văn A',
-          email: 'demo@bottly.vn',
-          phone: '0912345678',
-          password: '123456',
-          address: 'Số 123 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh',
-          createdAt: new Date().toLocaleDateString('vi-VN')
-        }
-      ];
-      localStorage.setItem(USERS_KEY, JSON.stringify(demoUsers));
-    }
+    // Tuyệt đối không tạo dữ liệu ảo vào database
+    // Dọn dẹp dữ liệu ảo cũ nếu còn sót lại trong cache
+    const FAKE_USER_EMAILS = ['demo@bottly.vn', 'lan.tran@gmail.com', 'minh.le@company.vn'];
+    const FAKE_ORDER_IDS = ['TTB-883921', 'TTB-792410', 'TTB-651094'];
 
-    if (!localStorage.getItem(ORDERS_KEY)) {
-      const demoOrders = [
-        {
-          id: 'TTB-883921',
-          date: '25/09/2026',
-          product: 'TT Bottly Classic (Xanh Rêu - 700ml) x 1',
-          total: '389.000₫',
-          status: 'Đã xác nhận',
-          payment: 'COD'
-        }
-      ];
-      localStorage.setItem(ORDERS_KEY, JSON.stringify(demoOrders));
-    }
+    try {
+      const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+      const cleanUsers = users.filter((u) => !FAKE_USER_EMAILS.includes((u.email || '').toLowerCase().trim()));
+      localStorage.setItem(USERS_KEY, JSON.stringify(cleanUsers));
+    } catch (_) {}
+
+    try {
+      const orders = JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
+      const cleanOrders = orders.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(cleanOrders));
+    } catch (_) {}
   }
 
   function getUsers() {
@@ -111,12 +99,32 @@ document.addEventListener('DOMContentLoaded', () => {
     updateNavAccountText();
   }
 
-  function getOrders() {
-    try {
-      return JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
-    } catch {
-      return [];
+  function getOrders(user) {
+    let all = [];
+    if (window.TTBaaS && typeof window.TTBaaS.getOrders === 'function') {
+      all = window.TTBaaS.getOrders();
+    } else {
+      try {
+        all = JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
+      } catch {
+        all = [];
+      }
     }
+    const FAKE_ORDER_IDS = ['TTB-883921', 'TTB-792410', 'TTB-651094'];
+    all = all.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+
+    if (!user) return all;
+    // Khách hàng chỉ xem đúng đơn hàng của chính tài khoản mình
+    const email = (user.email || '').toLowerCase().trim();
+    const phone = (user.phone || '').trim();
+    const uid = user.id;
+
+    return all.filter((o) => {
+      if (uid && o.userId === uid) return true;
+      if (email && o.customerEmail && o.customerEmail.toLowerCase().trim() === email) return true;
+      if (phone && o.customerPhone && o.customerPhone.trim() === phone) return true;
+      return false;
+    });
   }
 
   /* ---------------------------------------------------------
@@ -607,7 +615,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const badgeVip = document.querySelector('.badge-vip');
     if (badgeVip) {
-      badgeVip.textContent = user.role === 'admin' ? 'Quản Trị Viên Hệ Thống (Admin)' : 'Thành viên Thân Thiết';
+      if (user.role === 'admin') {
+        badgeVip.textContent = 'Quản Trị Viên Hệ Thống (Admin)';
+      } else {
+        const userOrders = getOrders(user);
+        badgeVip.textContent = userOrders.length > 2 ? 'Thành viên Thân Thiết' : 'Thành viên Mới';
+      }
     }
 
     // Edit form fields
@@ -623,15 +636,31 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderOrderHistory() {
     const listEl = document.getElementById('orderHistoryList');
     const statOrdersCount = document.getElementById('statOrdersCount');
-    const orders = getOrders();
+    const statPoints = document.getElementById('statPoints');
+    const statCoupons = document.getElementById('statCoupons');
+
+    const user = getCurrentUser();
+    const orders = user ? getOrders(user) : [];
 
     if (statOrdersCount) statOrdersCount.textContent = orders.length;
+
+    if (statPoints) {
+      // Khách mới chưa mua hàng: 0 điểm. Mỗi đơn hàng tích lũy +50 điểm
+      const points = user && typeof user.points === 'number' ? user.points : (orders.length * 50);
+      statPoints.textContent = points;
+    }
+
+    if (statCoupons) {
+      // Khách mới: 0 mã đã lưu/dùng
+      const coupons = user && typeof user.coupons === 'number' ? user.coupons : 0;
+      statCoupons.textContent = coupons;
+    }
 
     if (!orders || orders.length === 0) {
       listEl.innerHTML = `
         <div class="order-empty-state">
           <h4>Chưa có đơn hàng nào</h4>
-          <p>Bạn chưa đặt hàng nào trên Aquabottle Việt Nam. Hãy trải nghiệm bình giữ nhiệt cao cấp ngay!</p>
+          <p>Bạn chưa đặt đơn hàng nào trên Aquabottle Việt Nam. Hãy trải nghiệm bình giữ nhiệt cao cấp ngay!</p>
           <a href="order.html" class="btn btn--cta" style="font-size: 13.5px; padding: 0 18px; min-height: 40px; display: inline-flex;">Mua sắm ngay</a>
         </div>
       `;

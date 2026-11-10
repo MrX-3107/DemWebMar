@@ -84,15 +84,11 @@
 
           <!-- Alert / Demo Account Banner -->
           <div class="demo-account-banner" id="demoBanner" style="flex-wrap: wrap; gap: 8px;">
-            <div class="demo-banner__text" style="flex: 1 1 100%;">
-              <strong>Tài khoản thử nghiệm Cloud BaaS:</strong><br />
-              • Khách hàng: <code>demo@bottly.vn</code> / <code>123456</code><br />
-              • Quản trị viên (Admin): <code>admin@bottly.vn</code> / <code>admin123</code>
+            <div class="demo-banner__text" style="flex: 1 1 auto;">
+              <strong>Tài khoản Quản trị viên (Admin):</strong>
+              <code>admin@bottly.vn</code> / <code>admin123</code>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button type="button" class="btn-demo-fill" id="btnFillDemo" title="Điền thông tin khách hàng tự động">
-                Điền TK Khách
-              </button>
               <button type="button" class="btn-demo-fill" id="btnFillAdminDemo"
                 style="background: #0e2920; color: #fff; border-color: #0e2920;" title="Điền thông tin Admin tự động">
                 Điền TK Admin
@@ -300,13 +296,13 @@
           </div>
           <div class="stat-card">
             <div class="stat-card__content">
-              <div class="stat-card__num" id="statPoints">150</div>
+              <div class="stat-card__num" id="statPoints">0</div>
               <div class="stat-card__label">Điểm tích lũy</div>
             </div>
           </div>
           <div class="stat-card">
             <div class="stat-card__content">
-              <div class="stat-card__num">3</div>
+              <div class="stat-card__num" id="statCoupons">0</div>
               <div class="stat-card__label">Mã ưu đãi khả dụng</div>
             </div>
           </div>

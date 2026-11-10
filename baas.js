@@ -133,10 +133,11 @@
   }
 
   /* --------------------------------------------------------------------------
-     2. KHỞI TẠO DỮ LIỆU MẪU (SEED DATA) CHO HỆ THỐNG
+     2. KHỞI TẠO DỮ LIỆU BAN ĐẦU (SEED DATA) CHO HỆ THỐNG
+     (Chỉ tạo tài khoản Admin mặc định, tuyệt đối không tạo đơn hàng hay khách ảo)
      -------------------------------------------------------------------------- */
   function initSeedData() {
-    // 2.1. Seed Users (Bao gồm tài khoản Admin và Khách hàng)
+    // 2.1. Seed Users (Chỉ duy nhất tài khoản Quản trị viên admin@bottly.vn)
     let users = [];
     try {
       users = JSON.parse(localStorage.getItem(KEYS.USERS)) || [];
@@ -144,87 +145,32 @@
       users = [];
     }
 
-    const defaultUsers = [
-      {
-        id: 'usr_admin_1',
-        fullname: 'Quản Trị Viên TT Bottly',
-        email: 'admin@bottly.vn',
-        phone: '0966321069',
-        password: 'admin123',
-        role: 'admin',
-        status: 'active',
-        address: 'Tòa nhà Aquabottle, Cầu Giấy, Hà Nội',
-        createdAt: '01/10/2026',
-        lastLogin: 'Hôm nay',
-      },
-      {
-        id: 'usr_demo_1',
-        fullname: 'Nguyễn Văn A',
-        email: 'demo@bottly.vn',
-        phone: '0912345678',
-        password: '123456',
-        role: 'customer',
-        status: 'active',
-        address: 'Số 123 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh',
-        createdAt: '15/10/2026',
-        lastLogin: 'Hôm nay',
-      },
-      {
-        id: 'usr_cust_2',
-        fullname: 'Trần Thị Mai Lan',
-        email: 'lan.tran@gmail.com',
-        phone: '0987654321',
-        password: '123456',
-        role: 'customer',
-        status: 'active',
-        address: '88 Cầu Giấy, Phường Quan Hoa, Quận Cầu Giấy, Hà Nội',
-        createdAt: '28/10/2026',
-        lastLogin: '05/11/2026',
-      },
-      {
-        id: 'usr_cust_3',
-        fullname: 'Lê Hoàng Minh',
-        email: 'minh.le@company.vn',
-        phone: '0905112233',
-        password: '123456',
-        role: 'customer',
-        status: 'active',
-        address: '45 Nguyễn Văn Linh, Quận Hải Châu, Đà Nẵng',
-        createdAt: '02/11/2026',
-        lastLogin: '08/11/2026',
-      },
-    ];
+    const adminUser = {
+      id: 'usr_admin_1',
+      fullname: 'Quản Trị Viên TT Bottly',
+      email: 'admin@bottly.vn',
+      phone: '0966321069',
+      password: 'admin123',
+      role: 'admin',
+      status: 'active',
+      address: 'Tòa nhà Aquabottle, Cầu Giấy, Hà Nội',
+      createdAt: '01/10/2026',
+      lastLogin: 'Hôm nay',
+    };
 
-    if (users.length === 0) {
-      localStorage.setItem(KEYS.USERS, JSON.stringify(defaultUsers));
-    } else {
-      // Đảm bảo luôn có tài khoản admin@bottly.vn và chuẩn hóa trường role/status
-      let updated = false;
-      users = users.map((u) => {
-        const copy = { ...u };
-        if (!copy.role) {
-          copy.role =
-            copy.email && copy.email.toLowerCase() === 'admin@bottly.vn'
-              ? 'admin'
-              : 'customer';
-          updated = true;
-        }
-        if (!copy.status) {
-          copy.status = 'active';
-          updated = true;
-        }
-        return copy;
-      });
-      if (!users.some((u) => u.email.toLowerCase() === 'admin@bottly.vn')) {
-        users.unshift(defaultUsers[0]);
-        updated = true;
-      }
-      if (updated) {
-        localStorage.setItem(KEYS.USERS, JSON.stringify(users));
-      }
+    // Dọn dẹp các tài khoản khách ảo cũ nếu còn sót lại trong cache
+    const FAKE_USER_EMAILS = ['demo@bottly.vn', 'lan.tran@gmail.com', 'minh.le@company.vn'];
+    users = users.filter(
+      (u) => !FAKE_USER_EMAILS.includes((u.email || '').toLowerCase().trim())
+    );
+
+    // Đảm bảo luôn có tài khoản admin@bottly.vn
+    if (!users.some((u) => (u.email || '').toLowerCase().trim() === 'admin@bottly.vn')) {
+      users.unshift(adminUser);
     }
+    localStorage.setItem(KEYS.USERS, JSON.stringify(users));
 
-    // 2.2. Seed Orders
+    // 2.2. Orders: KHÔNG TẠO ĐƠN HÀNG ẢO
     let orders = [];
     try {
       orders = JSON.parse(localStorage.getItem(KEYS.ORDERS)) || [];
@@ -232,100 +178,12 @@
       orders = [];
     }
 
-    if (orders.length === 0) {
-      const demoOrders = [
-        {
-          id: 'TTB-883921',
-          userId: 'usr_demo_1',
-          customerName: 'Nguyễn Văn A',
-          customerPhone: '0912345678',
-          customerEmail: 'demo@bottly.vn',
-          province: 'TP. Hồ Chí Minh',
-          address: 'Số 123 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh',
-          product: 'Bình Giữ Nhiệt Sport 700ml',
-          qty: 1,
-          addons: '',
-          total: 'Liên hệ',
-          status: 'Đã xác nhận',
-          payment: 'COD',
-          note: '',
-          adminNote: '',
-          date: '05/11/2026',
-          createdAt: '2026-11-05T09:30:00.000Z',
-        },
-        {
-          id: 'TTB-792410',
-          userId: 'usr_cust_2',
-          customerName: 'Trần Thị Mai Lan',
-          customerPhone: '0987654321',
-          customerEmail: 'lan.tran@gmail.com',
-          province: 'Hà Nội',
-          address: '88 Cầu Giấy, Phường Quan Hoa, Quận Cầu Giấy, Hà Nội',
-          product: 'Combo 2 Bình Everyday Daily Duo',
-          qty: 1,
-          addons: '',
-          total: 'Liên hệ',
-          status: 'Chờ xác nhận',
-          payment: 'BANK',
-          note: '',
-          adminNote: '',
-          date: '08/11/2026',
-          createdAt: '2026-11-08T14:20:00.000Z',
-        },
-        {
-          id: 'TTB-651094',
-          userId: 'usr_cust_3',
-          customerName: 'Lê Hoàng Minh',
-          customerPhone: '0905112233',
-          customerEmail: 'minh.le@company.vn',
-          province: 'Đà Nẵng',
-          address: '45 Nguyễn Văn Linh, Quận Hải Châu, Đà Nẵng',
-          product: 'Bộ 3 Bình Everyday Daily Family',
-          qty: 2,
-          addons: '',
-          total: 'Liên hệ',
-          status: 'Đang giao hàng',
-          payment: 'BANK',
-          note: '',
-          adminNote: '',
-          date: '07/11/2026',
-          createdAt: '2026-11-07T11:15:00.000Z',
-        },
-      ];
-      localStorage.setItem(KEYS.ORDERS, JSON.stringify(demoOrders));
-    } else {
-      // Chuẩn hóa các đơn hàng cũ nếu thiếu trường customerName / customerPhone
-      let updated = false;
-      orders = orders.map((o) => {
-        const copy = { ...o };
-        if (!copy.customerName) {
-          copy.customerName = copy.name || 'Nguyễn Văn A';
-          updated = true;
-        }
-        if (!copy.customerPhone) {
-          copy.customerPhone = copy.phone || '0912345678';
-          updated = true;
-        }
-        if (!copy.customerEmail) {
-          copy.customerEmail = copy.email || 'demo@bottly.vn';
-          updated = true;
-        }
-        if (!copy.address) {
-          copy.address = 'Số 123 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh';
-          updated = true;
-        }
-        if (!copy.status) {
-          copy.status = 'Chờ xác nhận';
-          updated = true;
-        }
-        return copy;
-      });
-      if (updated) {
-        localStorage.setItem(KEYS.ORDERS, JSON.stringify(orders));
-      }
-    }
+    // Dọn dẹp triệt để các mã đơn ảo đã gán trước đây
+    const FAKE_ORDER_IDS = ['TTB-883921', 'TTB-792410', 'TTB-651094'];
+    orders = orders.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+    localStorage.setItem(KEYS.ORDERS, JSON.stringify(orders));
 
-    // 2.3. Seed Support Tickets
+    // 2.3. Support Tickets: KHÔNG TẠO PHIẾU HỖ TRỢ ẢO
     let tickets = [];
     try {
       tickets = JSON.parse(localStorage.getItem(KEYS.TICKETS)) || [];
@@ -333,68 +191,10 @@
       tickets = [];
     }
 
-    if (tickets.length === 0) {
-      const demoTickets = [
-        {
-          id: 'CSKH-582910',
-          name: 'Trần Thị Mai Lan',
-          phone: '0987654321',
-          email: 'lan.tran@gmail.com',
-          topic: 'corporate',
-          topicLabel: 'Đặt hàng số lượng lớn / Khắc tên doanh nghiệp',
-          source: 'Form Hỗ Trợ',
-          note: 'Mình muốn đặt 50 bình giữ nhiệt 500ml màu Xanh lục bảo khắc logo công ty làm quà cuối năm, báo giá chiết khấu giúp mình nhé.',
-          status: 'Mới tiếp nhận',
-          priority: 'Cao',
-          adminReply: '',
-          createdAt: '09/11/2026 09:15',
-          updatedAt: '09/11/2026 09:15',
-        },
-        {
-          id: 'CSKH-349182',
-          name: 'Nguyễn Văn A',
-          phone: '0912345678',
-          email: 'demo@bottly.vn',
-          topic: 'shipping',
-          topicLabel: 'Tra cứu vận chuyển / Giao hàng chậm',
-          source: 'Form Hỗ Trợ',
-          note: 'Shop kiểm tra giúp mình đơn hàng TTB-883921 bao giờ giao tới Quận 1 TP.HCM nhé?',
-          status: 'Đang xử lý',
-          priority: 'Trung bình',
-          adminReply: 'Đã liên hệ bưu cục, dự kiến giao trước 16h chiều nay.',
-          createdAt: '08/11/2026 15:40',
-          updatedAt: '08/11/2026 16:05',
-        },
-        {
-          id: 'CSKH-120495',
-          name: 'Phạm Quốc Bảo',
-          phone: '0938123999',
-          email: 'baopham@gmail.com',
-          topic: 'warranty',
-          topicLabel: 'Bảo hành / Đổi trả sản phẩm',
-          source: 'Form Hỗ Trợ',
-          note: 'Mình muốn mua thêm nắp thay thế và gioăng silicone cho bình 700ml.',
-          status: 'Đã giải quyết',
-          priority: 'Thấp',
-          adminReply: 'Đã gửi tặng khách 1 bộ gioăng silicone mới kèm đơn phụ kiện.',
-          createdAt: '04/11/2026 10:20',
-          updatedAt: '04/11/2026 11:00',
-        },
-      ];
-      localStorage.setItem(KEYS.TICKETS, JSON.stringify(demoTickets));
-    } else {
-      let updatedTickets = false;
-      tickets = tickets.map((t) => {
-        if (t.source !== 'Form Hỗ Trợ') {
-          updatedTickets = true;
-          return { ...t, source: 'Form Hỗ Trợ' };
-        }
-        return t;
-      });
-      if (updatedTickets) {
-        localStorage.setItem(KEYS.TICKETS, JSON.stringify(tickets));
-      }
-    }
+    // Dọn dẹp các phiếu CSKH ảo đã gán trước đây
+    const FAKE_TICKET_IDS = ['CSKH-582910', 'CSKH-349182', 'CSKH-120495'];
+    tickets = tickets.filter((t) => !FAKE_TICKET_IDS.includes(t.id));
+    localStorage.setItem(KEYS.TICKETS, JSON.stringify(tickets));
   }
 
   // Khởi chạy seed data ngay khi nạp SDK
@@ -503,6 +303,10 @@
      -------------------------------------------------------------------------- */
   async function syncFromCloud() {
     const cfg = getConfig();
+    const FAKE_ORDER_IDS = ['TTB-883921', 'TTB-792410', 'TTB-651094'];
+    const FAKE_USER_EMAILS = ['demo@bottly.vn', 'lan.tran@gmail.com', 'minh.le@company.vn'];
+    const FAKE_TICKET_IDS = ['CSKH-582910', 'CSKH-349182', 'CSKH-120495'];
+
     try {
       if (isSupabaseConfigured(cfg)) {
         const [cloudUsers, cloudOrders, cloudTickets] = await Promise.all([
@@ -510,23 +314,19 @@
           supabaseRequest('orders', 'GET', null, 'select=*'),
           supabaseRequest('support_tickets', 'GET', null, 'select=*'),
         ]);
-        if (Array.isArray(cloudUsers) && cloudUsers.length > 0) {
-          localStorage.setItem(KEYS.USERS, JSON.stringify(cloudUsers));
+        if (Array.isArray(cloudUsers)) {
+          const cleanUsers = cloudUsers.filter(
+            (u) => !FAKE_USER_EMAILS.includes((u.email || '').toLowerCase().trim())
+          );
+          localStorage.setItem(KEYS.USERS, JSON.stringify(cleanUsers));
         }
-        if (Array.isArray(cloudOrders) && cloudOrders.length > 0) {
-          localStorage.setItem(KEYS.ORDERS, JSON.stringify(cloudOrders));
+        if (Array.isArray(cloudOrders)) {
+          const cleanOrders = cloudOrders.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+          localStorage.setItem(KEYS.ORDERS, JSON.stringify(cleanOrders));
         }
-        if (Array.isArray(cloudTickets) && cloudTickets.length > 0) {
-          localStorage.setItem(KEYS.TICKETS, JSON.stringify(cloudTickets));
-        }
-        // Nếu bảng trên Supabase mới tạo chưa có đơn hàng/phiếu hỗ trợ, tự động đẩy dữ liệu khởi tạo lên Cloud
-        if (
-          Array.isArray(cloudOrders) &&
-          cloudOrders.length === 0 &&
-          Array.isArray(cloudTickets) &&
-          cloudTickets.length === 0
-        ) {
-          await pushAllLocalToCloud();
+        if (Array.isArray(cloudTickets)) {
+          const cleanTickets = cloudTickets.filter((t) => !FAKE_TICKET_IDS.includes(t.id));
+          localStorage.setItem(KEYS.TICKETS, JSON.stringify(cleanTickets));
         }
         saveConfig({ lastSyncAt: new Date().toISOString() });
         broadcast('cloud_synced', { provider: 'supabase' });
@@ -539,14 +339,19 @@
           firebaseRequest('orders', 'GET'),
           firebaseRequest('support_tickets', 'GET'),
         ]);
-        if (Array.isArray(cloudUsers) && cloudUsers.length > 0) {
-          localStorage.setItem(KEYS.USERS, JSON.stringify(cloudUsers));
+        if (Array.isArray(cloudUsers)) {
+          const cleanUsers = cloudUsers.filter(
+            (u) => !FAKE_USER_EMAILS.includes((u.email || '').toLowerCase().trim())
+          );
+          localStorage.setItem(KEYS.USERS, JSON.stringify(cleanUsers));
         }
-        if (Array.isArray(cloudOrders) && cloudOrders.length > 0) {
-          localStorage.setItem(KEYS.ORDERS, JSON.stringify(cloudOrders));
+        if (Array.isArray(cloudOrders)) {
+          const cleanOrders = cloudOrders.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+          localStorage.setItem(KEYS.ORDERS, JSON.stringify(cleanOrders));
         }
-        if (Array.isArray(cloudTickets) && cloudTickets.length > 0) {
-          localStorage.setItem(KEYS.TICKETS, JSON.stringify(cloudTickets));
+        if (Array.isArray(cloudTickets)) {
+          const cleanTickets = cloudTickets.filter((t) => !FAKE_TICKET_IDS.includes(t.id));
+          localStorage.setItem(KEYS.TICKETS, JSON.stringify(cleanTickets));
         }
         saveConfig({ lastSyncAt: new Date().toISOString() });
         broadcast('cloud_synced', { provider: 'firebase' });
@@ -804,11 +609,29 @@
      6. MODULE 2: QUẢN LÝ ĐƠN HÀNG (ORDERS)
      -------------------------------------------------------------------------- */
   function getOrders() {
+    let orders = [];
     try {
-      return JSON.parse(localStorage.getItem(KEYS.ORDERS)) || [];
+      orders = JSON.parse(localStorage.getItem(KEYS.ORDERS)) || [];
     } catch {
-      return [];
+      orders = [];
     }
+    const FAKE_ORDER_IDS = ['TTB-883921', 'TTB-792410', 'TTB-651094'];
+    return orders.filter((o) => !FAKE_ORDER_IDS.includes(o.id));
+  }
+
+  function getUserOrders(user) {
+    if (!user) return [];
+    const orders = getOrders();
+    const userEmail = (user.email || '').toLowerCase().trim();
+    const userPhone = (user.phone || '').trim();
+    const userId = user.id;
+
+    return orders.filter((o) => {
+      if (userId && o.userId === userId) return true;
+      if (userEmail && o.customerEmail && o.customerEmail.toLowerCase().trim() === userEmail) return true;
+      if (userPhone && o.customerPhone && o.customerPhone.trim() === userPhone) return true;
+      return false;
+    });
   }
 
   function saveOrdersLocal(orders) {
@@ -1084,6 +907,7 @@
     deleteUser,
     // Orders
     getOrders,
+    getUserOrders,
     createOrder,
     updateOrder,
     deleteOrder,

@@ -76,9 +76,8 @@ DROP POLICY IF EXISTS "Allow public access to support_tickets" ON public.support
 CREATE POLICY "Allow public access to support_tickets" ON public.support_tickets
   FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
 
--- 5. KHỞI TẠO DỮ LIỆU MẶC ĐỊNH (ADMIN & DỮ LIỆU MẪU)
+-- 5. KHỞI TẠO TÀI KHOẢN QUẢN TRỊ VIÊN MẶC ĐỊNH
 INSERT INTO public.users (id, fullname, email, phone, password, role, status, address, "createdAt", "lastLogin")
 VALUES
-  ('usr_admin_1', 'Quản Trị Viên TT Bottly', 'admin@bottly.vn', '0966321069', 'admin123', 'admin', 'active', 'Tòa nhà Aquabottle, Cầu Giấy, Hà Nội', '01/10/2026', 'Hôm nay'),
-  ('usr_demo_1', 'Nguyễn Văn A', 'demo@bottly.vn', '0912345678', '123456', 'customer', 'active', 'Số 123 Đường Nguyễn Trãi, Quận 1, TP. Hồ Chí Minh', '15/10/2026', 'Hôm nay')
+  ('usr_admin_1', 'Quản Trị Viên TT Bottly', 'admin@bottly.vn', '0966321069', 'admin123', 'admin', 'active', 'Tòa nhà Aquabottle, Cầu Giấy, Hà Nội', '01/10/2026', 'Hôm nay')
 ON CONFLICT (id) DO NOTHING;
