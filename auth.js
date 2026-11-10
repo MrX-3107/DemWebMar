@@ -1,5 +1,5 @@
 /**
- * Aquabottle Việt Nam – Authentication & User Account System (Local Storage)
+ * TT Bottly – Authentication & User Account System (Local Storage)
  * Supports Register, Login, Profile Dashboard, Orders Sync, and Password Reset
  */
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           id: 'TTB-883921',
           date: '25/09/2026',
-          product: 'Aquabottle Việt Nam Classic (Xanh Rêu - 700ml) x 1',
+          product: 'TT Bottly Classic (Xanh Rêu - 700ml) x 1',
           total: '389.000₫',
           status: 'Đã xác nhận',
           payment: 'COD'
@@ -165,7 +165,17 @@ document.addEventListener('DOMContentLoaded', () => {
     btnFillDemo.addEventListener('click', () => {
       document.getElementById('loginIdentifier').value = 'demo@bottly.vn';
       document.getElementById('loginPassword').value = '123456';
-      showToast('Đã điền tài khoản thử nghiệm!', 'success');
+      showToast('Đã điền tài khoản Khách hàng thử nghiệm!', 'success');
+      clearAlert();
+    });
+  }
+
+  const btnFillAdminDemo = document.getElementById('btnFillAdminDemo');
+  if (btnFillAdminDemo) {
+    btnFillAdminDemo.addEventListener('click', () => {
+      document.getElementById('loginIdentifier').value = 'admin@bottly.vn';
+      document.getElementById('loginPassword').value = 'admin123';
+      showToast('Đã điền tài khoản Quản trị viên (Admin)!', 'success');
       clearAlert();
     });
   }
@@ -281,21 +291,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!isValid) return;
 
-    // Verify credentials against local storage
-    const users = getUsers();
-    const user = users.find(u => 
-      (u.email.toLowerCase() === identifier.toLowerCase() || u.phone === identifier) &&
-      u.password === password
-    );
+    // Verify credentials via Cloud BaaS SDK
+    if (window.TTBaaS) {
+      const res = window.TTBaaS.loginUser(identifier, password);
+      if (!res.ok) {
+        showAlert(res.error);
+        return;
+      }
+      updateNavAccountText();
+      showToast(`Đăng nhập thành công! Chào mừng ${res.user.fullname}`, 'success');
+    } else {
+      const users = getUsers();
+      const user = users.find(u => 
+        (u.email.toLowerCase() === identifier.toLowerCase() || u.phone === identifier) &&
+        u.password === password
+      );
 
-    if (!user) {
-      showAlert('Email, Số điện thoại hoặc mật khẩu không chính xác. Vui lòng thử lại!');
-      return;
+      if (!user) {
+        showAlert('Email, Số điện thoại hoặc mật khẩu không chính xác. Vui lòng thử lại!');
+        return;
+      }
+      if (user.status === 'locked') {
+        showAlert('Tài khoản của bạn đã bị tạm khóa bởi Quản trị viên.');
+        return;
+      }
+      setCurrentUser(user);
+      showToast(`Đăng nhập thành công! Chào mừng ${user.fullname}`, 'success');
     }
-
-    // Login success
-    setCurrentUser(user);
-    showToast(`Đăng nhập thành công! Chào mừng ${user.fullname}`, 'success');
 
     // Check redirect parameter
     const searchParams = new URLSearchParams(window.location.search || (window.location.hash.includes('?') ? window.location.hash.split('?')[1] : ''));
@@ -345,35 +367,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!valid) return;
 
-    // Check existing email or phone
-    const users = getUsers();
-    const existsEmail = users.some(u => u.email.toLowerCase() === email.toLowerCase());
-    if (existsEmail) {
-      setFieldError('regEmail', 'regEmailError', 'Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
-      return;
+    if (window.TTBaaS) {
+      const res = window.TTBaaS.registerUser({
+        fullname: name,
+        email,
+        phone,
+        password,
+        address: address || '',
+      });
+      if (!res.ok) {
+        if (res.field === 'email') {
+          setFieldError('regEmail', 'regEmailError', res.error);
+        } else if (res.field === 'phone') {
+          setFieldError('regPhone', 'regPhoneError', res.error);
+        } else {
+          showAlert(res.error);
+        }
+        return;
+      }
+      setCurrentUser(res.user);
+    } else {
+      // Check existing email or phone
+      const users = getUsers();
+      const existsEmail = users.some(u => u.email.toLowerCase() === email.toLowerCase());
+      if (existsEmail) {
+        setFieldError('regEmail', 'regEmailError', 'Email này đã được đăng ký. Vui lòng đăng nhập hoặc dùng email khác.');
+        return;
+      }
+      const existsPhone = users.some(u => u.phone === phone);
+      if (existsPhone) {
+        setFieldError('regPhone', 'regPhoneError', 'Số điện thoại này đã được đăng ký.');
+        return;
+      }
+
+      // Create user
+      const newUser = {
+        id: 'usr_' + Date.now(),
+        fullname: name,
+        email: email,
+        phone: phone,
+        password: password,
+        role: 'customer',
+        status: 'active',
+        address: address || '',
+        createdAt: new Date().toLocaleDateString('vi-VN')
+      };
+
+      users.push(newUser);
+      saveUsers(users);
+      setCurrentUser(newUser);
     }
-    const existsPhone = users.some(u => u.phone === phone);
-    if (existsPhone) {
-      setFieldError('regPhone', 'regPhoneError', 'Số điện thoại này đã được đăng ký.');
-      return;
-    }
 
-    // Create user
-    const newUser = {
-      id: 'usr_' + Date.now(),
-      fullname: name,
-      email: email,
-      phone: phone,
-      password: password,
-      address: address || '',
-      createdAt: new Date().toLocaleDateString('vi-VN')
-    };
-
-    users.push(newUser);
-    saveUsers(users);
-
-    // Auto login
-    setCurrentUser(newUser);
     showToast('Tạo tài khoản thành công! Chào mừng bạn gia nhập Aquabottle Việt Nam.', 'success');
 
     // Check redirect parameter
@@ -408,18 +452,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    currentUser.fullname = newName;
-    currentUser.phone = newPhone;
-    currentUser.address = newAddress;
+    if (window.TTBaaS) {
+      window.TTBaaS.updateUser(currentUser.id, {
+        fullname: newName,
+        phone: newPhone,
+        address: newAddress,
+      });
+    } else {
+      currentUser.fullname = newName;
+      currentUser.phone = newPhone;
+      currentUser.address = newAddress;
 
-    // Update in users database
-    const users = getUsers();
-    const idx = users.findIndex(u => u.id === currentUser.id || u.email === currentUser.email);
-    if (idx !== -1) {
-      users[idx] = currentUser;
-      saveUsers(users);
+      // Update in users database
+      const users = getUsers();
+      const idx = users.findIndex(u => u.id === currentUser.id || u.email === currentUser.email);
+      if (idx !== -1) {
+        users[idx] = currentUser;
+        saveUsers(users);
+      }
+      setCurrentUser(currentUser);
     }
-    setCurrentUser(currentUser);
 
     feedback.textContent = 'Đã cập nhật thông tin thành công!';
     feedback.className = 'save-feedback is-success';
@@ -548,13 +600,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('profileEmailDisplay').textContent = user.email;
     document.getElementById('profilePhoneDisplay').textContent = user.phone;
 
+    const btnGoAdminPortal = document.getElementById('btnGoAdminPortal');
+    if (btnGoAdminPortal) {
+      btnGoAdminPortal.hidden = user.role !== 'admin';
+    }
+
+    const badgeVip = document.querySelector('.badge-vip');
+    if (badgeVip) {
+      badgeVip.textContent = user.role === 'admin' ? 'Quản Trị Viên Hệ Thống (Admin)' : 'Thành viên Thân Thiết';
+    }
+
     // Edit form fields
     document.getElementById('editFullname').value = user.fullname;
     document.getElementById('editEmail').value = user.email;
     document.getElementById('editPhone').value = user.phone;
     document.getElementById('editAddress').value = user.address || '';
 
-    // Render Order History from localStorage
+    // Render Order History from Cloud BaaS / localStorage
     renderOrderHistory();
   }
 
@@ -595,9 +657,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateNavAccountText() {
+    if (typeof window.syncAuthNav === 'function') {
+      window.syncAuthNav();
+    }
     if (!navAccountLink) return;
-    navAccountLink.textContent = 'Tài khoản';
     const user = getCurrentUser();
+    const isAdmin = Boolean(
+      user &&
+        (user.role === 'admin' ||
+          (user.email && user.email.toLowerCase() === 'admin@bottly.vn'))
+    );
+    navAccountLink.textContent = isAdmin ? 'Tài khoản (Admin)' : 'Tài khoản';
     if (user) {
       navAccountLink.title = `Tài khoản: ${user.fullname}`;
     } else {

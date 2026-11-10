@@ -1,5 +1,5 @@
 /* =========================================================
-   Aquabottle Việt Nam – Order & Checkout Page Logic
+   TT Bottly – Order & Checkout Page Logic
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const initialCapacity = orderParams.get("capacity");
   const initialCapacity1 = orderParams.get("capacity1");
   const initialCapacity2 = orderParams.get("capacity2");
-  const initialCapacity3 = orderParams.get("capacity3");
   const initialColor = orderParams.get("color");
   const initialEngraving = orderParams.get("engraving") === "true";
   const initialEngravingName = orderParams.get("engravingName") || "";
@@ -100,9 +99,6 @@ document.addEventListener("DOMContentLoaded", () => {
         : "500ml",
       initialCapacity2 === "500ml" || initialCapacity2 === "700ml"
         ? initialCapacity2
-        : "500ml",
-      initialCapacity3 === "500ml" || initialCapacity3 === "700ml"
-        ? initialCapacity3
         : "500ml",
     ],
     qty: Number.isFinite(initialQuantity)
@@ -188,11 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
     summaryImg.alt = prod.name;
     summaryProdName.textContent = prod.name;
     summaryProdVariant.textContent =
-      (["2", "3"].includes(state.productId)
-        ? state.capacities
-            .slice(0, state.productId === "2" ? 2 : 3)
-            .map((capacity, index) => `Bình ${index + 1}: ${capacity}`)
-            .join(" | ")
+      (state.productId === "2"
+        ? `Dung tích bình 1: ${state.capacities[0]} | Bình 2: ${state.capacities[1]}`
         : `Dung tích: ${state.capacity}`) +
       (state.color ? ` | Màu: ${state.color}` : "") +
       ` | SL: ${state.qty}` +
@@ -245,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const qrDesc = $("#bankTransferDesc");
       if (qrDesc) {
         qrDesc.textContent =
-          "Vui lòng liên hệ hotline 0363 409 513 để được báo giá và hướng dẫn thanh toán.";
+          "Vui lòng liên hệ hotline 0966321069 để được báo giá và hướng dẫn thanh toán.";
       }
     }
   }
@@ -438,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#modalCustomerAddress").textContent =
       `${$("#address").value.trim()}, ${$("#province").options[$("#province").selectedIndex].text}`;
     $("#modalProductInfo").textContent =
-      `${prod.name} (${["2", "3"].includes(state.productId) ? state.capacities.slice(0, state.productId === "2" ? 2 : 3).map((capacity, index) => `Bình ${index + 1}: ${capacity}`).join(", ") : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+      `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
 
     let paymentName = "Thanh toán khi nhận hàng (COD)";
     if (state.paymentMethod === "bank")
@@ -447,24 +440,62 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#modalPaymentMethod").textContent = paymentName;
     $("#modalGrandTotal").textContent = totalText;
 
-    // Save order to localStorage for Profile history
+    // Save order to Cloud BaaS & localStorage for Profile history and Admin Portal
     try {
-      const orders = JSON.parse(localStorage.getItem("tt_bottly_orders")) || [];
-      const newOrder = {
-        id: orderId,
-        date: new Date().toLocaleDateString("vi-VN"),
-        product: `${prod.name} (${["2", "3"].includes(state.productId) ? state.capacities.slice(0, state.productId === "2" ? 2 : 3).map((capacity, index) => `Bình ${index + 1}: ${capacity}`).join(", ") : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`,
-        total: totalText,
-        status: "Đã xác nhận",
-        payment: state.paymentMethod.toUpperCase(),
-      };
-      orders.unshift(newOrder);
-      localStorage.setItem(
-        "tt_bottly_orders",
-        JSON.stringify(orders.slice(0, 20)),
-      );
+      const activeAddonsList = [];
+      if (state.addons.bag) activeAddonsList.push("Túi canvas quai da");
+      if (state.addons.straw) activeAddonsList.push("Set ống hút inox 304");
+      if (state.addons.laser) {
+        const note = state.addons.laserText ? ` (${state.addons.laserText})` : "";
+        activeAddonsList.push(`Khắc laser tên riêng${note}`);
+      }
+
+      const provinceText =
+        $("#province") && $("#province").selectedIndex > 0
+          ? $("#province").options[$("#province").selectedIndex].text
+          : "";
+      const fullAddr = `${$("#address").value.trim()}${provinceText ? `, ${provinceText}` : ""}`;
+      const productSummary = `${prod.name} (${state.productId === "2" ? `Bình 1: ${state.capacities[0]}, Bình 2: ${state.capacities[1]}` : state.capacity}${state.color ? `, ${state.color}` : ""}) x ${state.qty}`;
+
+      if (window.TTBaaS) {
+        window.TTBaaS.createOrder({
+          id: orderId,
+          userId: currentUser ? currentUser.id : "guest",
+          customerName: $("#fullname").value.trim(),
+          customerPhone: $("#phone").value.trim(),
+          customerEmail: ($("#email") ? $("#email").value.trim() : "") || (currentUser ? currentUser.email : ""),
+          province: provinceText,
+          address: fullAddr,
+          product: productSummary,
+          qty: state.qty,
+          addons: activeAddonsList.join(", "),
+          total: totalText,
+          status: "Chờ xác nhận",
+          payment: state.paymentMethod.toUpperCase(),
+          note: $("#orderNote") ? $("#orderNote").value.trim() : "",
+          date: new Date().toLocaleDateString("vi-VN"),
+        });
+      } else {
+        const orders = JSON.parse(localStorage.getItem("tt_bottly_orders")) || [];
+        const newOrder = {
+          id: orderId,
+          customerName: $("#fullname").value.trim(),
+          customerPhone: $("#phone").value.trim(),
+          address: fullAddr,
+          date: new Date().toLocaleDateString("vi-VN"),
+          product: productSummary,
+          total: totalText,
+          status: "Chờ xác nhận",
+          payment: state.paymentMethod.toUpperCase(),
+        };
+        orders.unshift(newOrder);
+        localStorage.setItem(
+          "tt_bottly_orders",
+          JSON.stringify(orders.slice(0, 50)),
+        );
+      }
     } catch (err) {
-      console.warn("Cannot save order to localStorage", err);
+      console.warn("Cannot save order to Cloud BaaS / localStorage", err);
     }
 
     // Display Success Notification directly under order summary

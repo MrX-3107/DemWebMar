@@ -159,9 +159,9 @@ textarea {
 
   .header__inner > .nav {
     position: static;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px 18px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 12px;
     transform: none;
   }
 }

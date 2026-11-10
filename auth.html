@@ -83,14 +83,21 @@
           </div>
 
           <!-- Alert / Demo Account Banner -->
-          <div class="demo-account-banner" id="demoBanner">
-            <div class="demo-banner__text">
-              <strong>Tài khoản thử nghiệm:</strong>
-              <code>demo@bottly.vn</code> / <code>123456</code>
+          <div class="demo-account-banner" id="demoBanner" style="flex-wrap: wrap; gap: 8px;">
+            <div class="demo-banner__text" style="flex: 1 1 100%;">
+              <strong>Tài khoản thử nghiệm Cloud BaaS:</strong><br />
+              • Khách hàng: <code>demo@bottly.vn</code> / <code>123456</code><br />
+              • Quản trị viên (Admin): <code>admin@bottly.vn</code> / <code>admin123</code>
             </div>
-            <button type="button" class="btn-demo-fill" id="btnFillDemo" title="Điền thông tin demo tự động">
-              Điền nhanh
-            </button>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-demo-fill" id="btnFillDemo" title="Điền thông tin khách hàng tự động">
+                Điền TK Khách
+              </button>
+              <button type="button" class="btn-demo-fill" id="btnFillAdminDemo"
+                style="background: #0e2920; color: #fff; border-color: #0e2920;" title="Điền thông tin Admin tự động">
+                Điền TK Admin
+              </button>
+            </div>
           </div>
 
           <!-- Status Message / Alert Box -->
@@ -509,8 +516,8 @@
         </p>
       </div>
       <ul>
-        <li>Hotline: <a href="tel:0363409513">0363 409 513</a> (8h00 - 21h00)</li>
-        <li>Email: <a href="mailto:tranganh213206@gmail.com">tranganh213206@gmail.com</a></li>
+        <li>Hotline: <a href="tel:0966321069">0966321069</a> (8h00 - 21h00)</li>
+        <li>Email: <a href="mailto:contact@aquabottlevietnam.site">contact@aquabottlevietnam.site</a></li>
         <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
         <li>
           <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook
@@ -536,7 +543,10 @@
     </p>
   </footer>
 
+  <script src="baas.js"></script>
   <script src="auth.js"></script>
+  <script src="ripple.js" defer></script>
+  <script src="tilt3d.js" defer></script>
   <script src="auth-nav.js" defer></script>
 </body>
 

@@ -1,5 +1,5 @@
 /**
- * Aquabottle Việt Nam – Warranty & Return Policy Interactive Scripts
+ * TT Bottly – Warranty & Return Policy Interactive Scripts
  */
 document.addEventListener("DOMContentLoaded", () => {
   // 1. FAQ Accordion Toggle
@@ -47,9 +47,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const localOrders = JSON.parse(
           localStorage.getItem("tt_bottly_orders") || "[]",
         );
-        const found = localOrders.find((o) => o.phone === val || o.id === val);
+        const found = localOrders.find(
+          (o) =>
+            o.customerPhone === val ||
+            o.phone === val ||
+            o.id.toLowerCase() === val.toLowerCase(),
+        );
         if (found) {
-          customerName = found.name || customerName;
+          customerName = found.customerName || found.name || customerName;
           orderCode = found.id || orderCode;
           productName = found.product || productName;
           purchaseDate = found.date || purchaseDate;

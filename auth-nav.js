@@ -1,5 +1,5 @@
 /**
- * Aquabottle Việt Nam – Global Navigation & Left Sidebar Menu Helper
+ * TT Bottly – Global Navigation & Left Sidebar Menu Helper
  * Handles global navigation auth state and Left Offcanvas Sidebar Menu interactions
  */
 (function () {
@@ -114,20 +114,74 @@
   }
 
   function syncAuthNav() {
-    const navAccountLink = document.getElementById('navAccountLink') || document.querySelector('nav a[href="auth.html"]');
-    if (navAccountLink) {
-      try {
-        const currentUser = JSON.parse(localStorage.getItem('tt_bottly_current_user'));
-        navAccountLink.textContent = 'Tài khoản';
-        if (currentUser && currentUser.fullname) {
-          navAccountLink.title = `Tài khoản: ${currentUser.fullname}`;
-        } else {
-          navAccountLink.title = 'Tài khoản';
+    // Tự động nạp SDK Cloud BaaS (baas.js) nếu trang chưa nhúng trực tiếp
+    if (!window.TTBaaS && !document.querySelector('script[src*="baas.js"]')) {
+      const s = document.createElement('script');
+      s.src = 'baas.js';
+      s.onload = () => {
+        if (window.TTBaaS && typeof window.TTBaaS.onChange === 'function') {
+          window.TTBaaS.onChange(() => syncAuthNav());
         }
-      } catch (err) {}
+      };
+      document.head.appendChild(s);
+    } else if (window.TTBaaS && !window.__ttBaasNavBound) {
+      window.__ttBaasNavBound = true;
+      window.TTBaaS.onChange(() => syncAuthNav());
     }
+
+    const nav = document.getElementById('nav') || document.querySelector('header .nav');
+    const navAccountLink = document.getElementById('navAccountLink') || document.querySelector('nav a[href="auth.html"]');
+
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem('tt_bottly_current_user'));
+    } catch (err) {}
+
+    const isAdmin = Boolean(
+      currentUser &&
+        currentUser.status !== 'locked' &&
+        (currentUser.role === 'admin' ||
+          (currentUser.email && currentUser.email.toLowerCase() === 'admin@bottly.vn'))
+    );
+
+    if (navAccountLink) {
+      navAccountLink.textContent = isAdmin ? 'Tài khoản (Admin)' : 'Tài khoản';
+      if (currentUser && currentUser.fullname) {
+        navAccountLink.title = `Tài khoản: ${currentUser.fullname}`;
+      } else {
+        navAccountLink.title = 'Tài khoản';
+      }
+    }
+
+    // Chỉ hiển thị mục "Quản trị" (admin.html) trên Header khi đã đăng nhập bằng tài khoản Admin
+    if (nav) {
+      const existingAdminLink = nav.querySelector('a[href="admin.html"]');
+      if (isAdmin) {
+        if (!existingAdminLink) {
+          const adminLink = document.createElement('a');
+          adminLink.href = 'admin.html';
+          adminLink.id = 'navAdminLink';
+          adminLink.textContent = 'Quản trị';
+          adminLink.title = 'Hệ thống Quản trị Cloud BaaS (Đơn hàng, Người dùng, CSKH)';
+          if (window.location.pathname.endsWith('admin.html')) {
+            adminLink.classList.add('is-active');
+            adminLink.setAttribute('aria-current', 'page');
+          }
+          nav.appendChild(adminLink);
+        } else {
+          existingAdminLink.hidden = false;
+          existingAdminLink.style.display = '';
+        }
+      } else if (existingAdminLink) {
+        existingAdminLink.remove();
+      }
+    }
+
     initSidebarMenu();
   }
+
+  window.syncAuthNav = syncAuthNav;
+  window.addEventListener('storage', syncAuthNav);
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', syncAuthNav);

@@ -836,6 +836,7 @@ body.sidebar-open {
     padding: 6px 0 !important;
     font-size: 13.5px !important;
     font-weight: 700 !important;
+    line-height: 1.2 !important;
     color: #121e19 !important;
     background: transparent !important;
     border: none !important;
@@ -876,6 +877,9 @@ body.sidebar-open {
 }
 
 @media (max-width: 480px) {
+  .header .container {
+    padding: 0 12px !important;
+  }
   .hamburger-text {
     font-size: 12px;
   }
@@ -884,10 +888,11 @@ body.sidebar-open {
     gap: 7px;
   }
   .nav {
-    gap: 10px !important;
+    gap: clamp(6px, 2vw, 10px) !important;
+    padding: 4px 2px 8px !important;
   }
   .nav a:not(.btn) {
-    font-size: 12px !important;
+    font-size: clamp(11px, 3vw, 12.5px) !important;
   }
 }
 
@@ -2174,7 +2179,7 @@ body.sidebar-open {
     text-decoration: none;
     position: relative;
     letter-spacing: -0.01em;
-    line-height: 1;
+    line-height: 1.2;
     white-space: nowrap;
     transition: color 0.2s ease;
   }
@@ -2216,11 +2221,16 @@ body.sidebar-open {
 }
 .product-nav-item {
   position: relative;
+  display: inline-flex !important;
+  align-items: center !important;
   flex-shrink: 0;
+  margin: 0;
+  padding: 0;
 }
 .product-nav-item > summary {
-  display: inline-flex;
-  align-items: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 6px;
   color: #121e19;
   cursor: pointer;
@@ -2228,7 +2238,10 @@ body.sidebar-open {
   font-weight: 700;
   list-style: none;
   white-space: nowrap;
-  line-height: 1;
+  line-height: 1.2 !important;
+  padding: 6px 0;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 .product-nav-item > summary::-webkit-details-marker {
   display: none;
@@ -2269,16 +2282,295 @@ body.sidebar-open {
 
 @media (max-width: 1023px) {
   .product-page .nav {
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     overflow: visible !important;
   }
   .product-nav-item > summary {
-    font-size: 15.5px;
+    font-size: 13.5px !important;
+    line-height: 1.2 !important;
+    padding: 6px 0 !important;
+    letter-spacing: -0.01em !important;
   }
 }
 
 @media (max-width: 480px) {
   .product-nav-item > summary {
-    font-size: 14.5px;
+    font-size: clamp(11px, 3vw, 12.5px) !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* =========================================================
+   Water Surface – Mặt nước sóng sánh (ripple.js)
+   ========================================================= */
+/* Lớp canvas mặt nước phủ toàn màn hình (không chặn click) */
+.water-surface {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.water-ripple {
+  position: fixed;
+  z-index: 61;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Giọt nước màu xanh biển trầm rõ nét nhưng dịu mắt */
+.water-ripple__drop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 20px;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: radial-gradient(
+    circle at 35% 28%,
+    #eef8fa 0%,
+    #8dc4d4 24%,
+    #4894a8 58%,
+    #2a6c80 85%,
+    #124252 100%
+  );
+  box-shadow:
+    0 4px 10px rgba(18, 66, 82, 0.3),
+    inset -2px -2px 4px rgba(18, 66, 82, 0.3);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: waterDrop var(--fall) cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+/* Vệt bắn tại điểm chạm */
+.water-ripple__splash {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(141, 196, 212, 0.78) 0%,
+    rgba(72, 148, 168, 0.48) 45%,
+    transparent 72%
+  );
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  animation: waterSplash 0.55s ease-out var(--delay) forwards;
+}
+
+/* Tia nước nhỏ bắn ra xung quanh */
+.water-ripple__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5.5px;
+  height: 5.5px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d6eef5,
+    #4894a8 60%,
+    #124252
+  );
+  box-shadow: 0 1px 4px rgba(18, 66, 82, 0.28);
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(0);
+  animation: waterDot 0.6s cubic-bezier(0.2, 0.7, 0.4, 1) var(--delay)
+    forwards;
+}
+
+@keyframes waterDrop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 150px)) scale(0.7, 0.9);
+  }
+  25% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9, 1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2, 0.25);
+  }
+}
+
+@keyframes waterSplash {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+}
+
+@keyframes waterDot {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--a))
+      translateY(calc(var(--d) * -1)) scale(0.4);
+  }
+}
+
+/* =========================================================
+   Hiệu ứng 3D dùng chung (tilt3d.js)
+   Trang chủ · Sản phẩm · Hỗ trợ · Tài khoản · Về chúng tôi
+   ========================================================= */
+
+/* 1. Thẻ nghiêng 3D theo chuột */
+.tilt-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-3d.is-tilting {
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease !important;
+  box-shadow: 0 26px 50px rgba(14, 41, 32, 0.18);
+}
+
+/* Vệt sáng phản chiếu chạy theo chuột */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.12) 30%,
+    transparent 60%
+  );
+  transition: opacity 0.35s ease;
+}
+.tilt-3d.is-tilting .tilt-glare {
+  opacity: 1;
+}
+
+/* Chi tiết bên trong "nổi" lên khỏi mặt thẻ */
+.fx-3d .usp-number,
+.fx-3d .pain-icon-wrap,
+.fx-3d .thermal-icon-pill,
+.fx-3d .pillar-icon-box,
+.fx-3d .about-stat-num,
+.fx-3d .channel-pill-icon,
+.fx-3d .product-card__img,
+.fx-3d .product-badge-discount,
+.fx-3d .product-card-tag,
+.fx-3d .review-stars,
+.fx-3d .reviewer-avatar {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1),
+    filter 0.35s ease;
+}
+.fx-3d .tilt-3d.is-tilting .usp-number,
+.fx-3d .tilt-3d.is-tilting .pain-icon-wrap,
+.fx-3d .tilt-3d.is-tilting .thermal-icon-pill,
+.fx-3d .tilt-3d.is-tilting .pillar-icon-box,
+.fx-3d .tilt-3d.is-tilting .about-stat-num,
+.fx-3d .tilt-3d.is-tilting .channel-pill-icon,
+.fx-3d .tilt-3d.is-tilting .product-badge-discount,
+.fx-3d .tilt-3d.is-tilting .product-card-tag,
+.fx-3d .tilt-3d.is-tilting .review-stars,
+.fx-3d .tilt-3d.is-tilting .reviewer-avatar {
+  transform: translateZ(28px);
+}
+.fx-3d .product-card.tilt-3d {
+  overflow: visible;
+}
+.fx-3d .product-card.tilt-3d .product-card__img-wrap {
+  border-radius: calc(var(--radius-card, 14px) - 1px)
+    calc(var(--radius-card, 14px) - 1px) 0 0;
+}
+.fx-3d .product-card.tilt-3d.is-tilting .product-card__img {
+  transform: scale(1.07) translateY(-4px);
+  filter: drop-shadow(0 14px 20px rgba(14, 41, 32, 0.22));
+}
+
+/* 2. Xuất hiện 3D khi cuộn trang */
+.fx-3d .reveal-3d {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(14deg) translateY(36px) scale(0.97);
+  transform-origin: center bottom;
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+.fx-3d .reveal-3d.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Trang chủ: nâng cấp .reveal có sẵn thành lật 3D */
+.js .fx-3d .reveal:not(.is-in) {
+  transform: perspective(1000px) rotateX(14deg) translateY(36px);
+  transform-origin: center bottom;
+}
+
+/* 3. Tiêu đề chữ nổi 3D */
+.fx-3d .title,
+.fx-3d .support-hero h1,
+.fx-3d .auth-card__title,
+.fx-3d .about-story-content h2 {
+  text-shadow:
+    0 1px 0 #d5e0da,
+    0 2px 0 #c8d5ce,
+    0 3px 0 #bccbc3,
+    0 4px 0 #b0c1b8,
+    0 8px 14px rgba(14, 41, 32, 0.18);
+}
+.fx-3d .about-hero h1 {
+  text-shadow:
+    0 1px 0 #0b2219,
+    0 2px 0 #091d15,
+    0 3px 0 #071811,
+    0 4px 0 #05130d,
+    0 10px 22px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   Nhện nước (Water Strider) lướt theo sau con trỏ ở vùng sóng nước
+   ========================================================= */
+.water-strider {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 62;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.22s ease;
+  filter: drop-shadow(0 3px 4px rgba(18, 66, 82, 0.22));
+}
+
+.water-strider.is-visible {
+  opacity: 1;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .water-strider {
+    display: none !important;
   }
 }

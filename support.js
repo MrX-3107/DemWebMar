@@ -1,5 +1,5 @@
 /* =========================================================
-   Aquabottle Việt Nam – Support & Chatbot Logic
+   TT Bottly – Support & Chatbot Logic
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -275,8 +275,28 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Generate Ticket
+      // Generate Ticket & Sync to Cloud BaaS
       const ticketId = "CSKH-" + Math.floor(100000 + Math.random() * 900000);
+      const topicSelect = $("#supportTopic");
+      const topicVal = topicSelect ? topicSelect.value : "other";
+      const topicLabel =
+        topicSelect && topicSelect.selectedIndex >= 0
+          ? topicSelect.options[topicSelect.selectedIndex].text.trim()
+          : "Yêu cầu hỗ trợ CSKH";
+
+      if (window.TTBaaS) {
+        window.TTBaaS.createSupportTicket({
+          id: ticketId,
+          name,
+          phone,
+          email,
+          topic: topicVal,
+          topicLabel,
+          source: "Form Hỗ Trợ",
+          note,
+        });
+      }
+
       if (ticketIdEl) ticketIdEl.textContent = "#" + ticketId;
       if (ticketAlert) ticketAlert.classList.add("is-visible");
 

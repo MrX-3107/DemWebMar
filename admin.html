@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aquabottle Việt Nam – Hệ Thống Quản Trị Cloud BaaS</title>
+    <meta
+      name="description"
+      content="Trang quản trị tập trung Cloud BaaS của Aquabottle Việt Nam: Quản lý đơn hàng, đăng ký/đăng nhập người dùng và yêu cầu hỗ trợ khách hàng trên 1 trang duy nhất."
+    />
+    <link rel="icon" href="images/logo1.png" type="image/png" />
+
+    <!-- Google Fonts: Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+
+  <body class="admin-page">
+    <!-- ========== 1. HEADER ========== -->
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <div class="header__left">
+          <a
+            href="index.html"
+            class="logo"
+            aria-label="Aquabottle Việt Nam – về trang chủ"
+          >
+            <img src="images/logo1.png" alt="Aquabottle Việt Nam" class="logo__image" />
+            <span class="logo__text">Aquabottle Việt Nam</span>
+          </a>
+        </div>
+
+        <nav class="nav" id="nav" aria-label="Menu chính">
+          <a href="index.html">Trang chủ</a>
+          <a href="about.html">Về chúng tôi</a>
+          <a href="product.html">Sản phẩm</a>
+          <a href="support.html">Hỗ trợ</a>
+          <a href="auth.html" id="navAccountLink">Tài khoản</a>
+          <a href="admin.html" class="is-active" aria-current="page" id="navAdminLink">Quản trị</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ========== 2. ADMIN LOGIN GATE OVERLAY ========== -->
+    <div class="admin-auth-gate" id="adminAuthGate" hidden>
+      <div class="admin-login-card">
+        <span class="admin-login-badge">TT BOTTLY CLOUD BaaS PORTAL</span>
+        <h2>Đăng nhập Quản trị viên</h2>
+        <p>
+          Hệ thống quản lý tập trung Đơn hàng, Người dùng và Yêu cầu hỗ trợ CSKH
+          theo thời gian thực.
+        </p>
+
+        <div class="admin-demo-box">
+          <div>
+            <strong>Tài khoản Admin mặc định:</strong><br />
+            Email: <code>admin@bottly.vn</code> · MK: <code>admin123</code>
+          </div>
+          <button
+            type="button"
+            class="btn-icon-action btn-icon-action--edit"
+            id="btnQuickFillAdmin"
+          >
+            Điền nhanh
+          </button>
+        </div>
+
+        <div
+          id="adminLoginError"
+          style="
+            display: none;
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+          "
+        ></div>
+
+        <form id="adminLoginForm" novalidate>
+          <div class="admin-form-field">
+            <label for="adminLoginEmail">Email hoặc Số điện thoại Admin *</label>
+            <input
+              type="text"
+              id="adminLoginEmail"
+              value="admin@bottly.vn"
+              placeholder="admin@bottly.vn"
+              required
+            />
+          </div>
+          <div class="admin-form-field">
+            <label for="adminLoginPwd">Mật khẩu quản trị *</label>
+            <input
+              type="password"
+              id="adminLoginPwd"
+              value="admin123"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn--cta"
+            style="width: 100%; justify-content: center; margin-top: 8px; min-height: 46px;"
+          >
+            Truy cập Hệ thống Quản trị
+          </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 16px; font-size: 13px;">
+          <a href="index.html" style="color: var(--muted); text-decoration: underline;"
+            >Quay về trang chủ khách hàng</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 3. MAIN ADMIN WORKSPACE ========== -->
+    <main class="admin-main">
+      <div class="admin-container">
+        <!-- Top Cloud BaaS Hero Banner -->
+        <section class="admin-top-banner">
+          <div class="admin-top-banner__left">
+            <div class="baas-status-pill">
+              <span class="baas-dot" id="baasStatusDot"></span>
+              <span id="baasStatusText"
+                >Cloud BaaS: Realtime Sync Active (Local Cloud + Broadcast)</span
+              >
+            </div>
+            <h1>Trung Tâm Quản Trị Tập Trung TT Bottly</h1>
+            <p>
+              Quản lý toàn diện <strong>Đơn hàng khách hàng</strong> ·
+              <strong>Đăng ký / Đăng nhập người dùng</strong> ·
+              <strong>Yêu cầu hỗ trợ CSKH</strong> trên 1 trang duy nhất.
+            </p>
+          </div>
+
+          <div class="admin-top-banner__actions">
+            <button
+              type="button"
+              class="btn-admin-action btn-admin-action--primary"
+              id="btnOpenBaasConfig"
+            >
+              <span>Cấu hình Cloud BaaS</span>
+            </button>
+            <button type="button" class="btn-admin-action" id="btnSyncCloudNow">
+              <span>Đồng bộ Cloud</span>
+            </button>
+            <button type="button" class="btn-admin-action" id="btnExportCsv">
+              <span>Xuất CSV</span>
+            </button>
+            <button type="button" class="btn-admin-action" id="btnAdminLogout">
+              <span>Đăng xuất (<span id="adminNameBadge">Admin</span>)</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 4 KPI Summary Cards -->
+        <section class="admin-kpi-grid" aria-label="Thống kê tổng quan">
+          <article class="admin-kpi-card">
+            <div class="admin-kpi-info">
+              <span class="kpi-label">TỔNG ĐƠN HÀNG</span>
+              <strong class="kpi-value" id="kpiTotalOrders">0</strong>
+              <small class="kpi-sub is-warning" id="kpiPendingOrders"
+                >0 đơn chờ xác nhận</small
+              >
+            </div>
+          </article>
+
+          <article class="admin-kpi-card">
+            <div class="admin-kpi-info">
+              <span class="kpi-label">TÀI KHOẢN NGƯỜI DÙNG</span>
+              <strong class="kpi-value" id="kpiTotalUsers">0</strong>
+              <small class="kpi-sub" id="kpiActiveUsers"
+                >0 tài khoản đang hoạt động</small
+              >
+            </div>
+          </article>
+
+          <article class="admin-kpi-card">
+            <div class="admin-kpi-info">
+              <span class="kpi-label">YÊU CẦU HỖ TRỢ CSKH</span>
+              <strong class="kpi-value" id="kpiTotalTickets">0</strong>
+              <small class="kpi-sub is-warning" id="kpiOpenTickets"
+                >0 yêu cầu cần xử lý</small
+              >
+            </div>
+          </article>
+
+          <article class="admin-kpi-card">
+            <div class="admin-kpi-info">
+              <span class="kpi-label">ĐƠN HÀNG HOÀN THÀNH</span>
+              <strong class="kpi-value" id="kpiEstRevenue">0</strong>
+              <small class="kpi-sub" id="kpiCompletedOrders"
+                >Cập nhật tự động Realtime</small
+              >
+            </div>
+          </article>
+        </section>
+
+        <!-- Unified View Switcher & Global Search -->
+        <section class="admin-control-bar">
+          <div class="admin-view-tabs" role="tablist">
+            <button
+              type="button"
+              class="admin-view-tab is-active"
+              data-view="all"
+            >
+              <span>Tất cả trên 1 trang</span>
+            </button>
+            <button type="button" class="admin-view-tab" data-view="orders">
+              <span>Đơn hàng</span>
+              <span class="tab-count-badge" id="tabBadgeOrders">0</span>
+            </button>
+            <button type="button" class="admin-view-tab" data-view="users">
+              <span>Người dùng (Đăng ký/Đăng nhập)</span>
+              <span class="tab-count-badge" id="tabBadgeUsers">0</span>
+            </button>
+            <button type="button" class="admin-view-tab" data-view="support">
+              <span>Yêu cầu hỗ trợ CSKH</span>
+              <span class="tab-count-badge" id="tabBadgeSupport">0</span>
+            </button>
+          </div>
+
+          <div class="admin-global-search">
+            <input
+              type="search"
+              id="globalAdminSearch"
+              placeholder="Tìm nhanh mã đơn, tên khách, SĐT, email, mã hỗ trợ..."
+            />
+          </div>
+        </section>
+
+        <!-- =========================================================
+             UNIFIED 3-IN-1 MANAGEMENT STACK
+             ========================================================= -->
+        <div class="admin-sections-stack">
+          <!-- ==================== MODULE 1: QUẢN LÝ ĐƠN HÀNG ==================== -->
+          <section class="admin-module-card" id="sectionOrders">
+            <div class="module-header">
+              <div class="module-title-group">
+                <div>
+                  <h2>1. Quản Lý Đơn Hàng Của Khách Hàng</h2>
+                  <p>
+                    Đồng bộ trực tiếp từ trang Đặt hàng (<code>order.html</code>)
+                    & Lịch sử đơn của khách (<code>auth.html</code>)
+                  </p>
+                </div>
+              </div>
+
+              <div class="module-toolbar">
+                <select id="filterOrderStatus" class="module-filter-select">
+                  <option value="ALL">Tất cả trạng thái đơn</option>
+                  <option value="Chờ xác nhận">Chờ xác nhận</option>
+                  <option value="Đã xác nhận">Đã xác nhận</option>
+                  <option value="Đang giao hàng">Đang giao hàng</option>
+                  <option value="Hoàn thành">Hoàn thành</option>
+                  <option value="Đã hủy">Đã hủy</option>
+                </select>
+
+                <button
+                  type="button"
+                  class="btn-module-add"
+                  id="btnAddOrderModal"
+                >
+                  <span>Tạo đơn hàng mới</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Mã đơn / Ngày</th>
+                    <th>Khách hàng & SĐT</th>
+                    <th>Sản phẩm & Số lượng</th>
+                    <th>Địa chỉ nhận hàng</th>
+                    <th>Trạng thái đơn</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 2: QUẢN LÝ NGƯỜI DÙNG (AUTH) ==================== -->
+          <section class="admin-module-card" id="sectionUsers">
+            <div class="module-header">
+              <div class="module-title-group">
+                <div>
+                  <h2>2. Quản Lý Đăng Ký / Đăng Nhập Người Dùng</h2>
+                  <p>
+                    Quản lý tài khoản thành viên, phân quyền Admin, đặt lại mật
+                    khẩu hoặc khóa đăng nhập trên <code>auth.html</code>
+                  </p>
+                </div>
+              </div>
+
+              <div class="module-toolbar">
+                <select id="filterUserRole" class="module-filter-select">
+                  <option value="ALL">Tất cả vai trò</option>
+                  <option value="admin">Quản trị viên (Admin)</option>
+                  <option value="customer">Khách hàng (Customer)</option>
+                </select>
+
+                <select id="filterUserStatus" class="module-filter-select">
+                  <option value="ALL">Tất cả trạng thái</option>
+                  <option value="active">Đang hoạt động</option>
+                  <option value="locked">Đã khóa đăng nhập</option>
+                </select>
+
+                <button
+                  type="button"
+                  class="btn-module-add"
+                  id="btnAddUserModal"
+                >
+                  <span>Thêm tài khoản mới</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Họ tên & Mã TV</th>
+                    <th>Email & Số điện thoại</th>
+                    <th>Địa chỉ mặc định</th>
+                    <th>Mật khẩu</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái / Đăng nhập cuối</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ==================== MODULE 3: QUẢN LÝ YÊU CẦU HỖ TRỢ CSKH ==================== -->
+          <section class="admin-module-card" id="sectionSupport">
+            <div class="module-header">
+              <div class="module-title-group">
+                <div>
+                  <h2>3. Quản Lý Yêu Cầu Hỗ Trợ Của Khách Hàng</h2>
+                  <p>
+                    Tiếp nhận và phản hồi các yêu cầu gửi từ Form Hỗ trợ trên
+                    trang Hỗ trợ (<code>support.html</code>)
+                  </p>
+                </div>
+              </div>
+
+              <div class="module-toolbar">
+                <select id="filterTicketStatus" class="module-filter-select">
+                  <option value="ALL">Tất cả trạng thái xử lý</option>
+                  <option value="Mới tiếp nhận">Mới tiếp nhận</option>
+                  <option value="Đang xử lý">Đang xử lý</option>
+                  <option value="Đã giải quyết">Đã giải quyết</option>
+                  <option value="Đã đóng">Đã đóng</option>
+                </select>
+
+                <button
+                  type="button"
+                  class="btn-module-add"
+                  id="btnAddTicketModal"
+                >
+                  <span>Tạo phiếu hỗ trợ</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Mã phiếu / Thời gian</th>
+                    <th>Khách hàng liên hệ</th>
+                    <th>Chủ đề & Nguồn</th>
+                    <th>Nội dung cần hỗ trợ & Phản hồi CSKH</th>
+                    <th>Mức ưu tiên</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody id="ticketsTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- =========================================================
+         MODALS: 1. ORDER MODAL (CREATE / EDIT)
+         ========================================================= -->
+    <div class="admin-modal-backdrop" id="orderModalBackdrop" hidden>
+      <div class="admin-modal">
+        <div class="admin-modal__header">
+          <h3 id="orderModalTitle">Chi tiết & Cập nhật Đơn hàng</h3>
+          <button type="button" class="btn-modal-close" data-close="orderModalBackdrop">Đóng</button>
+        </div>
+        <form id="adminOrderForm">
+          <input type="hidden" id="ordFormMode" value="edit" />
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="ordIdInput">Mã đơn hàng</label>
+              <input type="text" id="ordIdInput" readonly style="background: #f1f5f3" />
+            </div>
+            <div class="admin-form-field">
+              <label for="ordStatusInput">Trạng thái đơn hàng *</label>
+              <select id="ordStatusInput" required>
+                <option value="Chờ xác nhận">Chờ xác nhận</option>
+                <option value="Đã xác nhận">Đã xác nhận</option>
+                <option value="Đang giao hàng">Đang giao hàng</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+                <option value="Đã hủy">Đã hủy</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="ordCustName">Họ tên người nhận *</label>
+              <input type="text" id="ordCustName" required placeholder="Nguyễn Văn A" />
+            </div>
+            <div class="admin-form-field">
+              <label for="ordCustPhone">Số điện thoại *</label>
+              <input type="tel" id="ordCustPhone" required placeholder="0912345678" />
+            </div>
+          </div>
+
+          <div class="admin-form-field">
+            <label for="ordAddress">Địa chỉ giao hàng *</label>
+            <input type="text" id="ordAddress" required placeholder="Số nhà, đường, quận/huyện, tỉnh/thành..." />
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="ordProduct">Tên sản phẩm *</label>
+              <input type="text" id="ordProduct" required placeholder="Combo 2 Bình Everyday Daily Duo" />
+            </div>
+            <div class="admin-form-field">
+              <label for="ordQty">Số lượng *</label>
+              <input type="number" id="ordQty" min="1" value="1" required />
+            </div>
+          </div>
+
+          <div class="admin-modal__footer">
+            <button type="button" class="btn-icon-action" data-close="orderModalBackdrop">Hủy</button>
+            <button type="submit" class="btn-module-add">Lưu thông tin đơn hàng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         MODALS: 2. USER MODAL (CREATE / EDIT)
+         ========================================================= -->
+    <div class="admin-modal-backdrop" id="userModalBackdrop" hidden>
+      <div class="admin-modal">
+        <div class="admin-modal__header">
+          <h3 id="userModalTitle">Quản lý Tài khoản Người dùng</h3>
+          <button type="button" class="btn-modal-close" data-close="userModalBackdrop">Đóng</button>
+        </div>
+        <form id="adminUserForm">
+          <input type="hidden" id="usrFormMode" value="edit" />
+          <input type="hidden" id="usrIdInput" />
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="usrFullname">Họ và tên *</label>
+              <input type="text" id="usrFullname" required placeholder="Nguyễn Văn A" />
+            </div>
+            <div class="admin-form-field">
+              <label for="usrPhone">Số điện thoại *</label>
+              <input type="tel" id="usrPhone" required placeholder="0912345678" />
+            </div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="usrEmail">Email đăng nhập *</label>
+              <input type="email" id="usrEmail" required placeholder="user@bottly.vn" />
+            </div>
+            <div class="admin-form-field">
+              <label for="usrPassword">Mật khẩu *</label>
+              <input type="text" id="usrPassword" required placeholder="Ít nhất 6 ký tự" />
+            </div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="usrRole">Vai trò phân quyền</label>
+              <select id="usrRole">
+                <option value="customer">Khách hàng (Customer)</option>
+                <option value="admin">Quản trị viên (Admin)</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label for="usrStatus">Trạng thái tài khoản</label>
+              <select id="usrStatus">
+                <option value="active">Đang hoạt động (Cho phép đăng nhập)</option>
+                <option value="locked">Tạm khóa (Chặn đăng nhập)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-form-field">
+            <label for="usrAddress">Địa chỉ giao hàng mặc định</label>
+            <input type="text" id="usrAddress" placeholder="Số nhà, đường, quận/huyện, tỉnh/thành..." />
+          </div>
+
+          <div class="admin-modal__footer">
+            <button type="button" class="btn-icon-action" data-close="userModalBackdrop">Hủy</button>
+            <button type="submit" class="btn-module-add">Lưu tài khoản</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         MODALS: 3. SUPPORT TICKET MODAL (CREATE / REPLY)
+         ========================================================= -->
+    <div class="admin-modal-backdrop" id="ticketModalBackdrop" hidden>
+      <div class="admin-modal">
+        <div class="admin-modal__header">
+          <h3 id="ticketModalTitle">Xử lý & Phản hồi Yêu cầu Hỗ trợ CSKH</h3>
+          <button type="button" class="btn-modal-close" data-close="ticketModalBackdrop">Đóng</button>
+        </div>
+        <form id="adminTicketForm">
+          <input type="hidden" id="tktFormMode" value="edit" />
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="tktIdInput">Mã phiếu CSKH</label>
+              <input type="text" id="tktIdInput" readonly style="background: #f1f5f3" />
+            </div>
+            <div class="admin-form-field">
+              <label for="tktStatus">Trạng thái xử lý *</label>
+              <select id="tktStatus" required>
+                <option value="Mới tiếp nhận">Mới tiếp nhận</option>
+                <option value="Đang xử lý">Đang xử lý</option>
+                <option value="Đã giải quyết">Đã giải quyết</option>
+                <option value="Đã đóng">Đã đóng</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="tktName">Họ tên khách hàng *</label>
+              <input type="text" id="tktName" required placeholder="Nguyễn Văn A" />
+            </div>
+            <div class="admin-form-field">
+              <label for="tktPhone">Số điện thoại liên hệ *</label>
+              <input type="tel" id="tktPhone" required placeholder="0912345678" />
+            </div>
+          </div>
+
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label for="tktEmail">Email khách hàng</label>
+              <input type="email" id="tktEmail" placeholder="customer@email.com" />
+            </div>
+            <div class="admin-form-field">
+              <label for="tktPriority">Mức độ ưu tiên</label>
+              <select id="tktPriority">
+                <option value="Cao">Cao (Khẩn cấp)</option>
+                <option value="Trung bình">Trung bình</option>
+                <option value="Thấp">Thấp</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-form-field">
+            <label for="tktTopic">Chủ đề hỗ trợ</label>
+            <select id="tktTopic">
+              <option value="warranty">Bảo hành / Đổi trả sản phẩm</option>
+              <option value="shipping">Tra cứu vận chuyển / Giao hàng chậm</option>
+              <option value="product">Tư vấn chọn mẫu & Combo quà tặng</option>
+              <option value="corporate">Đặt hàng số lượng lớn / Khắc tên doanh nghiệp</option>
+              <option value="other">Vấn đề khác</option>
+            </select>
+          </div>
+
+          <div class="admin-form-field">
+            <label for="tktNote">Nội dung yêu cầu của khách hàng *</label>
+            <textarea id="tktNote" rows="3" required placeholder="Mô tả vấn đề của khách hàng..."></textarea>
+          </div>
+
+          <div class="admin-form-field">
+            <label for="tktAdminReply">Ghi chú kết quả xử lý / Phản hồi của CSKH</label>
+            <textarea id="tktAdminReply" rows="3" placeholder="Nhập nội dung phản hồi hoặc phương án giải quyết của Admin..."></textarea>
+          </div>
+
+          <div class="admin-modal__footer">
+            <button type="button" class="btn-icon-action" data-close="ticketModalBackdrop">Hủy</button>
+            <button type="submit" class="btn-module-add">Cập nhật phiếu hỗ trợ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         MODALS: 4. CLOUD BaaS CONFIGURATION (SUPABASE / FIREBASE)
+         ========================================================= -->
+    <div class="admin-modal-backdrop" id="baasConfigModalBackdrop" hidden>
+      <div class="admin-modal admin-modal--lg">
+        <div class="admin-modal__header">
+          <h3>Cấu Hình Kết Nối Hệ Thống Cloud BaaS</h3>
+          <button type="button" class="btn-modal-close" data-close="baasConfigModalBackdrop">Đóng</button>
+        </div>
+
+        <form id="baasConfigForm">
+          <div class="admin-form-field">
+            <label for="baasProviderSelect">Nền tảng Cloud BaaS sử dụng</label>
+            <select id="baasProviderSelect">
+              <option value="local_cloud">
+                Local Cloud BaaS Simulator (Hoạt động ngay + Đồng bộ Realtime đa tab)
+              </option>
+              <option value="supabase">
+                Supabase Cloud BaaS (PostgreSQL + REST API + Auth)
+              </option>
+              <option value="firebase">
+                Google Firebase Cloud BaaS (Cloud Firestore REST API)
+              </option>
+            </select>
+          </div>
+
+          <!-- Supabase Config Fields -->
+          <div id="supabaseFieldsWrap" hidden>
+            <div class="admin-form-field">
+              <label for="cfgSupabaseUrl">Supabase Project URL *</label>
+              <input
+                type="url"
+                id="cfgSupabaseUrl"
+                placeholder="https://your-project-id.supabase.co"
+              />
+            </div>
+            <div class="admin-form-field">
+              <label for="cfgSupabaseKey">Supabase Anon Public Key *</label>
+              <input
+                type="text"
+                id="cfgSupabaseKey"
+                placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              />
+            </div>
+            <div class="admin-form-field">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="margin: 0">Mã khởi tạo bảng SQL cho Supabase (<code>supabase-schema.sql</code>)</label>
+                <button type="button" class="btn-icon-action btn-icon-action--edit" id="btnCopySqlSchema">
+                  Sao chép SQL Schema
+                </button>
+              </div>
+              <div class="sql-preview-box" id="sqlSchemaPreview">CREATE TABLE IF NOT EXISTS public.users (id TEXT PRIMARY KEY, fullname TEXT, email TEXT UNIQUE, phone TEXT, password TEXT, role TEXT, status TEXT, address TEXT, "createdAt" TEXT, "lastLogin" TEXT);
+CREATE TABLE IF NOT EXISTS public.orders (id TEXT PRIMARY KEY, "userId" TEXT, "customerName" TEXT, "customerPhone" TEXT, "customerEmail" TEXT, province TEXT, address TEXT, product TEXT, qty INTEGER, addons TEXT, total TEXT, status TEXT, payment TEXT, note TEXT, "adminNote" TEXT, date TEXT, "createdAt" TEXT);
+CREATE TABLE IF NOT EXISTS public.support_tickets (id TEXT PRIMARY KEY, name TEXT, phone TEXT, email TEXT, topic TEXT, "topicLabel" TEXT, source TEXT, note TEXT, status TEXT, priority TEXT, "adminReply" TEXT, "createdAt" TEXT, "updatedAt" TEXT);</div>
+            </div>
+          </div>
+
+          <!-- Firebase Config Fields -->
+          <div id="firebaseFieldsWrap" hidden>
+            <div class="admin-form-field">
+              <label for="cfgFirebaseProjectId">Firebase Project ID *</label>
+              <input
+                type="text"
+                id="cfgFirebaseProjectId"
+                placeholder="tt-bottly-baas"
+              />
+            </div>
+            <div class="admin-form-field">
+              <label for="cfgFirebaseApiKey">Firebase Web API Key (Tùy chọn)</label>
+              <input
+                type="text"
+                id="cfgFirebaseApiKey"
+                placeholder="AIzaSy..."
+              />
+            </div>
+          </div>
+
+          <div
+            style="
+              background: #f3f7f5;
+              border-radius: 12px;
+              padding: 12px 14px;
+              font-size: 13px;
+              color: var(--text);
+              margin-top: 10px;
+            "
+          >
+            <strong>Cơ chế Hybrid Cloud BaaS thông minh:</strong> Mọi thao tác
+            Đặt hàng (<code>order.html</code>), Đăng ký/Đăng nhập
+            (<code>auth.html</code>) và Gửi hỗ trợ CSKH
+            (<code>support.html</code>) đều tự động đồng bộ tức thì với bảng điều
+            khiển này và đẩy lên Cloud BaaS khi được kết nối.
+          </div>
+
+          <div class="admin-modal__footer" style="justify-content: space-between; flex-wrap: wrap;">
+            <button
+              type="button"
+              class="btn-icon-action btn-icon-action--edit"
+              id="btnPushLocalToCloud"
+            >
+              Đẩy toàn bộ dữ liệu hiện tại lên Cloud
+            </button>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn-icon-action" data-close="baasConfigModalBackdrop">
+                Đóng
+              </button>
+              <button type="submit" class="btn-module-add">
+                Lưu cấu hình Cloud BaaS
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="admin-toast-container" id="adminToastContainer" aria-live="polite"></div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <p class="footer__brand">AQUABOTTLE VIỆT NAM</p>
+          <p>
+            Thương hiệu thuộc<br /><strong>Công ty TNHH Thương mại Aquabottle Việt Nam</strong>
+          </p>
+          <p style="margin-top: 10px; font-size: 13.5px; opacity: 0.8">
+            Cốc giữ nhiệt chất lượng cao đồng hành cùng bạn trên mọi hành trình.
+          </p>
+        </div>
+        <ul>
+          <li>Hotline: <a href="tel:0966321069">0966321069</a> (8h00 - 21h00)</li>
+          <li>Email: <a href="mailto:contact@aquabottlevietnam.site">contact@aquabottlevietnam.site</a></li>
+          <li>Trụ sở: Tòa nhà Aquabottle, Cầu Giấy, Hà Nội</li>
+          <li>
+            <a href="https://www.facebook.com/share/1FUQwTB1VS/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook
+              Official</a> ·
+            <a href="#" rel="noopener">TikTok Shop</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="about.html">Về chúng tôi &amp; Câu chuyện thương hiệu</a>
+          </li>
+          <li><a href="warranty.html">Chính sách bảo hành 12 tháng</a></li>
+          <li><a href="support.html">Chính sách giao hàng toàn quốc</a></li>
+        </ul>
+      </div>
+      <p class="footer__copy">
+        © 2026 Aquabottle Việt Nam. All rights reserved.
+      </p>
+      <p class="footer__note">
+        Lưu ý: Đề tài phục vụ học phần Marketing số của sinh viên, Aquabottle Việt Nam và Công ty TNHH Aquabottle Việt Nam là sản
+        phẩm và doanh nghiệp giả lập, không có xung đột hay tranh chấp với các thương hiệu hiện có, không nhằm mục tiêu
+        lợi nhuận.
+      </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="baas.js"></script>
+    <script src="admin.js"></script>
+    <script src="auth-nav.js" defer></script>
+  </body>
+</html>
