@@ -38,8 +38,11 @@
     ".about-stat-card", ".about-story-media", ".about-highlight-box", ".pillar-card", ".b2b-card",
     ".chatbot-card", ".support-aside-card", ".channel-pill",
     ".auth-card", ".profile-sidebar-card", ".profile-main-card", ".modal-box",
-    "header", "footer", ".float-cta", ".to-top",
+    "header", "footer", ".float-cta", ".to-top", ".water-fx-toggle",
   ].join(",");
+
+  const STORAGE_KEY = "aquabottle_water_fx";
+  let fxEnabled = localStorage.getItem(STORAGE_KEY) !== "off";
 
   function isBlankArea(target) {
     if (!(target instanceof Element)) return false;
@@ -85,6 +88,7 @@
 
   // Tác động lên mặt nước tại toạ độ màn hình (x, y)
   function disturb(x, y, radius, power) {
+    if (!fxEnabled) return;
     const cx = Math.round(x / CELL) + 1;
     const cy = Math.round(y / CELL) + 1;
     for (let dy = -radius; dy <= radius; dy++) {
@@ -418,11 +422,48 @@
     requestAnimationFrame(updateStrider);
   }
 
+  function stopAllWaterFx() {
+    running = false;
+    if (cur) cur.fill(0);
+    if (prev) prev.fill(0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    striderActive = false;
+    striderLooping = false;
+    strider.classList.remove("is-visible", "is-moving");
+    document.querySelectorAll(".water-ripple").forEach((el) => el.remove());
+  }
+
+  const toggleBtn = document.getElementById("waterFxToggle");
+  function syncToggleUI() {
+    canvas.style.display = fxEnabled ? "" : "none";
+    strider.style.display = fxEnabled ? "" : "none";
+    if (!fxEnabled) stopAllWaterFx();
+    if (!toggleBtn) return;
+    toggleBtn.setAttribute("aria-pressed", String(fxEnabled));
+    toggleBtn.classList.toggle("is-off", !fxEnabled);
+    const label = toggleBtn.querySelector(".water-fx-toggle__label");
+    if (label) {
+      label.textContent = fxEnabled
+        ? "Hiệu ứng nước: Bật"
+        : "Hiệu ứng nước: Tắt";
+    }
+  }
+  syncToggleUI();
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      fxEnabled = !fxEnabled;
+      localStorage.setItem(STORAGE_KEY, fxEnabled ? "on" : "off");
+      syncToggleUI();
+    });
+  }
+
   /* ---------- Sự kiện ---------- */
   let lastT = 0;
   document.addEventListener(
     "mousemove",
     (e) => {
+      if (!fxEnabled) return;
       const blank = isBlankArea(e.target);
       if (!blank) {
         if (striderActive) {
@@ -467,6 +508,7 @@
   });
 
   document.addEventListener("pointerdown", (e) => {
+    if (!fxEnabled) return;
     if (!isBlankArea(e.target)) return;
     dropAt(e.clientX, e.clientY);
   });

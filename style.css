@@ -2574,3 +2574,68 @@ body.sidebar-open {
     display: none !important;
   }
 }
+
+/* =========================================================
+   Nút Bật / Tắt hiệu ứng nước & nhện nước (Trang chủ)
+   ========================================================= */
+.water-fx-toggle {
+  position: fixed;
+  left: 20px;
+  bottom: 24px;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 62, 49, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: #163e31;
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(14, 41, 32, 0.14);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.water-fx-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(14, 41, 32, 0.2);
+}
+
+.water-fx-toggle__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2a9d8f;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.22);
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.water-fx-toggle.is-off {
+  background: rgba(245, 240, 230, 0.92);
+  color: #64748b;
+  border-color: rgba(100, 116, 139, 0.25);
+}
+
+.water-fx-toggle.is-off .water-fx-toggle__dot {
+  background: #94a3b8;
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  .water-fx-toggle {
+    left: 16px;
+    bottom: 80px;
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
