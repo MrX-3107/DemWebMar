@@ -2321,7 +2321,7 @@ body.sidebar-open {
   pointer-events: none;
 }
 
-/* Giọt nước màu xanh biển trầm rõ nét nhưng dịu mắt */
+/* Giọt nước màu xanh biển trong trẻo, nhạt dịu mắt */
 .water-ripple__drop {
   position: absolute;
   left: 0;
@@ -2331,21 +2331,21 @@ body.sidebar-open {
   border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
   background: radial-gradient(
     circle at 35% 28%,
-    #eef8fa 0%,
-    #8dc4d4 24%,
-    #4894a8 58%,
-    #2a6c80 85%,
-    #124252 100%
+    #f4fafb 0%,
+    #a8d7e4 24%,
+    #66a8bb 58%,
+    #3c8092 85%,
+    #205060 100%
   );
   box-shadow:
-    0 4px 10px rgba(18, 66, 82, 0.3),
-    inset -2px -2px 4px rgba(18, 66, 82, 0.3);
+    0 3px 8px rgba(32, 80, 96, 0.2),
+    inset -1px -1px 3px rgba(32, 80, 96, 0.2);
   opacity: 0;
   transform: translate(-50%, -50%);
   animation: waterDrop var(--fall) cubic-bezier(0.55, 0, 1, 0.45) forwards;
 }
 
-/* Vệt bắn tại điểm chạm */
+/* Vệt bắn tại điểm chạm mềm mại, nhạt dịu */
 .water-ripple__splash {
   position: absolute;
   left: 0;
@@ -2355,8 +2355,8 @@ body.sidebar-open {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(141, 196, 212, 0.78) 0%,
-    rgba(72, 148, 168, 0.48) 45%,
+    rgba(168, 215, 228, 0.58) 0%,
+    rgba(102, 168, 187, 0.32) 45%,
     transparent 72%
   );
   opacity: 0;
@@ -2374,11 +2374,11 @@ body.sidebar-open {
   border-radius: 50%;
   background: radial-gradient(
     circle at 35% 30%,
-    #d6eef5,
-    #4894a8 60%,
-    #124252
+    #eaf5f8,
+    #66a8bb 60%,
+    #205060
   );
-  box-shadow: 0 1px 4px rgba(18, 66, 82, 0.28);
+  box-shadow: 0 1px 3px rgba(32, 80, 96, 0.18);
   opacity: 0;
   transform: translate(-50%, -50%) rotate(var(--a)) translateY(0);
   animation: waterDot 0.6s cubic-bezier(0.2, 0.7, 0.4, 1) var(--delay)
@@ -2562,11 +2562,11 @@ body.sidebar-open {
   opacity: 0;
   will-change: transform, opacity;
   transition: opacity 0.22s ease;
-  filter: drop-shadow(0 3px 4px rgba(18, 66, 82, 0.22));
+  filter: drop-shadow(0 2px 3px rgba(18, 66, 82, 0.14));
 }
 
 .water-strider.is-visible {
-  opacity: 1;
+  opacity: 0.88;
 }
 
 @media (hover: none), (pointer: coarse) {

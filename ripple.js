@@ -17,15 +17,15 @@
   const DAMPING = 0.981; // độ tắt dần của sóng (gần 1 = sóng lan xa, mượt)
   const DROP_FALL = 380; // thời gian giọt nước rơi (ms)
   const CLICK_RADIUS = 5; // bán kính vùng nước bị giọt đập vào (ô)
-  const CLICK_POWER = 460; // lực giọt nước rõ nét
+  const CLICK_POWER = 400; // lực giọt nước
   const HOVER_RADIUS = 2;
-  const HOVER_POWER = 135;
-  const MAX_ALPHA = 0.5; // độ đậm rõ ràng nhưng vẫn êm mắt, không chói
+  const HOVER_POWER = 110;
+  const MAX_ALPHA = 0.32; // Màu sóng nước nhạt và trong trẻo, dịu mắt hơn
 
-  // Bảng màu xanh nước biển trầm (Calm Ocean Teal) – rõ nét trên nền kem, không chói neon
-  const HIGHLIGHT = [72, 148, 168]; // #4894a8 xanh nước biển dịu sáng (đỉnh sóng hứng sáng)
-  const MIDTONE = [42, 108, 128]; // #2a6c80 xanh nước biển trung tính
-  const SHADOW = [18, 66, 82]; // #124252 bóng nước trầm sâu (rãnh sóng)
+  // Bảng màu nước trong trẻo, thanh thoát, màu nhạt dịu nhẹ hòa quyện với nền
+  const HIGHLIGHT = [95, 165, 184]; // #5fa5b8 xanh ngọc dịu sáng
+  const MIDTONE = [60, 128, 146]; // #3c8092 xanh nước biển thanh thoát
+  const SHADOW = [32, 80, 96]; // #205060 bóng nước mềm mại
 
   // Các phần tử có nội dung – KHÔNG tạo hiệu ứng khi chuột nằm trên chúng
   const CONTENT_SELECTOR = [
@@ -229,10 +229,10 @@
   strider.setAttribute("aria-hidden", "true");
   strider.innerHTML = `
     <svg viewBox="0 0 64 64" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Bóng mờ dưới đáy nước -->
-      <ellipse cx="32" cy="34" rx="3.4" ry="10.5" fill="rgba(18, 66, 82, 0.24)" />
+      <!-- Bóng mờ dưới đáy nước nhạt dịu -->
+      <ellipse cx="32" cy="34" rx="3.4" ry="10.5" fill="rgba(18, 66, 82, 0.15)" />
       <!-- Lúm đồng tiền mặt nước ở đầu 6 chân -->
-      <g class="water-strider__pads" stroke="rgba(72, 148, 168, 0.62)" stroke-width="1.1" fill="rgba(235, 248, 252, 0.38)">
+      <g class="water-strider__pads" stroke="rgba(72, 148, 168, 0.42)" stroke-width="1" fill="rgba(235, 248, 252, 0.24)">
         <circle class="pad-fl" cx="23" cy="11" r="2.4" />
         <circle class="pad-fr" cx="41" cy="11" r="2.4" />
         <circle class="pad-ml" cx="6" cy="29" r="3" />
@@ -241,21 +241,21 @@
         <circle class="pad-hr" cx="52" cy="55" r="2.6" />
       </g>
       <!-- Râu nhỏ phía trước -->
-      <path class="strider-ant" d="M30.8 21 L27.5 15.5 M33.2 21 L36.5 15.5" stroke="#1b4338" stroke-width="1.2" stroke-linecap="round" />
-      <!-- 6 chân có khớp gối chuyển động độc lập -->
-      <path class="leg-fl" d="M30.5 24 L25 17 L23 11" stroke="#163e31" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
-      <path class="leg-fr" d="M33.5 24 L39 17 L41 11" stroke="#163e31" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
-      <path class="leg-ml" d="M30 29 L17 26.5 L6 29" stroke="#163e31" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" />
-      <path class="leg-mr" d="M34 29 L47 26.5 L58 29" stroke="#163e31" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" />
-      <path class="leg-hl" d="M30.5 34 L20 43 L12 55" stroke="#163e31" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
-      <path class="leg-hr" d="M33.5 34 L44 43 L52 55" stroke="#163e31" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" />
-      <!-- Thân nhện nước thon dài -->
-      <ellipse cx="32" cy="34.5" rx="2.6" ry="6.8" fill="#163e31" />
-      <ellipse cx="32" cy="27.5" rx="3" ry="4.4" fill="#215545" />
-      <circle cx="32" cy="22.5" r="2.2" fill="#12352a" />
+      <path class="strider-ant" d="M30.8 21 L27.5 15.5 M33.2 21 L36.5 15.5" stroke="#2c5e50" stroke-width="1.1" stroke-linecap="round" />
+      <!-- 6 chân có khớp gối chuyển động độc lập (màu nhạt thanh thoát hơn) -->
+      <path class="leg-fl" d="M30.5 24 L25 17 L23 11" stroke="#255447" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+      <path class="leg-fr" d="M33.5 24 L39 17 L41 11" stroke="#255447" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+      <path class="leg-ml" d="M30 29 L17 26.5 L6 29" stroke="#255447" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path class="leg-mr" d="M34 29 L47 26.5 L58 29" stroke="#255447" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path class="leg-hl" d="M30.5 34 L20 43 L12 55" stroke="#255447" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+      <path class="leg-hr" d="M33.5 34 L44 43 L52 55" stroke="#255447" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- Thân nhện nước (màu xanh lục nhạt tự nhiên hơn) -->
+      <ellipse cx="32" cy="34.5" rx="2.6" ry="6.8" fill="#255447" />
+      <ellipse cx="32" cy="27.5" rx="3" ry="4.4" fill="#316e5d" />
+      <circle cx="32" cy="22.5" r="2.2" fill="#1e463b" />
       <!-- Vệt sáng bóng trên lưng -->
-      <ellipse cx="31.3" cy="27" rx="0.95" ry="2.7" fill="rgba(167, 224, 210, 0.58)" />
-      <ellipse cx="31.4" cy="34" rx="0.75" ry="4" fill="rgba(167, 224, 210, 0.42)" />
+      <ellipse cx="31.3" cy="27" rx="0.95" ry="2.7" fill="rgba(195, 238, 228, 0.65)" />
+      <ellipse cx="31.4" cy="34" rx="0.75" ry="4" fill="rgba(195, 238, 228, 0.5)" />
     </svg>
   `;
   document.body.appendChild(strider);
